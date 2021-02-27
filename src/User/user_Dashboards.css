@@ -1,0 +1,21 @@
+@media (max-width: 360px){
+    .re{
+        width: 70% !important;
+        margin-top: 30px !important;
+    }
+}
+@media (max-width: 414px){
+    .re{
+        width: 70% !important;
+        margin-top: 30px !important;
+    }
+}
+@media (max-width: 540px){
+    .re{
+        width: 70% !important;
+        margin-top: 30px !important;
+    }
+}
+.single-job-items{
+    width: 85vw;
+}
