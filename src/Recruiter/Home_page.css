@@ -1,0 +1,82 @@
+
+img{
+    width: 7.2vw;
+}
+.we{
+    margin-top: 34px;
+}
+.aa{
+    margin-top: 90px;
+}
+
+.MultiCarousel { float: left; overflow: hidden; padding: 95px; width: 100%; position:relative; }
+    .MultiCarousel .MultiCarousel-inner { transition: 1s ease all; float: left; }
+        .MultiCarousel .MultiCarousel-inner .item { float: left;}
+        .MultiCarousel .MultiCarousel-inner .item > div { text-align: center; padding:10px; margin:10px; background:#f1f1f1; color:#666;}
+    .MultiCarousel .leftLst, .MultiCarousel .rightLst { position:absolute; border-radius:50%;top:calc(50% - 20px); }
+    .MultiCarousel .leftLst { left:0; }
+    .MultiCarousel .rightLst { right:0; }
+    
+        .MultiCarousel .leftLst.over, .MultiCarousel .rightLst.over { pointer-events: none; background:#ccc; }
+        .btn1{
+            width: 3vw;
+            height: 6vh;
+            background-color: indianred;
+            
+        }
+        @media (max-width: 368px){
+            .btn1{
+                width: 9vw;
+                height:4.5vh;
+                background-color: indianred;
+                
+            }  
+            .aa{
+                margin-top: 60px;
+            }
+            .city{
+                margin-top: -100px !important;
+            }
+            .pune{
+                margin-top: 0px !important;
+            }
+            .Chennai{
+                margin-top: 4px !important;
+            }
+        }
+        @media (max-width: 414px){
+            .btn1{
+                width: 9vw;
+                height:4.5vh;
+                background-color: indianred;
+                
+            }  
+            .pune{
+                margin-top: 0px !important;
+            }
+           
+        }
+        @media (max-width: 768px){
+            .btn1{
+                width: 8vw;
+                height:4.5vh;
+                background-color: indianred;
+                
+            }  
+            .pune{
+                margin-top: 0px !important;
+            }
+        }
+        @media (max-width: 1026px){
+            .aa{
+                margin-top: 60px;
+            }
+            .pune{
+                margin-top: 0px !important;
+            }
+            
+        }
+
+.wr{
+    margin-top: -100px;
+}
