@@ -23,13 +23,10 @@ function Navbar() {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(data);
-    Axios.post("/signin", data)
+    Axios.post("/auth/signin/recruiter", data)
       .then((res) => {
         console.log(res.data);
         localStorage.setItem("token", res.data.token);
-        localStorage.setItem("user", res.data.user.email);
-        setUser(res.data.user.email);
-        console.log("user", user);
         var btn1 = document.getElementById("spn3");
         var btn2 = document.getElementById("spn4");
         console.log(btn1);
@@ -41,9 +38,7 @@ function Navbar() {
         history.push("/");
       })
       .catch((err) => {
-        console.log(err);
         console.log(err.response);
-        alert(err.response);
         toast(err.response.data, {
           position: toast.POSITION.TOP_CENTER,
           autoClose: false,
@@ -66,14 +61,10 @@ function Navbar() {
   const handleSubmit_signup = (e) => {
     e.preventDefault();
     {
-      Axios.post("/signup", Data1)
+      Axios.post("/auth/signup/recruiter", Data1)
         .then((res) => {
           {
-            console.log(res.data);
             localStorage.setItem("token", res.data.token);
-            localStorage.setItem("user", res.data.user.name);
-            setUser(res.data.user.email);
-            console.log(user);
             toast(`Registered Successfully`, {
               position: toast.POSITION.TOP_CENTER,
               autoClose: 3000,
