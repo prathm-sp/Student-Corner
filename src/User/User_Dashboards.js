@@ -3,7 +3,7 @@ import "./user_Dashboards.css"
 function Dashboards() {
   return (
     <div>
-      <div className="pcoded-content">
+      <div className="pcoded-content mt-100">
         <div className="pcoded-inner-content">
           <div className="main-body">
             <div className="page-wrapper">
@@ -30,7 +30,7 @@ function Dashboards() {
                     <div className="card widget-card-1" style={{ boxShadow: "0 1px 11px 0 rgba(0, 0, 0, 0.12)" }}>
                       <div className="card-block-small">
                         <i className="fa fa-window-close bg-c-pink card1-icon" />
-                        <span className="text-c-pink f-w-600">Reject</span>
+                        <span className="text-c-pink f-w-600">Rejected</span>
                         <h4>23</h4>
                         <div>
                           <span className="f-left m-t-10 text-muted">
@@ -46,7 +46,7 @@ function Dashboards() {
                     <div className="card widget-card-1" style={{ boxShadow: "0 1px 11px 0 rgba(0, 0, 0, 0.12)" }}>
                       <div className="card-block-small">
                         <i className=" fa fa-check bg-c-green card1-icon" />
-                        <span className=" text-c-green f-w-600">Accept</span>
+                        <span className=" text-c-green f-w-600">Accepted</span>
                         <h4>45</h4>
                         <div>
                           <span className="f-left m-t-10 text-muted">
@@ -76,11 +76,7 @@ function Dashboards() {
 
                   <div className="col-md-12 col-xl-12 ">
                     <div className="card project-task " style={{ boxShadow: "0 1px 11px 0 rgba(0, 0, 0, 0.12)" }}>
-                      <div className="card-header">
-
-
-                      </div>
-                      <div className="card-block p-b-10">
+                      <div className="card-block  p-b-10">
                         <div className="table-responsive">
                           <table className="table table-hover">
                             <thead>
@@ -88,10 +84,10 @@ function Dashboards() {
                                 <th >Class name</th>
                               </tr>
                             </thead>
-                            <tbody>
-                              <tr>
-                                <td>
-                                  <div className="single-job-items ">
+                            <tbody >
+                              <tr >
+                                <td >
+                                  <div className="single-job-items " style={{width:"85vw"}}>
                                     <div className="job-items">
                                       <div className="company-img">
                                         <a href="#"><img src="assets/img/icon/job-list3.png" alt="" /></a>
@@ -102,18 +98,18 @@ function Dashboards() {
                                         </a>
                                         <ul>
                                           <li>Creative Agency</li>
-                                          <li><i className="fas fa-map-marker-alt ml-10" />Athens, Greece</li>
+                                          <li><i className="fas fa-map-marker-alt ml-10" />pune</li>
                                         </ul>
                                       </div>
                                     </div>
-                                    <input type="submit" value="Accpet" className="btn re btn-primary btn-block" style={{ width: "30vh", height: "7vh", marginTop: "30px", fontSize: "15px", backgroundColor: "#8eb553", borderRadius: "12px"}} defaultValue="" />
+                                    <input type="submit" value="Accepted" className="btn re btn-primary btn-block" style={{ width: "30vh", height: "7vh", marginTop: "30px", fontSize: "15px", backgroundColor: "#8eb553", borderRadius: "12px"}} defaultValue="" />
                                   </div>
                                 </td>
                                 
                               </tr>
                               <tr>
                                 <td>
-                                  <div className="single-job-items ">
+                                  <div className="single-job-items  " style={{width:"85vw"}}>
                                     <div className="job-items">
                                       <div className="company-img">
                                         <a href="#"><img src="assets/img/icon/job-list3.png" alt="" /></a>
@@ -124,18 +120,18 @@ function Dashboards() {
                                         </a>
                                         <ul>
                                           <li>Creative Agency</li>
-                                          <li><i className="fas fa-map-marker-alt ml-10"  />Athens, Greece</li>
+                                          <li><i className="fas fa-map-marker-alt ml-10"  />pune</li>
                                         </ul>
                                       </div>
                                     </div>
-                                    <input type="submit" value="Reject" className="btn re btn-primary btn-block" style={{ width: "30vh", height: "7vh",  fontSize: "15px", marginTop: "30px", backgroundColor: "#ea5c7e", borderRadius: "12px" }} defaultValue="" />
+                                    <input type="submit" value="Rejected" className="btn re btn-primary btn-block" style={{ width: "30vh", height: "7vh",  fontSize: "15px", marginTop: "30px", backgroundColor: "#ea5c7e", borderRadius: "12px" }} defaultValue="" />
                                   </div>
                                 </td>
                                 
                               </tr>
                               <tr>
                                 <td>
-                                  <div className="single-job-items ">
+                                  <div className="single-job-items "style={{width:"85vw"}}>
                                     <div className="job-items">
                                       <div className="company-img">
                                         <a href="#"><img src="assets/img/icon/job-list3.png" alt="" /></a>
@@ -146,7 +142,7 @@ function Dashboards() {
                                         </a>
                                         <ul>
                                           <li>Creative Agency</li>
-                                          <li><i className="fas fa-map-marker-alt ml-10" />Athens, Greece</li>
+                                          <li><i className="fas fa-map-marker-alt ml-10" />pune</li>
                                         </ul>
                                       </div>
                                     </div>
