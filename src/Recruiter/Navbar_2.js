@@ -1,11 +1,15 @@
 import React, { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import Axios from "../axios";
+import { connect } from "react-redux";
 import "./Navbar.css";
 import { toast } from "react-toastify";
 import Logo from "../icon/logo.png";
+import action from "../Redux/Action";
 toast.configure();
-function Navbar() {
+const { setuser } = action;
+
+function Navbar(props) {
   const history = useHistory();
   const [data, setData] = useState();
   const [user, setUser] = useState("");
@@ -13,6 +17,7 @@ function Navbar() {
   const handleChange_logout = () => {
     localStorage.clear();
     setUser("");
+    props.setuser("");
   };
   const handleChange = (e) => {
     setData((prevState) => {
@@ -27,6 +32,10 @@ function Navbar() {
       .then((res) => {
         console.log(res.data);
         localStorage.setItem("token", res.data.token);
+        localStorage.setItem("user", res.data.user.email);
+        props.setuser(res.data.user.email);
+        setUser(res.data.user.email);
+        console.log("user", user);
         var btn1 = document.getElementById("spn3");
         var btn2 = document.getElementById("spn4");
         console.log(btn1);
@@ -35,9 +44,10 @@ function Navbar() {
           position: toast.POSITION.TOP_CENTER,
           autoClose: 3000,
         });
-        history.push("/");
+        // history.push("/");
       })
       .catch((err) => {
+        console.log(err);
         console.log(err.response);
         toast(err.response.data, {
           position: toast.POSITION.TOP_CENTER,
@@ -64,17 +74,22 @@ function Navbar() {
       Axios.post("/auth/signup/recruiter", Data1)
         .then((res) => {
           {
+            console.log(res.data);
             localStorage.setItem("token", res.data.token);
-            toast(`Registered Successfully`, {
+            localStorage.setItem("user", res.data.saveduser.email);
+            props.setuser(res.data.saveduser.email);
+            setUser(res.data.saveduser.email);
+            console.log(user);
+            toast.info(`Registered Successfully`, {
               position: toast.POSITION.TOP_CENTER,
               autoClose: 3000,
             });
-            history.push("/");
+            // history.push("/");
           }
         })
         .catch((err) => {
-          console.log(err);
-          toast(`${err.response.data}`, {
+          console.log(err.response);
+          toast.info(`${err.response.data}`, {
             position: toast.POSITION.TOP_CENTER,
             autoClose: false,
           });
@@ -85,7 +100,7 @@ function Navbar() {
 
   return (
     <div>
-      <nav className=" navbar navbar-expand-lg navbar-light bg-light">
+      <nav className=" navbar navbar-expand-lg navbar-light bg-light fixed-top">
         {/* <a href="#" className="navbar-brand">learn <b>a skill</b></a> */}
 
         <div class="logo1">
@@ -109,7 +124,7 @@ function Navbar() {
         >
           <div className="navbar-nav">
             <Link to="/Recruiter_Home_page">
-              <li class="active ">
+              <li class="active  ">
                 <a>Home</a>
               </li>
             </Link>
@@ -118,15 +133,25 @@ function Navbar() {
                 <a>Profile_create</a>
               </li>
             </Link>
+            <Link to="/Job_Profile_create">
+              <li class="active ">
+                <a>Job_Profile_create</a>
+              </li>
+            </Link>
             <Link to="/Recruiter_Dashboards">
               <li class="active ">
-                <a>Recruiter Dashboards</a>
+                <a>Class Dashboards</a>
+              </li>
+            </Link>
+            <Link to="/Job_Dashboards">
+              <li class="active ">
+                <a>Job Dashboards</a>
               </li>
             </Link>
           </div>
 
           <div className="navbar-nav ml-auto action-buttons ">
-            {user ? (
+            {props.user ? (
               <>
                 <a
                   href="#"
@@ -140,7 +165,7 @@ function Navbar() {
                   style={{ textTransform: "lowercase" }}
                   className="  btn btn-primary login-btn mr-4"
                 >
-                  {user}
+                  {props.user}
                 </a>
               </>
             ) : (
@@ -188,7 +213,7 @@ function Navbar() {
                           class="form-control"
                           onChange={handleChange}
                           name="email"
-                          placeholder="Username"
+                          placeholder="Email"
                           required="required"
                         />
                       </div>
@@ -287,4 +312,18 @@ function Navbar() {
   );
 }
 
-export default Navbar;
+function mapstatetoprops(state) {
+  console.log(state);
+  return {
+    user: state.user,
+  };
+}
+function mapDispatchToProps(dispatch) {
+  return {
+    setuser: (data) => {
+      dispatch(setuser(data));
+    },
+  };
+}
+
+export default connect(mapstatetoprops, mapDispatchToProps)(Navbar);
