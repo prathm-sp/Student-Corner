@@ -216,6 +216,7 @@ height: 50vh;
 		margin-top: 10px;
 		margin-left:33px ;
 	}
+	
 }
 @media (max-width: 425px){
 	.login_button {
@@ -228,6 +229,7 @@ height: 50vh;
 	}
 
 }
+
 /* .btn-primary{
 	padding: 21px 4px !important;
 } */
