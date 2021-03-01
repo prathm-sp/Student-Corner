@@ -1,19 +1,24 @@
 import React, { useState } from "react";
+import { connect } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 import Axios from "../axios";
 import "./Navbar.css";
 import { toast } from "react-toastify";
 import Logo from "../icon/logo.png";
 import "react-toastify/dist/ReactToastify.css";
+import action from "../Redux/Action";
 toast.configure();
-function Navbar() {
+const { setuser } = action;
+function Navbar(props) {
   const history = useHistory();
   const [data, setData] = useState();
   const [user, setUser] = useState("");
+  console.log(props.user);
 
   const handleChange_logout = () => {
     localStorage.clear();
     setUser("");
+    props.setuser("");
   };
   const handleChange = (e) => {
     setData((prevState) => {
@@ -23,26 +28,29 @@ function Navbar() {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(e.target);
     console.log(data);
     Axios.post("/auth/signin/applicant", data)
       .then((res) => {
         console.log(res.data);
         localStorage.setItem("token", res.data.token);
+        localStorage.setItem("user", res.data.user.email);
+        props.setuser(res.data.user.email);
+        setUser(res.data.user.email);
+        console.log("user", user);
         var btn1 = document.getElementById("spn3");
         var btn2 = document.getElementById("spn4");
         console.log(btn1);
         // btn.classList.toggle('show')
-        toast.info(`Logged in Successfully`, {
+        toast(`Logged in Successfully`, {
           position: toast.POSITION.TOP_CENTER,
           autoClose: 3000,
         });
-        setData("");
         history.push("/");
       })
       .catch((err) => {
+        console.log(err);
         console.log(err.response);
-        toast.info(err.response.data, {
+        toast(err.response.data, {
           position: toast.POSITION.TOP_CENTER,
           autoClose: false,
         });
@@ -51,6 +59,7 @@ function Navbar() {
   const [Data1, setData1] = useState({});
 
   const handleChange_signup = (e) => {
+    console.log(e.target);
     setData1((prevstate) => {
       return {
         ...prevstate,
@@ -63,25 +72,24 @@ function Navbar() {
   const handleSubmit_signup = (e) => {
     e.preventDefault();
     {
-      console.log("Data1 = ", Data1);
       Axios.post("/auth/signup/applicant", Data1)
         .then((res) => {
           {
             console.log(res.data);
             localStorage.setItem("token", res.data.token);
-            // localStorage.setItem("user", res.data.user.name);
-            // setUser(res.data.user.email);
-            // console.log(user);
+            localStorage.setItem("user", res.data.saveduser.email);
+            props.setuser(res.data.saveduser.email);
+            setUser(res.data.saveduser.email);
+            console.log(user);
             toast.info(`Registered Successfully`, {
               position: toast.POSITION.TOP_CENTER,
               autoClose: 3000,
             });
             history.push("/");
           }
-          setData1("");
         })
         .catch((err) => {
-          console.log(err.response.data);
+          console.log(err.response);
           toast.info(`${err.response.data}`, {
             position: toast.POSITION.TOP_CENTER,
             autoClose: false,
@@ -93,7 +101,7 @@ function Navbar() {
 
   return (
     <div>
-      <nav className=" navbar navbar-expand-lg navbar-light bg-light">
+      <nav className=" navbar navbar-expand-lg navbar-light bg-light fixed-top">
         {/* <a href="#" className="navbar-brand">learn <b>a skill</b></a> */}
 
         <div class="logo1">
@@ -129,11 +137,11 @@ function Navbar() {
           </div>
 
           <div className="navbar-nav ml-auto action-buttons ">
-            {user ? (
+            {props.user ? (
               <>
                 <a
                   href="#"
-                  className=" btn btn-primary login-btn mr-4"
+                  className=" btn btn-primary  login_button  login-btn mr-4"
                   onClick={handleChange_logout}
                 >
                   Logout
@@ -141,9 +149,9 @@ function Navbar() {
                 <a
                   href="#"
                   style={{ textTransform: "lowercase" }}
-                  className="  btn btn-primary login-btn mr-4"
+                  className=" btn btn-primary login_button  login-btn mr-4"
                 >
-                  {user}
+                  {props.user}
                 </a>
               </>
             ) : (
@@ -165,6 +173,7 @@ function Navbar() {
                       <p className="hint-text">
                         Sign in with your social media account
                       </p>
+
                       <div className="form-group social-btn clearfix">
                         <a
                           href="#"
@@ -191,8 +200,7 @@ function Navbar() {
                           class="form-control"
                           onChange={handleChange}
                           name="email"
-                          placeholder="Username"
-                          value={data?.email}
+                          placeholder="Email"
                           required="required"
                         />
                       </div>
@@ -204,7 +212,6 @@ function Navbar() {
                           class="form-control"
                           placeholder="password "
                           onChange={handleChange}
-                          value={data?.password}
                           name="password"
                           required="required"
                         />
@@ -219,16 +226,16 @@ function Navbar() {
 
                       <Link to="/Recruiter_Home_page">
                         <div className="text-center  mt-2">
-                          <a
+                          <p
                             style={{
                               fontSize: "16px",
                               fontWeight: "900",
-                              color: "blue",
+                              color: "red",
                             }}
                             href="#"
                           >
                             Are you a Recruiter?
-                          </a>
+                          </p>
                         </div>
                       </Link>
                     </form>
@@ -258,7 +265,6 @@ function Navbar() {
                           onChange={handleChange_signup}
                           className="form-control"
                           placeholder="Email"
-                          value={Data1?.email}
                           required="required"
                         />
                       </div>
@@ -268,7 +274,6 @@ function Navbar() {
                           name="password"
                           onChange={handleChange_signup}
                           className="form-control"
-                          value={Data1?.password}
                           placeholder="Password"
                           required="required"
                         />
@@ -281,7 +286,6 @@ function Navbar() {
                           name="mobile"
                           onChange={handleChange_signup}
                           className="form-control"
-                          value={Data1?.mobile}
                           placeholder="mobile no"
                           required="required"
                         />
@@ -300,16 +304,16 @@ function Navbar() {
                       />
                       <Link to="/Recruiter_Home_page">
                         <div className="text-center  mt-2">
-                          <a
+                          <p
                             style={{
                               fontSize: "16px",
                               fontWeight: "900",
-                              color: "blue",
+                              color: "red",
                             }}
                             href="#"
                           >
                             Are you a Recruiter?
-                          </a>
+                          </p>
                         </div>
                       </Link>
                     </form>
@@ -323,5 +327,18 @@ function Navbar() {
     </div>
   );
 }
+function mapstatetoprops(state) {
+  console.log(state);
+  return {
+    user: state.user,
+  };
+}
+function mapDispatchToProps(dispatch) {
+  return {
+    setuser: (data) => {
+      dispatch(setuser(data));
+    },
+  };
+}
 
-export default Navbar;
+export default connect(mapstatetoprops, mapDispatchToProps)(Navbar);
