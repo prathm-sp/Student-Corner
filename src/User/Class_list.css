@@ -1,0 +1,36 @@
+.single-job-items {
+    width: 70vw;
+}
+@media (max-width: 425px){
+	.row{
+        margin-left: 10px;
+    }
+    .job-listing-area{
+        margin-left: 40px;
+    }
+    .single-job-items {
+        width: 80vw;
+    }
+}
+@media (max-width: 768px){
+	.row{
+        margin-left: 10px;
+    }
+    .job-listing-area{
+        margin-left: 40px;
+    }
+    .single-job-items {
+        width: 62vw;
+    }
+}
+@media (max-width: 1124px){
+	.row{
+        margin-left: 10px;
+    }
+    .job-listing-area{
+        margin-left: 40px;
+    }
+    .single-job-items {
+        width: 62vw;
+    }
+}
