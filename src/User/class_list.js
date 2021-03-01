@@ -1,10 +1,11 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import img2 from "../corousel_photo/img6.jpg"
+import "./Class_list.css"
 function class_list() {
     return (
         <div>
-           <div class="container container1  mt-3 ">
+           <div class="container container1  mt-100 ">
      
      <div class="section" id="carousel">
      
@@ -39,9 +40,9 @@ function class_list() {
         <main>
          
           {/* Job List Area Start */}
-          <div className="job-listing-area mt-5 pb-120">
+          <div className="job-listing-area  mt-5 pb-120">
             <div className="container">
-              <div className="row">
+              <div className="row" style={{marginLeft:"-72px"}}>
                 {/* Left content */}
                 <div className="col-xl-3 col-lg-3 col-md-4">
                   <div className="row">
@@ -193,10 +194,7 @@ function class_list() {
                           </Link>
                         </div>
                        
-                        <div className="items-link items-link2 f-right">
-                          
-                          <span>7 hours ago</span>
-                        </div>
+                       
                       </div>
                       {/* single-job-content */}
                       <div className="single-job-items mb-30">
@@ -210,7 +208,7 @@ function class_list() {
                             </a>
                             <ul>
                               <li>Creative Agency</li>
-                              <li><i className="fas fa-map-marker-alt" />Athens, Greece</li>
+                              <li><i className="fas fa-map-marker-alt" />pune</li>
                               <li>$3500 - $4000</li>
                             </ul>
                           </div>
@@ -232,7 +230,7 @@ function class_list() {
                             </a>
                             <ul>
                               <li>Creative Agency</li>
-                              <li><i className="fas fa-map-marker-alt" />Athens, Greece</li>
+                              <li><i className="fas fa-map-marker-alt" />pune</li>
                               <li>$3500 - $4000</li>
                             </ul>
                           </div>
@@ -254,7 +252,7 @@ function class_list() {
                             </a>
                             <ul>
                               <li>Creative Agency</li>
-                              <li><i className="fas fa-map-marker-alt" />Athens, Greece</li>
+                              <li><i className="fas fa-map-marker-alt" />pune</li>
                               <li>$3500 - $4000</li>
                             </ul>
                           </div>
@@ -276,7 +274,7 @@ function class_list() {
                             </a>
                             <ul>
                               <li>Creative Agency</li>
-                              <li><i className="fas fa-map-marker-alt" />Athens, Greece</li>
+                              <li><i className="fas fa-map-marker-alt" />pune</li>
                               <li>$3500 - $4000</li>
                             </ul>
                           </div>
@@ -298,7 +296,7 @@ function class_list() {
                             </a>
                             <ul>
                               <li>Creative Agency</li>
-                              <li><i className="fas fa-map-marker-alt" />Athens, Greece</li>
+                              <li><i className="fas fa-map-marker-alt" />pune</li>
                               <li>$3500 - $4000</li>
                             </ul>
                           </div>
@@ -320,7 +318,7 @@ function class_list() {
                             </a>
                             <ul>
                               <li>Creative Agency</li>
-                              <li><i className="fas fa-map-marker-alt" />Athens, Greece</li>
+                              <li><i className="fas fa-map-marker-alt" />pune</li>
                               <li>$3500 - $4000</li>
                             </ul>
                           </div>
