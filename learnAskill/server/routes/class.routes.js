@@ -3,7 +3,9 @@ const app = express.Router();
 const {verifyaccesstoken} = require("./../helpers/jwt.helpers")
 const {upload} =require('./../helpers/multer'); 
 const {configcloud,uploadtocloud} = require('./../helpers/cloudinary');
-const Class = require("./../models/class.model")
+const Class = require("./../models/class.model");
+const ClassApplication = require("./../models/classapplication.model")
+const role = require('./../helpers/role');
 //all the classes 
 app.get('/all',verifyaccesstoken,async(req,res,next) => {
     try {
@@ -25,12 +27,18 @@ app.get('/category/:name',verifyaccesstoken,async(req,res,next)=>{
 
 })
 //getting a specific class  
-app.get('/:id',verifyaccesstoken,async(req,res,next)=>{
+app.get('/:id',verifyaccesstoken,role.checkRole(role.ROLES.Applicant),async(req,res,next)=>{
 try {
     const specificclass = await Class.findById(req.params.id);
     if(!specificclass) res.status(400).send("enter valid id");
-     
-    //res.status(200).send({class:specificclass,subscribed:});
+    // let query ={$and:[{price:{$gte:lowervalue}},{price:{$lte:uppervalue}}]}
+    let query = {$and:[{classid:req.params.id}, {applicantid:req.payload.id}]}
+    const subscribed = await ClassApplication.findOne(query);
+
+     if(!subscribed) 
+    res.status(200).send({class:specificclass,subscribed:"Apply"});
+
+    res.status(200).send({class:specificclass,subscribed:subscribed.status});    
 
     
 } catch (error) {

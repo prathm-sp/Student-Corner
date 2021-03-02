@@ -1,7 +1,6 @@
 const ROLES = {
-    Admin: 'admin',
-    Customer: 'customer',
-    Dealer: 'dealer'
+    Applicant: 'Applicant',
+    Recruiter: 'Recruiter'
   };
   
   const checkRole = (...roles) => (req, res, next) => {
