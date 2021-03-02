@@ -88,7 +88,7 @@ function Job_Dashboards() {
                                                                     <tr className="unread">
                                                                         <td><i class="fa fa-user-circle " style={{ fontSize: "40px" }} aria-hidden="true"></i></td>
                                                                         <td>
-                                                                            <h4 className="mb-1">Jatin Udasi</h4>
+                                                                            <h4 className="mb-1">Piyush Gambhir</h4>
 
                                                                         </td>
                                                                         <td>
