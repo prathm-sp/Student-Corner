@@ -74,7 +74,7 @@ const classSchema = Schema({
   },
   skills: {
     type: String,
-  },
+  }
 });
 
 module.exports = model("Class", classSchema);
