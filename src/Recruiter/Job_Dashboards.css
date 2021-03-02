@@ -1,0 +1,37 @@
+
+@media (max-width: 414px){
+    .re{
+        width: 70% !important;
+        margin-top: 0px !important;
+    }
+  
+}
+
+@media (max-width: 320px){
+    .re{
+        width: 35% !important;
+     margin-top: 0px !important;
+    }
+  
+}
+@media (max-width: 411px){
+    .re{
+        width: 35% !important;
+     margin-top: 0px !important;
+    }
+  
+}
+@media (max-width: 360px){
+    .re{
+        width: 35% !important;
+     margin-top: 0px !important;
+    }
+  
+}
+@media (max-width: 540px){
+    .re{
+        width: 35% !important;
+     margin-top: 0px !important;
+    }
+  
+}

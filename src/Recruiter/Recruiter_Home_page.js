@@ -379,47 +379,7 @@ function Home() {
      
   </div>
   </div>
-    {/* How  Apply Process Start*/}
-    <div className="apply-process-area apply-bg  mt-5 pt-5 " >
-      <div className="container ">
-        
-        <div className="row">
-          <div className="col-lg-4 col-md-6 ">
-            <div className="single-process text-center mb-30">
-              <div className="process-ion">
-                <span className="flaticon-search" />
-              </div>
-              <div className="process-cap">
-                <h5>1. Search a job</h5>
-                {/* <p>Sorem spsum dolor sit amsectetur adipisclit, seddo eiusmod tempor incididunt ut laborea.</p> */}
-              </div>
-            </div>
-          </div>
-          <div className="col-lg-4 col-md-6">
-            <div className="single-process text-center mb-30">
-              <div className="process-ion">
-                <span className="flaticon-curriculum-vitae" />
-              </div>
-              <div className="process-cap">
-                <h5>2. Apply for job</h5>
-                {/* <p>Sorem spsum dolor sit amsectetur adipisclit, seddo eiusmod tempor incididunt ut laborea.</p> */}
-              </div>
-            </div>
-          </div>
-          <div className="col-lg-4 col-md-6">
-            <div className="single-process text-center mb-30">
-              <div className="process-ion">
-                <span className="flaticon-tour" />
-              </div>
-              <div className="process-cap">
-                <h5>3. Get your job</h5>
-                {/* <p>Sorem spsum dolor sit amsectetur adipisclit, seddo eiusmod tempor incididunt ut laborea.</p> */}
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    
    
   
   </main>

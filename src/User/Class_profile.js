@@ -4,7 +4,7 @@ function Class_profile() {
     return (
         <div>
             
-            <div class="container container1  mt-3 ">
+            <div class="container container1  mt-100 ">
      
      <div class="section" id="carousel">
      

@@ -58,7 +58,7 @@ exports.recruitersignin = async (req, res, next) => {
       "Recruiter"
     );
 
-    res.status(200).send({ success: token });
+    res.status(200).send({ token: token, user: userexist });
   } catch (error) {
     next(error);
   }

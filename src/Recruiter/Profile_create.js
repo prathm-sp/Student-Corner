@@ -3,8 +3,9 @@ import "./Profile_create.css";
 import $ from 'jquery';
 
 function Profile_create() {
+  
 
-
+  
   $(document).ready(function () {
 
     var current_fs, next_fs, previous_fs; //fieldsets
@@ -84,7 +85,7 @@ function Profile_create() {
   return (
     <div>
 
-      <div className="container-fluid">
+      <div className="container-fluid mt-100">
         <div className="row justify-content-center">
           <div className="col-11 col-sm-12 col-md-12 col-lg-12 col-xl-9 text-center p-0 mt-3 mb-2">
             <div className="card px-0 pt-4 pb-0 mt-3 mb-3">
@@ -126,7 +127,7 @@ function Profile_create() {
                     <label className="fieldlabels">Activities Name: *</label>
                     <select class="custom-select select mb-3">
                       <option selected> Select Activities</option>
-                      <option value="">Sport</option>
+                      <option value="" >Sport</option>
                       <option value="">Programing</option>
                       <option value="">Technical</option>
                       <option value="">Cenimatics</option>
@@ -139,11 +140,10 @@ function Profile_create() {
                       <option selected> Select Category </option>
                       <option value="">1</option>
                       <option value="">2</option>
-                      
                     </select  >
                     <label className="fieldlabels"> Vacancy: *</label>
                     <select class="custom-select select mb-3">
-                      <option selected> No of Vacancy </option>
+                      <option selected> Select</option>
                       <option value="">1 </option>
                       <option value="">2 </option>
                       <option value="">3 </option>
@@ -192,7 +192,9 @@ function Profile_create() {
                       <option value="">11 Months</option>
                       <option value="">12 Months</option>
                     </select  >
+
                     
+
                     <div class="row">
                       <div class="col-sm-12 form-group">
                         <div class="row">

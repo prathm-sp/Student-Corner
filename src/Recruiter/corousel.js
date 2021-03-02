@@ -6,7 +6,7 @@ import nn from "../corousel_photo/nn.jpg"
 function corousel() {
     return (
        
-      <div class="container container1  mt-5 ">
+      <div class="container container1  mt-100 ">
      
       <div class="section" id="carousel">
       

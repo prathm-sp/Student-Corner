@@ -1,10 +1,11 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import img2 from "../corousel_photo/img6.jpg"
+import "./Recruiter_class_list.css"
 function class_list() {
     return (
         <div>
-           <div class="container container1  mt-3 ">
+           <div class="container container1  mt-100 ">
      
      <div class="section" id="carousel">
      
@@ -39,9 +40,9 @@ function class_list() {
         <main>
          
           {/* Job List Area Start */}
-          <div className="job-listing-area mt-5 pb-120">
+          <div className="job-listing-area  mt-5 pb-120">
             <div className="container">
-              <div className="row">
+              <div className="row" style={{marginLeft:"-72px"}}>
                 {/* Left content */}
                 <div className="col-xl-3 col-lg-3 col-md-4">
                   <div className="row">
@@ -108,7 +109,7 @@ function class_list() {
                     </select>
                       </div>
                       {/*  Select job items End*/}
-                      
+                     
                     </div>
                     {/* single three */}
                     <div className="single-listing mt-5">
@@ -144,7 +145,7 @@ function class_list() {
                       </div>
                       {/* select-Categories End */}
                     </div>
-                  
+                    
                   </div>
                   {/* Job Category Listing End */}
                 </div>
@@ -179,7 +180,7 @@ function class_list() {
                           <div className="company-img">
                             <a href="#"><img src="assets/img/icon/job-list1.png" alt="" /></a>
                           </div>
-                         <Link to ="/Recruiter_Class_profile">
+                         <Link to ="/Class_profile">
                          <div className="job-tittle job-tittle2">
                             <a href="#">
                               <h4>Digital Marketer</h4>
@@ -193,10 +194,7 @@ function class_list() {
                           </Link>
                         </div>
                        
-                        <div className="items-link items-link2 f-right">
-                          
-                          <span>7 hours ago</span>
-                        </div>
+                       
                       </div>
                       {/* single-job-content */}
                       <div className="single-job-items mb-30">

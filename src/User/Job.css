@@ -1,0 +1,15 @@
+.sidebar .single-slidebar {
+    background-color: #f1f1f1;
+}
+.post-list .single-post{
+    background-color: #f1f1f1;
+}
+.post-list .single-post .btns li:hover {
+    background-color: #69c004 !important;
+}
+.post-list .loadmore-btn {
+    background-color: #69c004 !important;
+}
+.post-list .cat-list li:hover {
+    background-color: #69c004 !important;
+}
