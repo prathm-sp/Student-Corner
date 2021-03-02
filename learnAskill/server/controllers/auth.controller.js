@@ -25,8 +25,7 @@ exports.recruitersignup = async (req, res, next) => {
     const token = await signaccesstoken(
       recruiter.id,
       recruiter.email,
-      recruiter.mobile,
-      "Recruiter"
+      recruiter.mobile
     );
 
     res.status(201).send({ token: token, saveduser: recruiter });
@@ -54,8 +53,7 @@ exports.recruitersignin = async (req, res, next) => {
     const token = await signaccesstoken(
       userexist.id,
       userexist.email,
-      userexist.mobile,
-      "Recruiter"
+      userexist.mobile
     );
 
     res.status(200).send({ token: token, user: userexist });
@@ -84,8 +82,7 @@ exports.applicantsignup = async (req, res, next) => {
     const token = await signaccesstoken(
       recruiter.id,
       recruiter.email,
-      recruiter.mobile,
-      "Applicant"
+      recruiter.mobile
     );
 
     res.status(201).send({ token: token, saveduser: recruiter });
@@ -116,8 +113,7 @@ exports.applicantsignin = async (req, res, next) => {
     const token = await signaccesstoken(
       userexist.id,
       userexist.email,
-      userexist.mobile,
-      "Applicant"
+      userexist.mobile
     );
 
     res.status(200).json({ token: token, user: userexist });
