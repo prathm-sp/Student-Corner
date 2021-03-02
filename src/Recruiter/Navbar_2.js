@@ -10,6 +10,7 @@ toast.configure();
 const { setuser } = action;
 
 function Navbar(props) {
+  console.log("object");
   const history = useHistory();
   const [data, setData] = useState();
   const [user, setUser] = useState("");
