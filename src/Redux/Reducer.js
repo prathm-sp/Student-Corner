@@ -1,3 +1,5 @@
+
+
 import action from "../Redux/Action";
 
 const intialuserstate = {
@@ -16,4 +18,3 @@ const reducer = (state = intialuserstate, actions) => {
     }
 }
 export default reducer;
-
