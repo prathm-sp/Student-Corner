@@ -14,6 +14,27 @@ app.get('/all',verifyaccesstoken,async(req,res,next) => {
     }
     
 });
+app.post('/apply/:classid',verifyaccesstoken,role.checkRole(role.ROLES.Applicant),async(req,res,next)=>{
+    try {
+        let clas = await Class.findById(req.params.classid);
+        if(!clas) throw new Error("enter valid class id");
+        
+        const find = await ClassApplication($and[{classid:req.params.classid},{applicantid:req.payload.id}])
+        if(!find)
+        {
+        const newapplication = new ClassApplication({classid:req.params.classid,applicantid:req.payload.id,recruiterid:clas.classowner})
+        res.status(201).send({status:newapplication.status});
+        }
+        else{
+        const cancellapplication = await ClassApplication.findOneAndDelete($and[{classid:req.params.classid},{applicantid:req.payload.id}]);
+        res.status(201).send({status:"Apply"});
+        }
+        res.status(201).send()
+    } catch (error) {
+        next(error);
+    }
+
+})
 //get all programming class
 app.get('/category/:name',verifyaccesstoken,async(req,res,next)=>{
         try {
@@ -29,8 +50,19 @@ app.get('/:id',verifyaccesstoken,async(req,res,next)=>{
 try {
     const specificclass = await Class.findById(req.params.id);
     if(!specificclass) res.status(400).send("enter valid id");
+<<<<<<< HEAD
+    // let query ={$and:[{price:{$gte:lowervalue}},{price:{$lte:uppervalue}}]}
+    let query = {$and:[{classid:req.params.id},{applicantid:req.payload.id}]}
+    const subscribed = await ClassApplication.findOne(query);
+
+     if(!subscribed) 
+    res.status(200).send({class:specificclass,subscribed:"Apply"});
+
+    res.status(200).send({class:specificclass,subscribed:subscribed.status});    
+=======
      
     //res.status(200).send({class:specificclass,subscribed:});
+>>>>>>> 5c5b96f71780c901d98020fb8396d5134849bbbe
 
     
 } catch (error) {
