@@ -14,7 +14,7 @@ var storage = multer.diskStorage({
 	}
 });
 var upload = multer({ storage: storage });
-module.exports = { upload }; 
+module.exports = { upload };
 
 // const multer = require('multer')
 // const  Datauri =require('datauri');

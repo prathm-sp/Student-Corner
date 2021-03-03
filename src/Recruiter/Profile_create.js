@@ -1,13 +1,10 @@
-import React from 'react'
+import React, { useState } from "react";
 import "./Profile_create.css";
-import $ from 'jquery';
+import $ from "jquery";
+import axios from "../axios";
 
 function Profile_create() {
-  
-
-  
   $(document).ready(function () {
-
     var current_fs, next_fs, previous_fs; //fieldsets
     var opacity;
     var current = 1;
@@ -16,7 +13,6 @@ function Profile_create() {
     setProgressBar(current);
 
     $(".next").click(function () {
-
       current_fs = $(this).parent();
       next_fs = $(this).parent().next();
 
@@ -26,65 +22,119 @@ function Profile_create() {
       //show the next fieldset
       next_fs.show();
       //hide the current fieldset with style
-      current_fs.animate({ opacity: 0 }, {
-        step: function (now) {
-          // for making fielset appear animation
-          opacity = 1 - now;
+      current_fs.animate(
+        { opacity: 0 },
+        {
+          step: function (now) {
+            // for making fielset appear animation
+            opacity = 1 - now;
 
-          current_fs.css({
-            'display': 'none',
-            'position': 'relative'
-          });
-          next_fs.css({ 'opacity': opacity });
-        },
-        duration: 500
-      });
+            current_fs.css({
+              display: "none",
+              position: "relative",
+            });
+            next_fs.css({ opacity: opacity });
+          },
+          duration: 500,
+        }
+      );
       setProgressBar(++current);
     });
 
     $(".previous").click(function () {
-
       current_fs = $(this).parent();
       previous_fs = $(this).parent().prev();
 
       //Remove class active
-      $("#progressbar li").eq($("fieldset").index(current_fs)).removeClass("active");
+      $("#progressbar li")
+        .eq($("fieldset").index(current_fs))
+        .removeClass("active");
 
       //show the previous fieldset
       previous_fs.show();
 
       //hide the current fieldset with style
-      current_fs.animate({ opacity: 0 }, {
-        step: function (now) {
-          // for making fielset appear animation
-          opacity = 1 - now;
+      current_fs.animate(
+        { opacity: 0 },
+        {
+          step: function (now) {
+            // for making fielset appear animation
+            opacity = 1 - now;
 
-          current_fs.css({
-            'display': 'none',
-            'position': 'relative'
-          });
-          previous_fs.css({ 'opacity': opacity });
-        },
-        duration: 500
-      });
+            current_fs.css({
+              display: "none",
+              position: "relative",
+            });
+            previous_fs.css({ opacity: opacity });
+          },
+          duration: 500,
+        }
+      );
       setProgressBar(--current);
     });
 
     function setProgressBar(curStep) {
       var percent = parseFloat(100 / steps) * curStep;
       percent = percent.toFixed();
-      $(".progress-bar")
-        .css("width", percent + "%")
+      $(".progress-bar").css("width", percent + "%");
     }
 
     $(".submit").click(function () {
       return false;
-    })
-
+    });
   });
+
+  const [data, setData] = useState();
+
+  const handleChange = (e) => {
+    console.log(e.target.value);
+    setData((prevState) => ({
+      ...prevState,
+      [e.target.name]: e.target.value,
+    }));
+  };
+  var [file, setFile] = useState(null);
+
+  async function onImageChange(event) {
+    try {
+      console.log(event.target.files[0]);
+      setFile(event.target.files[0]);
+    } catch (error) {
+      return null;
+    }
+  }
+
+  console.log(file);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const data1 = file;
+    console.log(data1);
+    const data4 = new FormData();
+    data4.append("image", file);
+    // data1.append("file", file);
+    let token = localStorage.getItem("token");
+    if (!token) alert("You are not authorized");
+    setData((prevState) => ({
+      ...prevState,
+      image: data4,
+    }));
+    axios
+      .post("/class/prat/uppload", data4, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err.response);
+      });
+  };
+  console.log(data);
   return (
     <div>
-
       <div className="container-fluid mt-100">
         <div className="row justify-content-center">
           <div className="col-11 col-sm-12 col-md-12 col-lg-12 col-xl-9 text-center p-0 mt-3 mb-2">
@@ -94,14 +144,28 @@ function Profile_create() {
               <form id="msform">
                 {/* progressbar */}
                 <ul id="progressbar">
-                  <li className="active" id="personal"><strong>Personal</strong></li>
-                  <li id="personal"><strong>Class Information</strong></li>
-                  <li id="payment"><strong>Image</strong></li>
-                  <li id="confirm"><strong>Finish</strong></li>
+                  <li className="active" id="personal">
+                    <strong>Personal</strong>
+                  </li>
+                  <li id="personal">
+                    <strong>Class Information</strong>
+                  </li>
+                  <li id="payment">
+                    <strong>Image</strong>
+                  </li>
+                  <li id="confirm">
+                    <strong>Finish</strong>
+                  </li>
                 </ul>
                 <div className="progress">
-                  <div className="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuemin={0} aria-valuemax={100} />
-                </div> <br /> {/* fieldsets */}
+                  <div
+                    className="progress-bar progress-bar-striped progress-bar-animated"
+                    role="progressbar"
+                    aria-valuemin={0}
+                    aria-valuemax={100}
+                  />
+                </div>{" "}
+                <br /> {/* fieldsets */}
                 <fieldset>
                   <div className="form-card">
                     <div className="row">
@@ -111,8 +175,28 @@ function Profile_create() {
                       <div className="col-5">
                         <h2 className="steps">Step 1 - 4</h2>
                       </div>
-                    </div> <label className="fieldlabels">First Name: *</label> <input type="text" name="fname" placeholder="First Name" /> <label className="fieldlabels">Last Name: *</label> <input type="text" name="lname" placeholder="Last Name" /> 
-                  </div> <input type="button" name="next" className="next action-button" defaultValue="Next" />
+                    </div>{" "}
+                    <label className="fieldlabels">First Name: *</label>{" "}
+                    <input
+                      type="text"
+                      name="firstname"
+                      placeholder="First Name"
+                      onChange={handleChange}
+                    />{" "}
+                    <label className="fieldlabels">Last Name: *</label>{" "}
+                    <input
+                      type="text"
+                      name="lastname"
+                      placeholder="Last Name"
+                      onChange={handleChange}
+                    />
+                  </div>{" "}
+                  <input
+                    type="button"
+                    name="next"
+                    className="next action-button"
+                    defaultValue="Next"
+                  />
                 </fieldset>
                 <fieldset>
                   <div className="form-card">
@@ -125,99 +209,177 @@ function Profile_create() {
                       </div>
                     </div>
                     <label className="fieldlabels">Activities Name: *</label>
-                    <select class="custom-select select mb-3">
+                    <select
+                      class="custom-select select mb-3"
+                      name="activities"
+                      onChange={handleChange}
+                    >
                       <option selected> Select Activities</option>
-                      <option value="" >Sport</option>
-                      <option value="">Programing</option>
-                      <option value="">Technical</option>
-                      <option value="">Cenimatics</option>
-                      <option value="">Hospital</option>
-                      <option value="">Cooking</option>
-                      <option value="">Perfermance</option>
-                    </select  >
+                      <option value="Sport">Sport</option>
+                      <option value="Programing">Programing</option>
+                      <option value="Technical">Technical</option>
+                      <option value="Cenimatics">Cenimatics</option>
+                      <option value="Hospital">Hospital</option>
+                      <option value="Cooking">Cooking</option>
+                      <option value="Performance">Performance</option>
+                    </select>
                     <label className="fieldlabels">Class Category: *</label>
-                    <select class="custom-select select mb-3">
-                      <option selected> Select Category </option>
-                      <option value="">1</option>
-                      <option value="">2</option>
-                    </select  >
+                    <input
+                      type="text"
+                      name="category"
+                      placeholder="Class Catagory"
+                      onChange={handleChange}
+                    />{" "}
                     <label className="fieldlabels"> Vacancy: *</label>
-                    <select class="custom-select select mb-3">
+                    <select
+                      class="custom-select select mb-3"
+                      name="vacancy"
+                      onChange={handleChange}
+                    >
                       <option selected> Select</option>
-                      <option value="">1 </option>
-                      <option value="">2 </option>
-                      <option value="">3 </option>
-                      <option value="">4 </option>
-                      <option value="">5 </option>
-                      <option value="">6 </option>
-                      <option value="">7 </option>
-                      <option value="">8 </option>
-                      <option value="">9 </option>
-                      <option value="">10 </option>
-                      
-                    </select  >
-                    <label className="fieldlabels">Class Name: *</label> <input type="text" name="Class_name" placeholder="Class Name" /> <label className="fieldlabels">Address: *</label> <input type="text" name="lname" placeholder="Address" />
+                      <option value="1">1 </option>
+                      <option value="2">2 </option>
+                      <option value="3">3 </option>
+                      <option value="4">4 </option>
+                      <option value="5">5 </option>
+                      <option value="6">6 </option>
+                      <option value="7">7 </option>
+                      <option value="8">8 </option>
+                      <option value="9">9 </option>
+                      <option value="10">10 </option>
+                    </select>
+                    <label className="fieldlabels">Class Name: *</label>{" "}
+                    <input
+                      type="text"
+                      name="classname"
+                      onChange={handleChange}
+                      placeholder="Class Name"
+                    />{" "}
+                    <label className="fieldlabels">Address: *</label>{" "}
+                    <input
+                      type="text"
+                      name="address"
+                      onChange={handleChange}
+                      placeholder="Address"
+                    />
                     <label className="fieldlabels">Cities: *</label>
-                    <select class="custom-select select mb-3">
+                    <select
+                      class="custom-select select mb-3"
+                      name="city"
+                      onChange={handleChange}
+                    >
                       <option selected> Select Cities</option>
-                      <option value="">Mumbai</option>
-                      <option value="">Hyberabad</option>
-                      <option value="">Pune</option>
-                      <option value="">Chennai</option>
-                      <option value="">Delhi</option>
-                      <option value="">kolkata</option>
-                      <option value="">Ahmednagar</option>
-                    </select  >
+                      <option value="Mumbai">Mumbai</option>
+                      <option value="Hyberabad">Hyberabad</option>
+                      <option value="Pune">Pune</option>
+                      <option value="Chennai">Chennai</option>
+                      <option value="Delhi">Delhi</option>
+                      <option value="kolkata">kolkata</option>
+                      <option value="Ahmednagar">Ahmednagar</option>
+                    </select>
                     <label className="fieldlabels">Class Type: *</label>
-                    <select class="custom-select select mb-3">
+                    <select
+                      class="custom-select select mb-3"
+                      name="classtype"
+                      onChange={handleChange}
+                    >
                       <option selected> Select Type</option>
-                      <option value="">Full Time</option>
-                      <option value="">Part Time</option>
-                      <option value="">Remote</option>
-                    </select  >
-                    <label className="fieldlabels">Class Fess: *</label> <input type="no" name="no" placeholder="Class Fess" />
+                      <option value="Fulltime">Full Time</option>
+                      <option value="Parttime">Part Time</option>
+                      <option value="Remote">Remote</option>
+                    </select>
+                    <label className="fieldlabels">Class Fess: *</label>{" "}
+                    <input
+                      type="number"
+                      onChange={handleChange}
+                      name="fees"
+                      placeholder="Class Fess"
+                    />
                     <label className="fieldlabels"> class Duration: *</label>
-                    <select class="custom-select select mb-3">
+                    <select
+                      class="custom-select select mb-3"
+                      name="duration"
+                      onChange={handleChange}
+                    >
                       <option selected> class Duration</option>
-                      <option value="">1 Months</option>
-                      <option value="">2 Months</option>
-                      <option value="">3 Months</option>
-                      <option value="">4 Months</option>
-                      <option value="">5 Months</option>
-                      <option value="">6 Months</option>
-                      <option value="">7 Months</option>
-                      <option value="">8 Months</option>
-                      <option value="">9 Months</option>
-                      <option value="">10 Months</option>
-                      <option value="">11 Months</option>
-                      <option value="">12 Months</option>
-                    </select  >
-
-                    
-
+                      <option value="1">1 Months</option>
+                      <option value="2">2 Months</option>
+                      <option value="3">3 Months</option>
+                      <option value="4">4 Months</option>
+                      <option value="5">5 Months</option>
+                      <option value="6">6 Months</option>
+                      <option value="7">7 Months</option>
+                      <option value="8">8 Months</option>
+                      <option value="9">9 Months</option>
+                      <option value="10">10 Months</option>
+                      <option value="11">11 Months</option>
+                      <option value="12">12 Months</option>
+                    </select>
                     <div class="row">
                       <div class="col-sm-12 form-group">
                         <div class="row">
                           <div class="col-sm-12 form-group">
-
-                            <label className="fieldlabels"> Class Information:*</label>
-                            <textarea class="form-control" type="textarea" name="message" id="message" maxlength="6000" rows="2"></textarea>
+                            <label className="fieldlabels">
+                              {" "}
+                              Class Information:*
+                            </label>
+                            <textarea
+                              class="form-control"
+                              onChange={handleChange}
+                              type="textarea"
+                              name="classinformation"
+                              id="message"
+                              maxlength="6000"
+                              rows="2"
+                            ></textarea>
                           </div>
                         </div>
 
-                        <label className="fieldlabels"> Class Description:*</label>
-                        <textarea class="form-control" type="textarea" name="message" id="message" maxlength="6000" rows="2"></textarea>
+                        <label className="fieldlabels">
+                          {" "}
+                          Class Description:*
+                        </label>
+                        <textarea
+                          class="form-control"
+                          onChange={handleChange}
+                          type="textarea"
+                          name="classdescription"
+                          id="message"
+                          maxlength="6000"
+                          rows="2"
+                        ></textarea>
                       </div>
-                    </div> <div class="row">
+                    </div>{" "}
+                    <div class="row">
                       <div class="col-sm-12 form-group">
-
-                        <label className="fieldlabels"> Required Knowledge, Skills, and Abilities: *</label>
-                        <textarea class="form-control" type="textarea" name="message" id="message" maxlength="6000" rows="5"></textarea>
+                        <label className="fieldlabels">
+                          {" "}
+                          Required Knowledge, Skills, and Abilities: *
+                        </label>
+                        <textarea
+                          class="form-control"
+                          type="textarea"
+                          name="skills"
+                          onChange={handleChange}
+                          id="message"
+                          maxlength="6000"
+                          rows="5"
+                        ></textarea>
                       </div>
                     </div>
-                   
-
-                  </div> <input type="button" name="next" className="next action-button" defaultValue="Next" /> <input type="button" name="previous" className="previous action-button-previous" defaultValue="Previous" />
+                  </div>{" "}
+                  <input
+                    type="button"
+                    name="next"
+                    className="next action-button"
+                    defaultValue="Next"
+                  />{" "}
+                  <input
+                    type="button"
+                    name="previous"
+                    className="previous action-button-previous"
+                    defaultValue="Previous"
+                  />
                 </fieldset>
                 <fieldset>
                   <div className="form-card">
@@ -230,9 +392,21 @@ function Profile_create() {
                       </div>
                     </div>
                     <label className="fieldlabels">Upload Your Photo:</label>
-                    <input type="file" name="pic" accept="image/*" />
-
-                  </div>  <input type="button" name="next" className="next action-button" defaultValue="Submit" /> <input type="button" name="previous" className="previous action-button-previous" defaultValue="Previous" />
+                    <input type="file" name="image" onChange={onImageChange} />
+                    <button onClick={handleSubmit}>submit</button>
+                  </div>{" "}
+                  <input
+                    type="button"
+                    name="next"
+                    className="next action-button"
+                    defaultValue="Submit"
+                  />{" "}
+                  <input
+                    type="button"
+                    name="previous"
+                    className="previous action-button-previous"
+                    defaultValue="Previous"
+                  />
                 </fieldset>
                 <fieldset>
                   <div className="form-card">
@@ -243,14 +417,29 @@ function Profile_create() {
                       <div className="col-5">
                         <h2 className="steps">Step 4 - 4</h2>
                       </div>
-                    </div> <br /><br />
-                    <h2 className="purple-text text-center"><strong>SUCCESS !</strong></h2> <br />
+                    </div>{" "}
+                    <br />
+                    <br />
+                    <h2 className="purple-text text-center">
+                      <strong>SUCCESS !</strong>
+                    </h2>{" "}
+                    <br />
                     <div className="row justify-content-center">
-                      <div className="col-3"> <img src="https://i.imgur.com/GwStPmg.png" className="fit-image" /> </div>
-                    </div> <br /><br />
+                      <div className="col-3">
+                        {" "}
+                        <img
+                          src="https://i.imgur.com/GwStPmg.png"
+                          className="fit-image"
+                        />{" "}
+                      </div>
+                    </div>{" "}
+                    <br />
+                    <br />
                     <div className="row justify-content-center">
                       <div className="col-7 text-center">
-                        <h5 className="purple-text text-center">You Have Successfully Profile</h5>
+                        <h5 className="purple-text text-center">
+                          You Have Successfully Profile
+                        </h5>
                       </div>
                     </div>
                   </div>
@@ -260,11 +449,8 @@ function Profile_create() {
           </div>
         </div>
       </div>
-
-
-
     </div>
-  )
+  );
 }
 
-export default Profile_create
+export default Profile_create;
