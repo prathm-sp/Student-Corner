@@ -76,4 +76,7 @@ const classSchema = Schema({
   },
 });
 
+
+// classSchema.pre("")
+
 module.exports = model("Class", classSchema);
