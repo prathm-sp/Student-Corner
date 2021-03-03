@@ -19,15 +19,14 @@ app.get("/all", verifyaccesstoken, async (req, res, next) => {
 app.post("/apply/:classid", verifyaccesstoken, role.checkRole(role.ROLES.Applicant), async (req, res, next) => {
 	try {
 		let clas = await Class.findById(req.params.classid);
-        console.log('printing class',clas)
 		if (!clas) throw new Error("enter valid class id");
-       
-        // const query ={$and:[{classid:req.params.classid },{ applicantid:req.payload.id}]}
-		// const find = await ClassApplication.find($and[({ classid: req.params.classid }, { applicantid: req.payload.id })]);
-        // const find = await ClassApplication.find(query);
-        const find = await ClassApplication.find({classid:req.params.classid,applicantid:req.payload.id});
-        console.log("find---",find)   
-        if (!find) {
+
+		let query = {
+			$and: [{ classid: req.params.id }, { applicantid: req.payload.id }],
+		};
+
+		const find = await ClassApplication.findOne(query);
+		if (!find) {
 			const newapplication = new ClassApplication({
 				classid: req.params.classid,
 				applicantid: req.payload.id,
@@ -35,7 +34,7 @@ app.post("/apply/:classid", verifyaccesstoken, role.checkRole(role.ROLES.Applica
 			});
 			res.status(201).send({ status: newapplication.status });
 		} else {
-			const cancellapplication = await ClassApplication.findOneAndDelete({$and:[({ classid: req.params.classid }, { applicantid: req.payload.id })]});
+			const cancellapplication = await ClassApplication.findOneAndDelete(query);
 			res.status(201).send({ status: "Apply" });
 		}
 		res.status(201).send();
@@ -58,11 +57,11 @@ app.get("/:id", verifyaccesstoken, async (req, res, next) => {
 	try {
 		const specificclass = await Class.findById(req.params.id);
 		if (!specificclass) res.status(400).send("enter valid id");
-
-		// let query ={$and:[{price:{$gte:lowervalue}},{price:{$lte:uppervalue}}]}
 		let query = {
 			$and: [{ classid: req.params.id }, { applicantid: req.payload.id }],
 		};
+		// let query ={$and:[{price:{$gte:lowervalue}},{price:{$lte:uppervalue}}]}
+
 		const subscribed = await ClassApplication.findOne(query);
 
 		if (!subscribed) res.status(200).send({ class: specificclass, subscribed: "Apply" });
@@ -90,7 +89,7 @@ app.post("/", verifyaccesstoken, role.checkRole(role.ROLES.Recruiter), async (re
 		const { classname, category, address, city, fees, duration, vacancy, firstname, lastname } = req.body;
 		console.log(req.payload);
 		req.body.classowner = req.payload.id;
-		console.log("---------",req.body);
+		console.log("---------", req.body);
 		if (!classname || !category || !address || !city || !fees || !duration || !vacancy || !firstname || !lastname) throw new Error("enter all the details");
 
 		// const path = req.file.path
@@ -98,7 +97,7 @@ app.post("/", verifyaccesstoken, role.checkRole(role.ROLES.Recruiter), async (re
 		// req.body.image = resulturl.url;
 
 		const clas = new Class(req.body);
-        await  clas.save();
+		await clas.save();
 		//console.log(req.body)
 		// req.body.image = resulturl.url;
 		res.status(201).send({ clas: clas });
@@ -119,7 +118,7 @@ app.post("/", verifyaccesstoken, role.checkRole(role.ROLES.Recruiter), async (re
 app.post("/:classid/image", verifyaccesstoken, role.checkRole(role.ROLES.Recruiter), upload.single("image"), configcloud, async (req, res, next) => {
 	try {
 		const clas = await Class.findById(req.params.classid);
-		let clas2 = await Class.find({_id: req.params.classid});
+		let clas2 = await Class.find({ _id: req.params.classid });
 		console.log(`----------------------------------------------------------${clas}`);
 		console.log(`----------------------------------------------------------${clas2}`);
 		if (!clas) throw new Error("enter valid class id");
