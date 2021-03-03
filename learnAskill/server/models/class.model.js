@@ -1,13 +1,13 @@
 const { Schema, model } = require("mongoose");
 
 const classSchema = Schema({
-  firstname:{
+  firstname: {
     type: String,
-    required:true
+    required: true,
   },
-  lastname:{
+  lastname: {
     type: String,
-    required:true
+    required: true,
   },
   classowner: {
     type: Schema.Types.ObjectId,
@@ -61,8 +61,8 @@ const classSchema = Schema({
   },
   vacancy: {
     type: Number,
-    min: [1,"enter minimum vacancy 1"],
-    max: [10,"enter max vacancy of 10"]
+    min: [1, "enter minimum vacancy 1"],
+    max: [10, "enter max vacancy of 10"],
   },
   classinformation: {
     type: String,
@@ -74,7 +74,7 @@ const classSchema = Schema({
   },
   skills: {
     type: String,
-  }
+  },
 });
 
 module.exports = model("Class", classSchema);
