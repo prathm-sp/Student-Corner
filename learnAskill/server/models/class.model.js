@@ -15,7 +15,7 @@ const classSchema = Schema({
   },
   image: {
     type: String,
-    required: true,
+    required: true
   },
   activites: {
     type: String,
@@ -28,7 +28,7 @@ const classSchema = Schema({
       "Cooking",
       "Performance",
       "Programming",
-    ],
+    ]
   },
   category: {
     type: String,
@@ -41,7 +41,7 @@ const classSchema = Schema({
   },
   classname: {
     type: String,
-    required: true,
+    required: true
   },
   address: {
     type: String,
@@ -57,7 +57,7 @@ const classSchema = Schema({
   },
   duration: {
     type: Number,
-    required: true,
+    required: true
   },
   vacancy: {
     type: Number,

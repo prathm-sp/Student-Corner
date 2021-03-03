@@ -120,7 +120,4 @@ app.delete('/:id',verifyaccesstoken,async(req,res,next)=>{
     }
 })
 
-
-
-
 module.exports = app;
