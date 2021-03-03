@@ -6,5 +6,19 @@ const classapplication = new Schema({
         type: Schema.Types.ObjectId,
         ref: "Class",
     },
-    
-})
+    applicantid:{
+        type: Schema.Types.ObjectId,
+        ref: "Applicant",
+    },
+    recruiterid:{
+        type: Schema.Types.ObjectId,
+        ref: "Recruiter",
+    },
+    status:{
+        type:String,
+        enum:["Applied","Confirmed","Rejected"],
+        default:"Applied"
+    }
+});
+
+module.exports = model('Classapplication',classapplication);

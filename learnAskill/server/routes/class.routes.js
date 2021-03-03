@@ -79,8 +79,13 @@ app.get('/my',verifyaccesstoken,async(req,res,next)=>{
 });
 
 // creating a class
-app.post('/',verifyaccesstoken,upload.single('image'),configcloud,async(req,res,next)=>{
+// app.post('/',verifyaccesstoken,upload.single('image'),configcloud,async(req,res,next)=>{
+
+app.post('/',verifyaccesstoken,role.checkRole(role.ROLES.Recruiter), async(req,res,next)=>{
+
     try {
+        
+        console.log(req.body)
         const{classname,category,address,city,fees,duration,vacancy,firstname,lastname} = req.body;
         console.log(req.payload);
         req.body.classowner = req.payload.id;
@@ -88,11 +93,9 @@ app.post('/',verifyaccesstoken,upload.single('image'),configcloud,async(req,res,
         if(!classname||!category||!address||!city||!fees||!duration||!vacancy||!firstname||!lastname)
         throw new Error("enter all the details");
         
-        if(!req.file)
-        throw new Error("enter the photo to");
-        const path = req.file.path
-        const resulturl = await uploadtocloud(path);
-        req.body.image = resulturl.url;
+        // const path = req.file.path
+        // const resulturl = await uploadtocloud(path);
+        // req.body.image = resulturl.url;
 
         const clas = new Class(req.body);
 
@@ -100,13 +103,36 @@ app.post('/',verifyaccesstoken,upload.single('image'),configcloud,async(req,res,
 
         //console.log(req.body)
         // req.body.image = resulturl.url;
-        res.status(201).send({image:resulturl.url,clas:clas})
+        res.status(201).send({clas:clas});
         
     } catch (error) {
         next(error)
     }
         
 });
+//upload image 
+app.post('/:classid/image',verifyaccesstoken,role.checkRole(role.ROLES.Recruiter),upload.single('image'),configcloud,async(req,res,next)=>{
+
+    try {
+        const clas = await Class.findById(req.params.classid);
+        if(!clas) throw new Error("enter valid class id");
+         if(!req.file) throw new Error("enter image");
+
+          const path = req.file.path
+         const resulturl = await uploadtocloud(path);
+        //  req.body.image = resulturl.url;
+        clas.image = resulturl.url;
+
+       const clas1 = await clas.save()
+       res.status(201).send({class:clas1});
+
+         
+
+        
+    } catch (error) {
+        next(error);
+    }
+}
 
 //deleting a class by id
 app.delete('/:id',verifyaccesstoken,async(req,res,next)=>{

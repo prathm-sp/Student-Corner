@@ -11,11 +11,10 @@ const classSchema = Schema({
   },
   classowner: {
     type: Schema.Types.ObjectId,
-    ref: "Recruiter",
+    ref: "Recruiter"
   },
   image: {
-    type: String,
-    required: true
+    type: String
   },
   activites: {
     type: String,
@@ -37,7 +36,7 @@ const classSchema = Schema({
   classtype: {
     type: String,
     required: true,
-    enum: ["Fulltime", "Parttime", "Remote"],
+    enum: ["Fulltime","Parttime","Remote"]
   },
   classname: {
     type: String,
