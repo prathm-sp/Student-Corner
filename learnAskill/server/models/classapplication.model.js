@@ -4,15 +4,15 @@ const classapplication = new Schema({
 
     classid:{
         type: Schema.Types.ObjectId,
-        ref: "Class",
+        ref: "Class"
     },
     applicantid:{
         type: Schema.Types.ObjectId,
-        ref: "Applicant",
+        ref: "Applicant"
     },
     recruiterid:{
         type: Schema.Types.ObjectId,
-        ref: "Recruiter",
+        ref: "Recruiter"
     },
     status:{
         type:String,

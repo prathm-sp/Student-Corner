@@ -4,6 +4,7 @@ const { verifyaccesstoken } = require("./../helpers/jwt.helpers");
 const { upload } = require("./../helpers/multer");
 const { configcloud, uploadtocloud } = require("./../helpers/cloudinary");
 const Class = require("./../models/class.model");
+const ClassApplication = require("./../models/classapplication.model");
 const role = require("./../helpers/role");
 //all the classes
 
@@ -18,10 +19,15 @@ app.get("/all", verifyaccesstoken, async (req, res, next) => {
 app.post("/apply/:classid", verifyaccesstoken, role.checkRole(role.ROLES.Applicant), async (req, res, next) => {
 	try {
 		let clas = await Class.findById(req.params.classid);
+        console.log('printing class',clas)
 		if (!clas) throw new Error("enter valid class id");
-
-		const find = await ClassApplication($and[({ classid: req.params.classid }, { applicantid: req.payload.id })]);
-		if (!find) {
+       
+        // const query ={$and:[{classid:req.params.classid },{ applicantid:req.payload.id}]}
+		// const find = await ClassApplication.find($and[({ classid: req.params.classid }, { applicantid: req.payload.id })]);
+        // const find = await ClassApplication.find(query);
+        const find = await ClassApplication.find({classid:req.params.classid,applicantid:req.payload.id});
+        console.log("find---",find)   
+        if (!find) {
 			const newapplication = new ClassApplication({
 				classid: req.params.classid,
 				applicantid: req.payload.id,
@@ -29,7 +35,7 @@ app.post("/apply/:classid", verifyaccesstoken, role.checkRole(role.ROLES.Applica
 			});
 			res.status(201).send({ status: newapplication.status });
 		} else {
-			const cancellapplication = await ClassApplication.findOneAndDelete($and[({ classid: req.params.classid }, { applicantid: req.payload.id })]);
+			const cancellapplication = await ClassApplication.findOneAndDelete({$and:[({ classid: req.params.classid }, { applicantid: req.payload.id })]});
 			res.status(201).send({ status: "Apply" });
 		}
 		res.status(201).send();
