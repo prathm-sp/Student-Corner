@@ -1,6 +1,14 @@
 const { Schema, model } = require("mongoose");
 
 const classSchema = Schema({
+  firstname:{
+    type: String,
+    required:true
+  },
+  lastname:{
+    type: String,
+    required:true
+  },
   classowner: {
     type: Schema.Types.ObjectId,
     ref: "Recruiter",

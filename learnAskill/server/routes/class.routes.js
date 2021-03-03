@@ -4,6 +4,7 @@ const {verifyaccesstoken} = require("./../helpers/jwt.helpers")
 const {upload} =require('./../helpers/multer'); 
 const {configcloud,uploadtocloud} = require('./../helpers/cloudinary');
 const Class = require("./../models/class.model")
+const role = require("./../helpers/role")
 //all the classes 
 app.get('/all',verifyaccesstoken,async(req,res,next) => {
     try {
@@ -50,19 +51,14 @@ app.get('/:id',verifyaccesstoken,async(req,res,next)=>{
 try {
     const specificclass = await Class.findById(req.params.id);
     if(!specificclass) res.status(400).send("enter valid id");
-<<<<<<< HEAD
     // let query ={$and:[{price:{$gte:lowervalue}},{price:{$lte:uppervalue}}]}
     let query = {$and:[{classid:req.params.id},{applicantid:req.payload.id}]}
     const subscribed = await ClassApplication.findOne(query);
 
      if(!subscribed) 
     res.status(200).send({class:specificclass,subscribed:"Apply"});
-
+    else
     res.status(200).send({class:specificclass,subscribed:subscribed.status});    
-=======
-     
-    //res.status(200).send({class:specificclass,subscribed:});
->>>>>>> 5c5b96f71780c901d98020fb8396d5134849bbbe
 
     
 } catch (error) {
@@ -84,11 +80,11 @@ app.get('/my',verifyaccesstoken,async(req,res,next)=>{
 // creating a class
 app.post('/',verifyaccesstoken,upload.single('image'),configcloud,async(req,res,next)=>{
     try {
-        const{classname,category,address,city,fees,duration,vacancy} = req.body;
+        const{classname,category,address,city,fees,duration,vacancy,firstname,lastname} = req.body;
         console.log(req.payload);
         req.body.classowner = req.payload.id;
         console.log(req.body);
-        if(!classname||!category||!address||!city||!fees||!duration||!vacancy)
+        if(!classname||!category||!address||!city||!fees||!duration||!vacancy||!firstname||!lastname)
         throw new Error("enter all the details");
         
         if(!req.file)
