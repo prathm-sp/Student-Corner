@@ -51,6 +51,7 @@ app.get('/:id',verifyaccesstoken,async(req,res,next)=>{
 try {
     const specificclass = await Class.findById(req.params.id);
     if(!specificclass) res.status(400).send("enter valid id");
+
     // let query ={$and:[{price:{$gte:lowervalue}},{price:{$lte:uppervalue}}]}
     let query = {$and:[{classid:req.params.id},{applicantid:req.payload.id}]}
     const subscribed = await ClassApplication.findOne(query);
