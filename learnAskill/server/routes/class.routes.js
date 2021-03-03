@@ -25,7 +25,7 @@ app.post(
       if (!clas) throw new Error("enter valid class id");
 
       const find = await ClassApplication(
-        $and[({ classid: req.params.classid }, { applicantid: req.payload.id })]
+        $and[({ classid: req.params.classid },{ applicantid: req.payload.id })]
       );
       if (!find) {
         const newapplication = new ClassApplication({
