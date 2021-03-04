@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Profile_create.css";
 import $ from "jquery";
 import axios from "../axios";
@@ -7,13 +7,55 @@ import { useHistory } from "react-router-dom";
 toast.configure();
 
 function Profile_create() {
+  const [res, setres] = useState(false);
+  let token = localStorage.getItem("token");
+
+  useEffect(() => {
+    if (res) {
+      axios
+        .post("/class", data, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((res) => {
+          console.log(res);
+          localStorage.setItem("classId", res.data.clas._id);
+          const imgData = new FormData();
+          imgData.append("image", file);
+          let id = localStorage.getItem("classId");
+          console.log(token);
+          axios
+            .post(`/class/${id}/image`, imgData, {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            })
+            .then((res) => {
+              console.log(res);
+              toast(`Class Created Successfully`, {
+                position: toast.POSITION.TOP_CENTER,
+                autoClose: 3000,
+              });
+            })
+            .catch((err) => {
+              console.log(err.response);
+            });
+        })
+
+        .catch((err) => {
+          console.log(err.response);
+        });
+    } else {
+      return null;
+    }
+  }, [res]);
   const [data, setData] = useState();
   const [classes, setClass] = useState();
   const history = useHistory();
 
-  let token = localStorage.getItem("token");
-
   const handleChange = (e) => {
+    console.log(e.target.value, e.target.name);
     setData((prevState) => ({
       ...prevState,
       [e.target.name]: e.target.value,
@@ -42,18 +84,7 @@ function Profile_create() {
     if (this.name == "next image") {
       console.log("image");
       console.log(data);
-      axios
-        .post("/class", data, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        })
-        .then((res) => {
-          console.log(res);
-        })
-        .catch((err) => {
-          console.log(err.response);
-        });
+      setres(true);
     } else {
       current_fs = $(this).parent();
       next_fs = $(this).parent().next();
@@ -281,12 +312,12 @@ function Profile_create() {
                       <option value="Parttime">Part Time</option>
                       <option value="Remote">Remote</option>
                     </select>
-                    <label className="fieldlabels">Class Fess: *</label>{" "}
+                    <label className="fieldlabels">Class Fees: *</label>{" "}
                     <input
                       type="number"
                       onChange={handleChange}
                       name="fees"
-                      placeholder="Class Fess"
+                      placeholder="Class Fees"
                     />
                     <label className="fieldlabels"> class Duration: *</label>
                     <select
