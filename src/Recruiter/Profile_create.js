@@ -28,155 +28,39 @@ function Profile_create() {
       return null;
     }
   }
+  var current_fs, next_fs, previous_fs; //fieldsets
+  var opacity;
+  var current = 1;
+  var steps = $("fieldset").length;
 
-  $(document).ready(function () {
-    var current_fs, next_fs, previous_fs; //fieldsets
-    var opacity;
-    var current = 1;
-    var steps = $("fieldset").length;
+  setProgressBar(current);
 
-    setProgressBar(current);
-
-    $(".next").click(function () {
-      if (this.name == "next data") {
-        axios
-          .post("/class", data, {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          })
-          .then((res) => {
-            setClass(res.data.clas);
-            localStorage.setItem("classId", res.data.clas._id);
-            current_fs = $(this).parent();
-            next_fs = $(this).parent().next();
-            //Add Class Active
-            $("#progressbar li")
-              .eq($("fieldset").index(next_fs))
-              .addClass("active");
-            //show the next fieldset
-            next_fs.show();
-            //hide the current fieldset with style
-            current_fs.animate(
-              { opacity: 0 },
-              {
-                step: function (now) {
-                  // for making fielset appear animation
-                  opacity = 1 - now;
-                  current_fs.css({
-                    display: "none",
-                    position: "relative",
-                  });
-                  next_fs.css({ opacity: opacity });
-                },
-                duration: 500,
-              }
-            );
-            setProgressBar(++current);
-          })
-          .catch((err) => {
-            if (err.response.data == "jwt token expired") {
-              // alert("please login");
-
-              toast(`Please Login again`, {
-                position: toast.POSITION.TOP_CENTER,
-                autoClose: 3000,
-              });
-              history.push("/Recruiter_Home_page");
-            }
-            return 0;
-          });
-      } else if (this.name == "next image") {
-        const imgData = new FormData();
-        imgData.append("image", file);
-        let id = localStorage.getItem("classId");
-        axios
-          .post(`class/${id}/image`, imgData, {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          })
-          .then((res) => {
-            current_fs = $(this).parent();
-            next_fs = $(this).parent().next();
-
-            //Add Class Active
-            $("#progressbar li")
-              .eq($("fieldset").index(next_fs))
-              .addClass("active");
-            //show the next fieldset
-            next_fs.show();
-            //hide the current fieldset with style
-            current_fs.animate(
-              { opacity: 0 },
-              {
-                step: function (now) {
-                  // for making fielset appear animation
-                  opacity = 1 - now;
-
-                  current_fs.css({
-                    display: "none",
-                    position: "relative",
-                  });
-                  next_fs.css({ opacity: opacity });
-                },
-                duration: 500,
-              }
-            );
-            setProgressBar(++current);
-          })
-          .catch((err) => {
-            if (err.response.data == "jwt token expired") {
-              // alert("please login");
-              toast(`Please Login again`, {
-                position: toast.POSITION.TOP_CENTER,
-                autoClose: 3000,
-              });
-            }
-          });
-      } else if (this.name == "next") {
-        current_fs = $(this).parent();
-        next_fs = $(this).parent().next();
-
-        //Add Class Active
-        $("#progressbar li")
-          .eq($("fieldset").index(next_fs))
-          .addClass("active");
-        //show the next fieldset
-        next_fs.show();
-        //hide the current fieldset with style
-        current_fs.animate(
-          { opacity: 0 },
-          {
-            step: function (now) {
-              // for making fielset appear animation
-              opacity = 1 - now;
-
-              current_fs.css({
-                display: "none",
-                position: "relative",
-              });
-              next_fs.css({ opacity: opacity });
-            },
-            duration: 500,
-          }
-        );
-        setProgressBar(++current);
-      }
-    });
-
-    $(".previous").click(function () {
+  $(".next").click(function () {
+    // const imgData = new FormData();
+    // imgData.append("image", file);
+    // let id = localStorage.getItem("classId");
+    if (this.name == "next image") {
+      console.log("image");
+      console.log(data);
+      axios
+        .post("/class", data, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((err) => {
+          console.log(err.response);
+        });
+    } else {
       current_fs = $(this).parent();
-      previous_fs = $(this).parent().prev();
-
-      //Remove class active
-      $("#progressbar li")
-        .eq($("fieldset").index(current_fs))
-        .removeClass("active");
-
-      //show the previous fieldset
-      previous_fs.show();
-
+      next_fs = $(this).parent().next();
+      //Add Class Active
+      $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
+      //show the next fieldset
+      next_fs.show();
       //hide the current fieldset with style
       current_fs.animate(
         { opacity: 0 },
@@ -184,28 +68,59 @@ function Profile_create() {
           step: function (now) {
             // for making fielset appear animation
             opacity = 1 - now;
-
             current_fs.css({
               display: "none",
               position: "relative",
             });
-            previous_fs.css({ opacity: opacity });
+            next_fs.css({ opacity: opacity });
           },
           duration: 500,
         }
       );
-      setProgressBar(--current);
-    });
-
-    function setProgressBar(curStep) {
-      var percent = parseFloat(100 / steps) * curStep;
-      percent = percent.toFixed();
-      $(".progress-bar").css("width", percent + "%");
+      setProgressBar(++current);
     }
+  });
 
-    $(".submit").click(function () {
-      return false;
-    });
+  $(".previous").click(function () {
+    current_fs = $(this).parent();
+    previous_fs = $(this).parent().prev();
+
+    //Remove class active
+    $("#progressbar li")
+      .eq($("fieldset").index(current_fs))
+      .removeClass("active");
+
+    //show the previous fieldset
+    previous_fs.show();
+
+    //hide the current fieldset with style
+    current_fs.animate(
+      { opacity: 0 },
+      {
+        step: function (now) {
+          // for making fielset appear animation
+          opacity = 1 - now;
+
+          current_fs.css({
+            display: "none",
+            position: "relative",
+          });
+          previous_fs.css({ opacity: opacity });
+        },
+        duration: 500,
+      }
+    );
+    setProgressBar(--current);
+  });
+
+  function setProgressBar(curStep) {
+    var percent = parseFloat(100 / steps) * curStep;
+    percent = percent.toFixed();
+    $(".progress-bar").css("width", percent + "%");
+  }
+
+  $(".submit").click(function () {
+    return false;
   });
 
   return (
@@ -271,6 +186,9 @@ function Profile_create() {
                     name="next"
                     className="next action-button"
                     defaultValue="Next"
+                    // onClick={() => {
+                    //   handleSubmit("1");
+                    // }}
                   />
                 </fieldset>
                 <fieldset>
@@ -442,7 +360,7 @@ function Profile_create() {
                         ></textarea>
                       </div>
                     </div>
-                  </div>{" "}
+                  </div>
                   <input
                     type="button"
                     name="next data"
