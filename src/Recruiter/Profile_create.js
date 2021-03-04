@@ -8,7 +8,14 @@ toast.configure();
 
 function Profile_create() {
   const [res, setres] = useState(false);
+  var [dtl, setdtl] = useState();
   let token = localStorage.getItem("token");
+  var current_fs, next_fs, previous_fs; //fieldsets
+  var opacity;
+  var current = 1;
+  var steps = $("fieldset").length;
+
+  setProgressBar(current);
 
   useEffect(() => {
     if (res) {
@@ -31,12 +38,31 @@ function Profile_create() {
                 Authorization: `Bearer ${token}`,
               },
             })
-            .then((res) => {
-              console.log(res);
-              toast(`Class Created Successfully`, {
-                position: toast.POSITION.TOP_CENTER,
-                autoClose: 3000,
-              });
+            .then(function (res) {
+              current_fs = $(dtl).parent();
+              next_fs = $(dtl).parent().next();
+              //Add Class Active
+              $("#progressbar li")
+                .eq($("fieldset").index(next_fs))
+                .addClass("active");
+              //show the next fieldset
+              next_fs.show();
+              //hide the current fieldset with style
+              current_fs.animate(
+                { opacity: 0 },
+                {
+                  step: function (now) {
+                    // for making fielset appear animation
+                    opacity = 1 - now;
+                    current_fs.css({
+                      display: "none",
+                      position: "relative",
+                    });
+                    next_fs.css({ opacity: opacity });
+                  },
+                  duration: 500,
+                }
+              );
             })
             .catch((err) => {
               console.log(err.response);
@@ -52,6 +78,7 @@ function Profile_create() {
   }, [res]);
   const [data, setData] = useState();
   const [classes, setClass] = useState();
+  var cnt = 25;
   const history = useHistory();
 
   const handleChange = (e) => {
@@ -70,18 +97,13 @@ function Profile_create() {
       return null;
     }
   }
-  var current_fs, next_fs, previous_fs; //fieldsets
-  var opacity;
-  var current = 1;
-  var steps = $("fieldset").length;
-
-  setProgressBar(current);
 
   $(".next").click(function () {
     // const imgData = new FormData();
     // imgData.append("image", file);
     // let id = localStorage.getItem("classId");
     if (this.name == "next image") {
+      setdtl(this);
       console.log("image");
       console.log(data);
       setres(true);
@@ -108,7 +130,7 @@ function Profile_create() {
           duration: 500,
         }
       );
-      setProgressBar(++current);
+      setProgressBar("+");
     }
   });
 
@@ -141,13 +163,17 @@ function Profile_create() {
         duration: 500,
       }
     );
-    setProgressBar(--current);
+    setProgressBar("-");
   });
 
   function setProgressBar(curStep) {
-    var percent = parseFloat(100 / steps) * curStep;
-    percent = percent.toFixed();
-    $(".progress-bar").css("width", percent + "%");
+    if (curStep == "+") {
+      console.log(cnt);
+      cnt = cnt + 25;
+      $(".progress-bar").css("width", cnt, "%");
+    } else if (curStep == "-") {
+      $(".progress-bar").css("width", 25 - "%");
+    }
   }
 
   $(".submit").click(function () {
@@ -178,14 +204,14 @@ function Profile_create() {
                     <strong>Finish</strong>
                   </li>
                 </ul>
-                <div className="progress">
+                {/* <div className="progress">
                   <div
                     className="progress-bar progress-bar-striped progress-bar-animated"
                     role="progressbar"
                     aria-valuemin={0}
                     aria-valuemax={100}
                   />
-                </div>{" "}
+                </div>{" "} */}
                 <br /> {/* fieldsets */}
                 <fieldset>
                   <div className="form-card">
