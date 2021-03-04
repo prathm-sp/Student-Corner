@@ -14,7 +14,6 @@ function Profile_create() {
   let token = localStorage.getItem("token");
 
   const handleChange = (e) => {
-    console.log(e.target.value);
     setData((prevState) => ({
       ...prevState,
       [e.target.name]: e.target.value,
@@ -24,7 +23,6 @@ function Profile_create() {
 
   async function onImageChange(event) {
     try {
-      console.log(event.target.files[0]);
       setFile(event.target.files[0]);
     } catch (error) {
       return null;
@@ -40,7 +38,6 @@ function Profile_create() {
     setProgressBar(current);
 
     $(".next").click(function () {
-      console.log(this.name);
       if (this.name == "next data") {
         axios
           .post("/class", data, {
@@ -49,7 +46,6 @@ function Profile_create() {
             },
           })
           .then((res) => {
-            console.log(res);
             setClass(res.data.clas);
             localStorage.setItem("classId", res.data.clas._id);
             current_fs = $(this).parent();
@@ -79,7 +75,6 @@ function Profile_create() {
             setProgressBar(++current);
           })
           .catch((err) => {
-            console.log(err.response);
             if (err.response.data == "jwt token expired") {
               // alert("please login");
 
@@ -92,12 +87,9 @@ function Profile_create() {
             return 0;
           });
       } else if (this.name == "next image") {
-        console.log("coming");
-        console.log(classes);
         const imgData = new FormData();
         imgData.append("image", file);
         let id = localStorage.getItem("classId");
-        console.log(id);
         axios
           .post(`class/${id}/image`, imgData, {
             headers: {
@@ -105,7 +97,6 @@ function Profile_create() {
             },
           })
           .then((res) => {
-            console.log(res);
             current_fs = $(this).parent();
             next_fs = $(this).parent().next();
 
@@ -135,7 +126,6 @@ function Profile_create() {
             setProgressBar(++current);
           })
           .catch((err) => {
-            console.log(err.response);
             if (err.response.data == "jwt token expired") {
               // alert("please login");
               toast(`Please Login again`, {
@@ -145,7 +135,6 @@ function Profile_create() {
             }
           });
       } else if (this.name == "next") {
-        console.log("coming here");
         current_fs = $(this).parent();
         next_fs = $(this).parent().next();
 
@@ -219,39 +208,6 @@ function Profile_create() {
     });
   });
 
-  console.log(file);
-
-  const handleDataSubmit = async (event) => {
-    event.preventDefault();
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const data1 = file;
-    console.log(data1);
-    const data4 = new FormData();
-    data4.append("image", file);
-    // data1.append("file", file);
-    let token = localStorage.getItem("token");
-    if (!token) alert("You are not authorized");
-    setData((prevState) => ({
-      ...prevState,
-      image: data4,
-    }));
-    axios
-      .post("/class/prat/uppload", data4, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => {
-        console.log(err.response);
-      });
-  };
-  console.log(data);
   return (
     <div>
       <div className="container-fluid mt-100">
