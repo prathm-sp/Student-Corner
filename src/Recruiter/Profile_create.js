@@ -2,8 +2,35 @@ import React, { useState } from "react";
 import "./Profile_create.css";
 import $ from "jquery";
 import axios from "../axios";
+import { toast } from "react-toastify";
+import { useHistory } from "react-router-dom";
+toast.configure();
 
 function Profile_create() {
+  const [data, setData] = useState();
+  const [classes, setClass] = useState();
+  const history = useHistory();
+
+  let token = localStorage.getItem("token");
+
+  const handleChange = (e) => {
+    console.log(e.target.value);
+    setData((prevState) => ({
+      ...prevState,
+      [e.target.name]: e.target.value,
+    }));
+  };
+  var [file, setFile] = useState(null);
+
+  async function onImageChange(event) {
+    try {
+      console.log(event.target.files[0]);
+      setFile(event.target.files[0]);
+    } catch (error) {
+      return null;
+    }
+  }
+
   $(document).ready(function () {
     var current_fs, next_fs, previous_fs; //fieldsets
     var opacity;
@@ -13,32 +40,140 @@ function Profile_create() {
     setProgressBar(current);
 
     $(".next").click(function () {
-      current_fs = $(this).parent();
-      next_fs = $(this).parent().next();
+      console.log(this.name);
+      if (this.name == "next data") {
+        axios
+          .post("/class", data, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          })
+          .then((res) => {
+            console.log(res);
+            setClass(res.data.clas);
+            localStorage.setItem("classId", res.data.clas._id);
+            current_fs = $(this).parent();
+            next_fs = $(this).parent().next();
+            //Add Class Active
+            $("#progressbar li")
+              .eq($("fieldset").index(next_fs))
+              .addClass("active");
+            //show the next fieldset
+            next_fs.show();
+            //hide the current fieldset with style
+            current_fs.animate(
+              { opacity: 0 },
+              {
+                step: function (now) {
+                  // for making fielset appear animation
+                  opacity = 1 - now;
+                  current_fs.css({
+                    display: "none",
+                    position: "relative",
+                  });
+                  next_fs.css({ opacity: opacity });
+                },
+                duration: 500,
+              }
+            );
+            setProgressBar(++current);
+          })
+          .catch((err) => {
+            console.log(err.response);
+            if (err.response.data == "jwt token expired") {
+              // alert("please login");
 
-      //Add Class Active
-      $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
+              toast(`Please Login again`, {
+                position: toast.POSITION.TOP_CENTER,
+                autoClose: 3000,
+              });
+              history.push("/Recruiter_Home_page");
+            }
+            return 0;
+          });
+      } else if (this.name == "next image") {
+        console.log("coming");
+        console.log(classes);
+        const imgData = new FormData();
+        imgData.append("image", file);
+        let id = localStorage.getItem("classId");
+        console.log(id);
+        axios
+          .post(`class/${id}/image`, imgData, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          })
+          .then((res) => {
+            console.log(res);
+            current_fs = $(this).parent();
+            next_fs = $(this).parent().next();
 
-      //show the next fieldset
-      next_fs.show();
-      //hide the current fieldset with style
-      current_fs.animate(
-        { opacity: 0 },
-        {
-          step: function (now) {
-            // for making fielset appear animation
-            opacity = 1 - now;
+            //Add Class Active
+            $("#progressbar li")
+              .eq($("fieldset").index(next_fs))
+              .addClass("active");
+            //show the next fieldset
+            next_fs.show();
+            //hide the current fieldset with style
+            current_fs.animate(
+              { opacity: 0 },
+              {
+                step: function (now) {
+                  // for making fielset appear animation
+                  opacity = 1 - now;
 
-            current_fs.css({
-              display: "none",
-              position: "relative",
-            });
-            next_fs.css({ opacity: opacity });
-          },
-          duration: 500,
-        }
-      );
-      setProgressBar(++current);
+                  current_fs.css({
+                    display: "none",
+                    position: "relative",
+                  });
+                  next_fs.css({ opacity: opacity });
+                },
+                duration: 500,
+              }
+            );
+            setProgressBar(++current);
+          })
+          .catch((err) => {
+            console.log(err.response);
+            if (err.response.data == "jwt token expired") {
+              // alert("please login");
+              toast(`Please Login again`, {
+                position: toast.POSITION.TOP_CENTER,
+                autoClose: 3000,
+              });
+            }
+          });
+      } else if (this.name == "next") {
+        console.log("coming here");
+        current_fs = $(this).parent();
+        next_fs = $(this).parent().next();
+
+        //Add Class Active
+        $("#progressbar li")
+          .eq($("fieldset").index(next_fs))
+          .addClass("active");
+        //show the next fieldset
+        next_fs.show();
+        //hide the current fieldset with style
+        current_fs.animate(
+          { opacity: 0 },
+          {
+            step: function (now) {
+              // for making fielset appear animation
+              opacity = 1 - now;
+
+              current_fs.css({
+                display: "none",
+                position: "relative",
+              });
+              next_fs.css({ opacity: opacity });
+            },
+            duration: 500,
+          }
+        );
+        setProgressBar(++current);
+      }
     });
 
     $(".previous").click(function () {
@@ -84,27 +219,11 @@ function Profile_create() {
     });
   });
 
-  const [data, setData] = useState();
-
-  const handleChange = (e) => {
-    console.log(e.target.value);
-    setData((prevState) => ({
-      ...prevState,
-      [e.target.name]: e.target.value,
-    }));
-  };
-  var [file, setFile] = useState(null);
-
-  async function onImageChange(event) {
-    try {
-      console.log(event.target.files[0]);
-      setFile(event.target.files[0]);
-    } catch (error) {
-      return null;
-    }
-  }
-
   console.log(file);
+
+  const handleDataSubmit = async (event) => {
+    event.preventDefault();
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -211,12 +330,12 @@ function Profile_create() {
                     <label className="fieldlabels">Activities Name: *</label>
                     <select
                       class="custom-select select mb-3"
-                      name="activities"
+                      name="activites"
                       onChange={handleChange}
                     >
                       <option selected> Select Activities</option>
                       <option value="Sport">Sport</option>
-                      <option value="Programing">Programing</option>
+                      <option value="Programming">Programming</option>
                       <option value="Technical">Technical</option>
                       <option value="Cenimatics">Cenimatics</option>
                       <option value="Hospital">Hospital</option>
@@ -370,7 +489,7 @@ function Profile_create() {
                   </div>{" "}
                   <input
                     type="button"
-                    name="next"
+                    name="next data"
                     className="next action-button"
                     defaultValue="Next"
                   />{" "}
@@ -393,11 +512,10 @@ function Profile_create() {
                     </div>
                     <label className="fieldlabels">Upload Your Photo:</label>
                     <input type="file" name="image" onChange={onImageChange} />
-                    <button onClick={handleSubmit}>submit</button>
                   </div>{" "}
                   <input
                     type="button"
-                    name="next"
+                    name="next image"
                     className="next action-button"
                     defaultValue="Submit"
                   />{" "}
@@ -438,7 +556,7 @@ function Profile_create() {
                     <div className="row justify-content-center">
                       <div className="col-7 text-center">
                         <h5 className="purple-text text-center">
-                          You Have Successfully Profile
+                          You Have Successfully Created Profile
                         </h5>
                       </div>
                     </div>
