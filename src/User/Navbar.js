@@ -13,7 +13,6 @@ function Navbar(props) {
   const history = useHistory();
   const [data, setData] = useState();
   const [user, setUser] = useState("");
-  console.log(props.user);
 
   const handleChange_logout = () => {
     localStorage.clear();
@@ -24,22 +23,17 @@ function Navbar(props) {
     setData((prevState) => {
       return { ...prevState, [e.target.name]: e.target.value };
     });
-    console.log(data);
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(data);
     Axios.post("/auth/signin/applicant", data)
       .then((res) => {
-        console.log(res.data);
         localStorage.setItem("token", res.data.token);
         localStorage.setItem("user", res.data.user.email);
         props.setuser(res.data.user.email);
         setUser(res.data.user.email);
-        console.log("user", user);
         var btn1 = document.getElementById("spn3");
         var btn2 = document.getElementById("spn4");
-        console.log(btn1);
         // btn.classList.toggle('show')
         toast(`Logged in Successfully`, {
           position: toast.POSITION.TOP_CENTER,
@@ -48,8 +42,6 @@ function Navbar(props) {
         history.push("/");
       })
       .catch((err) => {
-        console.log(err);
-        console.log(err.response);
         toast(err.response.data, {
           position: toast.POSITION.TOP_CENTER,
           autoClose: false,
@@ -59,14 +51,12 @@ function Navbar(props) {
   const [Data1, setData1] = useState({});
 
   const handleChange_signup = (e) => {
-    console.log(e.target);
     setData1((prevstate) => {
       return {
         ...prevstate,
         [e.target.name]: e.target.value,
       };
     });
-    console.log(Data1);
   };
 
   const handleSubmit_signup = (e) => {
@@ -75,12 +65,10 @@ function Navbar(props) {
       Axios.post("/auth/signup/applicant", Data1)
         .then((res) => {
           {
-            console.log(res.data);
             localStorage.setItem("token", res.data.token);
             localStorage.setItem("user", res.data.saveduser.email);
             props.setuser(res.data.saveduser.email);
             setUser(res.data.saveduser.email);
-            console.log(user);
             toast.info(`Registered Successfully`, {
               position: toast.POSITION.TOP_CENTER,
               autoClose: 3000,
@@ -89,7 +77,6 @@ function Navbar(props) {
           }
         })
         .catch((err) => {
-          console.log(err.response);
           toast.info(`${err.response.data}`, {
             position: toast.POSITION.TOP_CENTER,
             autoClose: false,
@@ -328,7 +315,6 @@ function Navbar(props) {
   );
 }
 function mapstatetoprops(state) {
-  console.log(state);
   return {
     user: state.user,
   };
