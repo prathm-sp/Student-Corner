@@ -39,7 +39,6 @@ function App(props) {
         headers: { Authorization: `Bearer ${token}` },
       })
         .then((res) => {
-          console.log(res);
           props.setuser(res.data.email);
         })
         .catch((err) => {
@@ -48,7 +47,6 @@ function App(props) {
         });
     }
   }, []);
-  console.log(props.user);
   return (
     <div>
       <Router>
@@ -150,7 +148,6 @@ function App(props) {
   );
 }
 function mapstatetoprops(state) {
-  console.log(state);
   return {
     user: state.user,
   };
