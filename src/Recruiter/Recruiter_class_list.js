@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import img2 from "../corousel_photo/img6.jpg";
 import "./Recruiter_class_list.css";
 function class_list() {
-  console.log("object");
   return (
     <div>
       <div class="container container1  mt-100 ">
