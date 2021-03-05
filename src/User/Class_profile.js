@@ -1,14 +1,16 @@
 import axios from "../axios";
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
+import { toast } from "react-toastify";
 import img2 from "../corousel_photo/img5.png";
+toast.configure();
 function Class_profile() {
   const [data, setData] = useState();
   const history = useHistory();
+  const token = localStorage.getItem("token");
   useEffect(() => {
     let classDetail = localStorage.getItem("classDetail");
     if (!classDetail) history.push("/");
-    const token = localStorage.getItem("token");
     const handleClick = () => {
       axios
         .get(`/class/${classDetail}`, {
@@ -20,10 +22,40 @@ function Class_profile() {
         })
         .catch((err) => {
           console.log(err.response);
+          history.push("/");
         });
     };
     handleClick();
   }, []);
+
+  const handleApplyClick = () => {
+    if (!token) {
+      toast.error(`Please Login first`, {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: false,
+      });
+    } else {
+      axios
+        .post(`/class/apply/${data?.class?._id}`, null, {
+          headers: { Authorization: `Bearer ${token}` },
+        })
+        .then((res) => {
+          console.log(res);
+          toast.success(`Applied Successfully`, {
+            position: toast.POSITION.TOP_CENTER,
+            autoClose: false,
+          });
+          window.location.reload();
+        })
+        .catch((err) => {
+          console.log(err.response);
+          toast.error(`Something Went Wrong`, {
+            position: toast.POSITION.TOP_CENTER,
+            autoClose: 3000,
+          });
+        });
+    }
+  };
 
   return (
     <div>
@@ -95,7 +127,7 @@ function Class_profile() {
                     <div className="small-section-tittle">
                       <h4>Required Knowledge, Skills, and Abilities</h4>
                     </div>
-                    {data?.class?.classinformation}
+                    {data?.class?.skills}
                   </div>
                   {/* <div className="post-details2  mb-50">
                     <div className="small-section-tittle">
@@ -139,7 +171,7 @@ function Class_profile() {
                         Rejected
                       </a>
                     ) : data?.subscribed == "Apply" ? (
-                      <a href="#" className="btn">
+                      <a href="#" className="btn" onClick={handleApplyClick}>
                         Apply
                       </a>
                     ) : data?.subscribed == "Applied" ? (
@@ -153,26 +185,21 @@ function Class_profile() {
                     ) : null}
                   </div>
                 </div>
-                {/* <div className="post-details4  mb-50">
+                <div className="post-details4  mb-50">
                   <div className="small-section-tittle">
                     <h4>Class Information</h4>
                   </div>
-                  <span>Colorlib</span>
-                  <p>
-                    It is a long established fact that a reader will be
-                    distracted by the readable content of a page when looking at
-                    its layout.
-                  </p>
+                  {data?.class?.classinformation}
                   <ul>
                     <li>
-                      Name: <span>....... </span>
+                      Name: <span>Owner Name </span>
                     </li>
 
                     <li>
                       Email: <span>Xyz@gmail.com</span>
                     </li>
                   </ul>
-                </div> */}
+                </div>
               </div>
             </div>
           </div>
