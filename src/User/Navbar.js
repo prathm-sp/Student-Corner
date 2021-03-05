@@ -30,8 +30,8 @@ function Navbar(props) {
       .then((res) => {
         localStorage.setItem("token", res.data.token);
         localStorage.setItem("user", res.data.user.email);
-        props.setuser(res.data.user.email);
-        setUser(res.data.user.email);
+        props.setuser(res.data.user);
+        setUser(res.data.user);
         var btn1 = document.getElementById("spn3");
         var btn2 = document.getElementById("spn4");
         // btn.classList.toggle('show')
@@ -66,9 +66,8 @@ function Navbar(props) {
         .then((res) => {
           {
             localStorage.setItem("token", res.data.token);
-            localStorage.setItem("user", res.data.saveduser.email);
-            props.setuser(res.data.saveduser.email);
-            setUser(res.data.saveduser.email);
+            props.setuser(res.data.saveduser);
+            setUser(res.data.saveduser);
             toast.info(`Registered Successfully`, {
               position: toast.POSITION.TOP_CENTER,
               autoClose: 3000,
@@ -138,7 +137,7 @@ function Navbar(props) {
                   style={{ textTransform: "lowercase" }}
                   className=" btn btn-primary login_button  login-btn mr-4"
                 >
-                  {props.user}
+                  {props.user.email}
                 </a>
               </>
             ) : (
