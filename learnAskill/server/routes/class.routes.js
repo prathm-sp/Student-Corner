@@ -8,7 +8,7 @@ const ClassApplication = require("./../models/classapplication.model");
 const role = require("./../helpers/role");
 //all the classes
 
-app.get("/all", verifyaccesstoken, async (req, res, next) => {
+app.get("/all", async (req, res, next) => {
   try {
     const allclasses = await Class.find();
     res.status(200).send({ classes: allclasses });
