@@ -16,6 +16,7 @@ function Profile_create() {
   var steps = $("fieldset").length;
 
   setProgressBar(current);
+  const [data, setData] = useState();
 
   useEffect(() => {
     if (res) {
@@ -76,13 +77,12 @@ function Profile_create() {
       return null;
     }
   }, [res]);
-  const [data, setData] = useState();
   const [classes, setClass] = useState();
   var cnt = 25;
   const history = useHistory();
 
   const handleChange = (e) => {
-    console.log(e.target.value, e.target.name);
+    console.log(data);
     setData((prevState) => ({
       ...prevState,
       [e.target.name]: e.target.value,
