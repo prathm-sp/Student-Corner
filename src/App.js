@@ -39,7 +39,8 @@ function App(props) {
         headers: { Authorization: `Bearer ${token}` },
       })
         .then((res) => {
-          props.setuser(res.data.email);
+          console.log(res);
+          props.setuser(res.data);
         })
         .catch((err) => {
           localStorage.clear();
@@ -47,60 +48,218 @@ function App(props) {
         });
     }
   }, []);
+  console.log(props.user);
   return (
     <div>
       <Router>
         <Switch>
           {/* User */}
-          <Route exact path="/">
-            <Navbar />
-            <User_Home_page />
-            <Footer />
-          </Route>
+          <Route
+            exact
+            path="/User_Home_page"
+            render={() => {
+              console.log(props?.user?.role);
+              if (props?.user?.role == "Recruiter") {
+                return <Redirect to="/Recruiter_Home_page" />;
+              } else {
+                return (
+                  <>
+                    <Navbar />
+                    <User_Home_page />
+                    <Footer />
+                  </>
+                );
+              }
+            }}
+          />
 
-          <Route exact path="/User_Home_page">
-            <Navbar />
-            <User_Home_page />
-            <Footer />
-          </Route>
-          <Route exact path="/class_list">
-            <Navbar />
-            <Class_list />
-            <Footer />
-          </Route>
-          <Route exact path="/Class_profile">
-            <Navbar />
-            <Class_profile />
-            <Footer />
-          </Route>
-          <Route exact path="/User_Dashboards">
-            <Navbar />
-            <User_Dashboards />
-            <Footer />
-          </Route>
-          <Route exact path="/Job">
-            <Navbar />
-            <Job />
-            <Footer />
-          </Route>
-          <Route exact path="/Create_job_profile">
-            <Navbar />
-            <Create_job_profile />
-            <Footer />
-          </Route>
+          <Route
+            exact
+            path="/Recruiter_Home_page"
+            render={() => {
+              console.log(props?.user?.role);
+              if (props?.user?.role == "Applicant") {
+                return <Redirect to="/User_Home_page" />;
+              } else {
+                return (
+                  <>
+                    <Navbar2 />
+                    <User_Home_page />
+                    <Footer />
+                  </>
+                );
+              }
+            }}
+          />
+          <Route
+            exact
+            path="/"
+            render={() => {
+              if (props?.user?.role == "Applicant") {
+                return <Redirect to="/User_Home_page" />;
+              } else if (props?.user?.role == "Recruiter") {
+                return <Redirect to="/Recruiter_Home_page" />;
+              } else
+                return (
+                  <>
+                    <Navbar />
+                    <User_Home_page />
+                    <Footer />
+                  </>
+                );
+            }}
+          />
+
+          <Route
+            exact
+            path="/class_list"
+            render={() => {
+              if (props?.user?.role == "Applicant") {
+                return (
+                  <>
+                    {" "}
+                    <Navbar />
+                    <Class_list />
+                    <Footer />
+                  </>
+                );
+              } else if (props?.user?.role == "Recruiter") {
+                return (
+                  <>
+                    {" "}
+                    <Navbar2 />
+                    <Class_list />
+                    <Footer />
+                  </>
+                );
+              } else {
+                toast(`Please Login first`, {
+                  position: toast.POSITION.TOP_CENTER,
+                  autoClose: 3000,
+                });
+                return <Redirect to="/" />;
+              }
+            }}
+          />
+
+          <Route
+            exact
+            path="/Class_profile"
+            render={() => {
+              if (props?.user?.role == "Applicant") {
+                return (
+                  <>
+                    {" "}
+                    <Navbar />
+                    <Class_profile />
+                    <Footer />
+                  </>
+                );
+              } else if (props?.user?.role == "Recruiter") {
+                return (
+                  <>
+                    {" "}
+                    <Navbar2 />
+                    <Class_profile />
+                    <Footer />
+                  </>
+                );
+              } else {
+                toast(`Please Login first`, {
+                  position: toast.POSITION.TOP_CENTER,
+                  autoClose: 3000,
+                });
+                return <Redirect to="/" />;
+              }
+            }}
+          />
+
+          <Route
+            exact
+            path="/User_Dashboards"
+            render={() => {
+              if (props?.user?.role == "Applicant") {
+                return (
+                  <>
+                    {" "}
+                    <Navbar />
+                    <User_Dashboards />
+                    <Footer />
+                  </>
+                );
+              } else {
+                toast(`Please Login first`, {
+                  position: toast.POSITION.TOP_CENTER,
+                  autoClose: 3000,
+                });
+                return <Redirect to="/" />;
+              }
+            }}
+          />
+
+          <Route
+            exact
+            path="/Job"
+            render={() => {
+              if (props?.user?.role == "Applicant") {
+                return (
+                  <>
+                    {" "}
+                    <Navbar />
+                    <Job />
+                    <Footer />
+                  </>
+                );
+              } else if (props?.user?.role == "Recruiter") {
+                return (
+                  <>
+                    {" "}
+                    <Navbar2 />
+                    <Job />
+                    <Footer />
+                  </>
+                );
+              } else {
+                toast(`Please Login first`, {
+                  position: toast.POSITION.TOP_CENTER,
+                  autoClose: 3000,
+                });
+                return <Redirect to="/" />;
+              }
+            }}
+          ></Route>
+          <Route
+            exact
+            path="/Create_job_profile"
+            render={() => {
+              if (props?.user?.role == "Applicant") {
+                return (
+                  <>
+                    {" "}
+                    <Navbar />
+                    <Create_job_profile />
+                    <Footer />
+                  </>
+                );
+              } else {
+                toast(`Please Login first`, {
+                  position: toast.POSITION.TOP_CENTER,
+                  autoClose: 3000,
+                });
+                return <Redirect to="/" />;
+              }
+            }}
+          ></Route>
           {/* Recruiter */}
-          <Route exact path="/Recruiter_Home_page">
-            <Navbar2 />
-            <Recruiter_Home_page />
-            <Footer />
-          </Route>
+
           <Route
             exact
             path="/Profile_create"
             render={() => {
-              if (localStorage.getItem("token")) {
+              if (props?.user?.role == "Recruiter") {
                 return (
                   <>
+                    {" "}
                     <Navbar2 />
                     <Profile_create />
                     <Footer />
@@ -111,37 +270,122 @@ function App(props) {
                   position: toast.POSITION.TOP_CENTER,
                   autoClose: 3000,
                 });
-                return <Redirect to="/Recruiter_Home_page" />;
+                return <Redirect to="/" />;
               }
             }}
           />
 
-          <Route exact path="/Job_Profile_create">
-            <Navbar2 />
-            <Job_Profile_create />
-            <Footer />
-          </Route>
-          <Route exact path="/Recruiter_Dashboards">
-            <Navbar2 />
-            <Recruiter_Dashboards />
-            <Footer />
-          </Route>
-          <Route exact path="/Recruiter_class_list">
-            <Navbar2 />
-            <Recruiter_Class_list />
-            <Footer />
-          </Route>
-          <Route exact path="/Recruiter_Class_profile">
-            <Navbar2 />
-            <Recruiter_Class_profile />
-            <Footer />
-          </Route>
+          <Route
+            exact
+            path="/Job_Profile_create"
+            render={() => {
+              if (props?.user?.role == "Recruiter") {
+                return (
+                  <>
+                    {" "}
+                    <Navbar2 />
+                    <Job_Profile_create />
+                    <Footer />
+                  </>
+                );
+              } else {
+                toast(`Please Login first`, {
+                  position: toast.POSITION.TOP_CENTER,
+                  autoClose: 3000,
+                });
+                return <Redirect to="/" />;
+              }
+            }}
+          ></Route>
+          <Route
+            exact
+            path="/Recruiter_Dashboards"
+            render={() => {
+              if (props?.user?.role == "Recruiter") {
+                return (
+                  <>
+                    {" "}
+                    <Navbar2 />
+                    <Recruiter_Dashboards />
+                    <Footer />
+                  </>
+                );
+              } else {
+                toast(`Please Login first`, {
+                  position: toast.POSITION.TOP_CENTER,
+                  autoClose: 3000,
+                });
+                return <Redirect to="/" />;
+              }
+            }}
+          ></Route>
+          <Route
+            exact
+            path="/Recruiter_class_list"
+            render={() => {
+              if (props?.user?.role == "Recruiter") {
+                return (
+                  <>
+                    {" "}
+                    <Navbar2 />
+                    <Recruiter_Class_list />
+                    <Footer />
+                  </>
+                );
+              } else {
+                toast(`Please Login first`, {
+                  position: toast.POSITION.TOP_CENTER,
+                  autoClose: 3000,
+                });
+                return <Redirect to="/" />;
+              }
+            }}
+          ></Route>
+          <Route
+            exact
+            path="/Recruiter_Class_profile"
+            render={() => {
+              if (props?.user?.role == "Recruiter") {
+                return (
+                  <>
+                    {" "}
+                    <Navbar2 />
+                    <Recruiter_Class_profile />
+                    <Footer />
+                  </>
+                );
+              } else {
+                toast(`Please Login first`, {
+                  position: toast.POSITION.TOP_CENTER,
+                  autoClose: 3000,
+                });
+                return <Redirect to="/" />;
+              }
+            }}
+          ></Route>
 
-          <Route exact path="/Job_Dashboards">
-            <Navbar2 />
-            <Job_Dashboards />
-            <Footer />
-          </Route>
+          <Route
+            exact
+            path="/Job_Dashboards"
+            render={() => {
+              if (props?.user?.role == "Recruiter") {
+                return (
+                  <>
+                    {" "}
+                    <Navbar2 />
+                    <Job_Dashboards />
+                    <Footer />
+                  </>
+                );
+              } else {
+                toast(`Please Login first`, {
+                  position: toast.POSITION.TOP_CENTER,
+                  autoClose: 3000,
+                });
+                return <Redirect to="/" />;
+              }
+            }}
+          ></Route>
         </Switch>
       </Router>
     </div>
