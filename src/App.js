@@ -133,10 +133,10 @@ function App(props) {
                   </>
                 );
               } else {
-                toast(`Please Login first`, {
-                  position: toast.POSITION.TOP_CENTER,
-                  autoClose: 3000,
-                });
+                // toast(`Please Login first`, {
+                //   position: toast.POSITION.TOP_CENTER,
+                //   autoClose: 3000,
+                // });
                 return <Redirect to="/" />;
               }
             }}
@@ -165,10 +165,10 @@ function App(props) {
                   </>
                 );
               } else {
-                toast(`Please Login first`, {
-                  position: toast.POSITION.TOP_CENTER,
-                  autoClose: 3000,
-                });
+                // toast(`Please Login first`, {
+                //   position: toast.POSITION.TOP_CENTER,
+                //   autoClose: 3000,
+                // });
                 return <Redirect to="/" />;
               }
             }}
@@ -188,10 +188,10 @@ function App(props) {
                   </>
                 );
               } else {
-                toast(`Please Login first`, {
-                  position: toast.POSITION.TOP_CENTER,
-                  autoClose: 3000,
-                });
+                // toast(`Please Login first`, {
+                //   position: toast.POSITION.TOP_CENTER,
+                //   autoClose: 3000,
+                // });
                 return <Redirect to="/" />;
               }
             }}
@@ -220,10 +220,10 @@ function App(props) {
                   </>
                 );
               } else {
-                toast(`Please Login first`, {
-                  position: toast.POSITION.TOP_CENTER,
-                  autoClose: 3000,
-                });
+                // toast(`Please Login first`, {
+                //   position: toast.POSITION.TOP_CENTER,
+                //   autoClose: 3000,
+                // });
                 return <Redirect to="/" />;
               }
             }}
@@ -242,10 +242,10 @@ function App(props) {
                   </>
                 );
               } else {
-                toast(`Please Login first`, {
-                  position: toast.POSITION.TOP_CENTER,
-                  autoClose: 3000,
-                });
+                // toast(`Please Login first`, {
+                //   position: toast.POSITION.TOP_CENTER,
+                //   autoClose: 3000,
+                // });
                 return <Redirect to="/" />;
               }
             }}
@@ -266,11 +266,11 @@ function App(props) {
                   </>
                 );
               } else {
-                toast(`Please Login first`, {
-                  position: toast.POSITION.TOP_CENTER,
-                  autoClose: 3000,
-                });
-                return <Redirect to="/" />;
+                // toast(`Please Login first`, {
+                //   position: toast.POSITION.TOP_CENTER,
+                //   autoClose: 3000,
+                // });
+                return <Redirect to="/Recruiter_Home_page" />;
               }
             }}
           />
@@ -289,11 +289,11 @@ function App(props) {
                   </>
                 );
               } else {
-                toast(`Please Login first`, {
-                  position: toast.POSITION.TOP_CENTER,
-                  autoClose: 3000,
-                });
-                return <Redirect to="/" />;
+                // toast(`Please Login first`, {
+                //   position: toast.POSITION.TOP_CENTER,
+                //   autoClose: 3000,
+                // });
+                return <Redirect to="/Recruiter_Home_page" />;
               }
             }}
           ></Route>
@@ -311,11 +311,11 @@ function App(props) {
                   </>
                 );
               } else {
-                toast(`Please Login first`, {
-                  position: toast.POSITION.TOP_CENTER,
-                  autoClose: 3000,
-                });
-                return <Redirect to="/" />;
+                // toast(`Please Login first`, {
+                //   position: toast.POSITION.TOP_CENTER,
+                //   autoClose: 3000,
+                // });
+                return <Redirect to="/Recruiter_Home_page" />;
               }
             }}
           ></Route>
@@ -333,11 +333,11 @@ function App(props) {
                   </>
                 );
               } else {
-                toast(`Please Login first`, {
-                  position: toast.POSITION.TOP_CENTER,
-                  autoClose: 3000,
-                });
-                return <Redirect to="/" />;
+                // toast(`Please Login first`, {
+                //   position: toast.POSITION.TOP_CENTER,
+                //   autoClose: 3000,
+                // });
+                return <Redirect to="/Recruiter_Home_page" />;
               }
             }}
           ></Route>
@@ -355,11 +355,11 @@ function App(props) {
                   </>
                 );
               } else {
-                toast(`Please Login first`, {
-                  position: toast.POSITION.TOP_CENTER,
-                  autoClose: 3000,
-                });
-                return <Redirect to="/" />;
+                // toast(`Please Login first`, {
+                //   position: toast.POSITION.TOP_CENTER,
+                //   autoClose: 3000,
+                // });
+                return <Redirect to="/Recruiter_Home_page" />;
               }
             }}
           ></Route>
@@ -378,11 +378,11 @@ function App(props) {
                   </>
                 );
               } else {
-                toast(`Please Login first`, {
-                  position: toast.POSITION.TOP_CENTER,
-                  autoClose: 3000,
-                });
-                return <Redirect to="/" />;
+                // toast(`Please Login first`, {
+                //   position: toast.POSITION.TOP_CENTER,
+                //   autoClose: 3000,
+                // });
+                return <Redirect to="/Recruiter_Home_page" />;
               }
             }}
           ></Route>
