@@ -29,6 +29,35 @@ function Class_profile(props) {
     handleClick();
   }, []);
 
+  const handleAppliedClick = () =>{
+    if (props.user.role == "Recruiter") {
+      toast.error(`Please Login as a Applicant first`, {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: false,
+      });
+    } else {
+      axios
+        .post(`/class/apply/${data?.class?._id}`, null, {
+          headers: { Authorization: `Bearer ${token}` },
+        })
+        .then((res) => {
+          console.log(res);
+          toast.success(`Application Canceled Successfully`, {
+            position: toast.POSITION.TOP_CENTER,
+            autoClose: false,
+          });
+          window.location.reload();
+        })
+        .catch((err) => {
+          console.log(err.response);
+          toast.error(`Something Went Wrong`, {
+            position: toast.POSITION.TOP_CENTER,
+            autoClose: 3000,
+          });
+        });
+    }
+  }
+
   const handleApplyClick = () => {
     if (props.user.role == "Recruiter") {
       toast.error(`Please Login as a Applicant first`, {
@@ -99,7 +128,7 @@ function Class_profile(props) {
                         <img src={data?.class?.image} alt="" />
                       </a>
                     </div>
-                    <div className="job-tittle">
+                    <div className="job-tittle" >
                       <a>
                         <h4>{data?.class?.classname}</h4>
                       </a>
@@ -166,7 +195,7 @@ function Class_profile(props) {
                       </span>
                     </li>
                   </ul>
-                  <div className="apply-btn2">
+                  <div className="apply-btn2" style={{width:"20vw"}}>
                     {data?.subscribed == "Rejected" ? (
                       <a className="btn">Rejected</a>
                     ) : data?.subscribed == "Apply" ? (
@@ -174,7 +203,7 @@ function Class_profile(props) {
                         Apply
                       </a>
                     ) : data?.subscribed == "Applied" ? (
-                      <a className="btn">Applied</a>
+                      <a className="btn"  onClick={handleAppliedClick}>Applied</a>
                     ) : data?.subscribed == "Confirmed" ? (
                       <a className="btn">Confirmed</a>
                     ) : null}
@@ -187,11 +216,11 @@ function Class_profile(props) {
                   {data?.class?.classinformation}
                   <ul>
                     <li>
-                      Name: <span>Owner Name </span>
+                      Name: <span>{data?.class?.firstname}</span>
                     </li>
 
                     <li>
-                      Email: <span>Xyz@gmail.com</span>
+                      Email: <span>{data?.class?.classowner?.email}</span>
                     </li>
                   </ul>
                 </div>

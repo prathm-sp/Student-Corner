@@ -7,7 +7,7 @@ module.exports = {
         email: email,
         id: id,
         mobile: mobile,
-        role: role
+        role: role,
       };
       const secret = process.env.jwtkey;
       const optains = { expiresIn: "1h" };
@@ -20,7 +20,7 @@ module.exports = {
     });
   },
   verifyaccesstoken: async (req, res, next) => {
-    console.log(req.headers);
+    console.log(req.body);
     // console.log("imaage = ", req.body);
     if (!req.headers["authorization"])
       return next(new Error("jwt token not present"));

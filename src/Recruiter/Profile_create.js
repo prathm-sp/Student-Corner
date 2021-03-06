@@ -20,6 +20,7 @@ function Profile_create() {
 
   useEffect(() => {
     if (res) {
+      console.log('jatin')
       axios
         .post("/class", data, {
           headers: {
@@ -104,8 +105,6 @@ function Profile_create() {
     // let id = localStorage.getItem("classId");
     if (this.name == "next image") {
       setdtl(this);
-      console.log("image");
-      console.log(data);
       setres(true);
     } else {
       current_fs = $(this).parent();
@@ -261,7 +260,7 @@ function Profile_create() {
                     <label className="fieldlabels">Activities Name: *</label>
                     <select
                       class="custom-select select mb-3"
-                      name="activites"
+                      name="activities"
                       onChange={handleChange}
                     >
                       <option selected> Select Activities</option>

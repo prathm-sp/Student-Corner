@@ -16,7 +16,7 @@ const classSchema = Schema({
   image: {
     type: String
   },
-  activites: {
+  activities: {
     type: String,
     required: true,
     enum: [
@@ -64,15 +64,13 @@ const classSchema = Schema({
     max: [10, "enter max vacancy of 10"],
   },
   classinformation: {
-    type: String,
-    required: true,
+    type: String
   },
   classdescription: {
-    type: String,
-    required: true,
+    type: String
   },
   skills: {
-    type: String,
+    type: String
   },
 });
 

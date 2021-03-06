@@ -1,6 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./user_Dashboards.css";
+import axios from '../axios'
+
 function Dashboards() {
+  
   return (
     <div>
       <div className="pcoded-content mt-100">

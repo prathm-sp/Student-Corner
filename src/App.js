@@ -6,6 +6,7 @@ import {
   Switch,
   Route,
   Redirect,
+  useHistory,
 } from "react-router-dom";
 import User_Home_page from "./User/User_Home_page";
 import { toast } from "react-toastify";
@@ -31,6 +32,7 @@ toast.configure();
 
 const { setuser } = action;
 function App(props) {
+  const history = useHistory()
   useEffect(() => {
     let token = localStorage.getItem("token");
     if (!token) return null;
@@ -49,6 +51,8 @@ function App(props) {
     }
   }, []);
   console.log(props.user);
+  var dtl;
+  console.log(history)
   return (
     <div>
       <Router>
@@ -114,30 +118,22 @@ function App(props) {
             exact
             path="/class_list"
             render={() => {
-              if (props?.user?.role == "Applicant") {
+              if (props?.user?.role == "Recruiter") {
                 return (
                   <>
-                    {" "}
-                    <Navbar />
-                    <Class_list />
-                    <Footer />
-                  </>
-                );
-              } else if (props?.user?.role == "Recruiter") {
-                return (
-                  <>
-                    {" "}
                     <Navbar2 />
                     <Class_list />
                     <Footer />
                   </>
                 );
               } else {
-                // toast(`Please Login first`, {
-                //   position: toast.POSITION.TOP_CENTER,
-                //   autoClose: 3000,
-                // });
-                return <Redirect to="/" />;
+                return (
+                  <>
+                    <Navbar />
+                    <Class_list />
+                    <Footer />
+                  </>
+                );
               }
             }}
           />
@@ -146,30 +142,21 @@ function App(props) {
             exact
             path="/Class_profile"
             render={() => {
-              if (props?.user?.role == "Applicant") {
+              if (props?.user?.role == "Recruiter") {
                 return (
                   <>
-                    {" "}
+                    <Navbar2 />
+                    <Class_profile />
+                  </>
+                );
+              } else {
+                return (
+                  <>
                     <Navbar />
                     <Class_profile />
                     <Footer />
                   </>
                 );
-              } else if (props?.user?.role == "Recruiter") {
-                return (
-                  <>
-                    {" "}
-                    <Navbar2 />
-                    <Class_profile />
-                    <Footer />
-                  </>
-                );
-              } else {
-                // toast(`Please Login first`, {
-                //   position: toast.POSITION.TOP_CENTER,
-                //   autoClose: 3000,
-                // });
-                return <Redirect to="/" />;
               }
             }}
           />

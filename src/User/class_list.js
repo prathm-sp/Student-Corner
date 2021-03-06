@@ -25,6 +25,7 @@ function Class_list() {
   }, []);
 
   const handleJobClick = (val) => {
+    console.log('object')
     localStorage.setItem("classDetail", val);
     history.push("/Class_profile");
   };
@@ -229,7 +230,7 @@ function Class_list() {
                                 <img src={item?.image} alt="" />
                               </a>
                             </div>
-                            <div className="job-tittle job-tittle2">
+                            <div className="job-tittle job-tittle2 ">
                               <a>
                                 <h4>{item?.classname}</h4>
                               </a>

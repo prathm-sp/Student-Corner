@@ -143,14 +143,14 @@ function Navbar(props) {
             {props.user ? (
               <>
                 <a
-                  className=" btn btn-primary login-btn mr-4"
+                  className=" btn btn-primary login-btn mr-4  logout "
                   onClick={handleChange_logout}
                 >
                   Logout
                 </a>
                 <a
                   style={{ textTransform: "lowercase" }}
-                  className="  btn btn-primary login-btn mr-4"
+                  className="  btn btn-primary login-btn mr-4 username "
                 >
                   {props.user.email}
                 </a>
