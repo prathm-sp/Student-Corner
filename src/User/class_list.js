@@ -225,12 +225,12 @@ function Class_list() {
                         >
                           <div className="job-items">
                             <div className="company-img">
-                              <a href="#">
+                              <a>
                                 <img src={item?.image} alt="" />
                               </a>
                             </div>
                             <div className="job-tittle job-tittle2">
-                              <a href="#">
+                              <a>
                                 <h4>{item?.classname}</h4>
                               </a>
                               <ul>
@@ -265,22 +265,16 @@ function Class_list() {
                   <nav aria-label="Page navigation example">
                     <ul className="pagination justify-content-start">
                       <li className="page-item active">
-                        <a className="page-link" href="#">
-                          01
-                        </a>
+                        <a className="page-link">01</a>
                       </li>
                       <li className="page-item">
-                        <a className="page-link" href="#">
-                          02
-                        </a>
+                        <a className="page-link">02</a>
                       </li>
                       <li className="page-item">
-                        <a className="page-link" href="#">
-                          03
-                        </a>
+                        <a className="page-link">03</a>
                       </li>
                       <li className="page-item">
-                        <a className="page-link" href="#">
+                        <a className="page-link">
                           <span className="ti-angle-right" />
                         </a>
                       </li>
