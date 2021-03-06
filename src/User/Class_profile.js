@@ -1,10 +1,11 @@
 import axios from "../axios";
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
+import { connect } from "react-redux";
 import { toast } from "react-toastify";
 import img2 from "../corousel_photo/img5.png";
 toast.configure();
-function Class_profile() {
+function Class_profile(props) {
   const [data, setData] = useState();
   const history = useHistory();
   const token = localStorage.getItem("token");
@@ -29,8 +30,8 @@ function Class_profile() {
   }, []);
 
   const handleApplyClick = () => {
-    if (!token) {
-      toast.error(`Please Login first`, {
+    if (props.user.role == "Recruiter") {
+      toast.error(`Please Login as a Applicant first`, {
         position: toast.POSITION.TOP_CENTER,
         autoClose: false,
       });
@@ -94,12 +95,12 @@ function Class_profile() {
                 <div className="single-job-items mb-50">
                   <div className="job-items">
                     <div className="company-img company-img-details">
-                      <a href="#">
+                      <a>
                         <img src={data?.class?.image} alt="" />
                       </a>
                     </div>
                     <div className="job-tittle">
-                      <a href="#">
+                      <a>
                         <h4>{data?.class?.classname}</h4>
                       </a>
                       <ul>
@@ -167,21 +168,15 @@ function Class_profile() {
                   </ul>
                   <div className="apply-btn2">
                     {data?.subscribed == "Rejected" ? (
-                      <a href="#" className="btn">
-                        Rejected
-                      </a>
+                      <a className="btn">Rejected</a>
                     ) : data?.subscribed == "Apply" ? (
-                      <a href="#" className="btn" onClick={handleApplyClick}>
+                      <a className="btn" onClick={handleApplyClick}>
                         Apply
                       </a>
                     ) : data?.subscribed == "Applied" ? (
-                      <a href="#" className="btn">
-                        Applied
-                      </a>
+                      <a className="btn">Applied</a>
                     ) : data?.subscribed == "Confirmed" ? (
-                      <a href="#" className="btn">
-                        Confirmed
-                      </a>
+                      <a className="btn">Confirmed</a>
                     ) : null}
                   </div>
                 </div>
@@ -210,4 +205,9 @@ function Class_profile() {
   );
 }
 
-export default Class_profile;
+function mapstatetoprops(state) {
+  return {
+    user: state.user,
+  };
+}
+export default connect(mapstatetoprops)(Class_profile);
