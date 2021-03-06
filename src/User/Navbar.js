@@ -18,6 +18,7 @@ function Navbar(props) {
     localStorage.clear();
     setUser("");
     props.setuser("");
+    window.location.reload();
   };
   const handleChange = (e) => {
     setData((prevState) => {
@@ -39,7 +40,7 @@ function Navbar(props) {
           position: toast.POSITION.TOP_CENTER,
           autoClose: 3000,
         });
-        history.push("/");
+        window.location.reload();
       })
       .catch((err) => {
         toast(err.response.data, {
@@ -72,7 +73,7 @@ function Navbar(props) {
               position: toast.POSITION.TOP_CENTER,
               autoClose: 3000,
             });
-            history.push("/");
+            window.location.reload();
           }
         })
         .catch((err) => {
@@ -88,7 +89,7 @@ function Navbar(props) {
   return (
     <div>
       <nav className=" navbar navbar-expand-lg navbar-light bg-light fixed-top">
-        {/* <a href="#" className="navbar-brand">learn <b>a skill</b></a> */}
+        {/* <a  className="navbar-brand">learn <b>a skill</b></a> */}
 
         <div class="logo1">
           <a>
@@ -126,14 +127,12 @@ function Navbar(props) {
             {props.user ? (
               <>
                 <a
-                  href="#"
                   className=" btn btn-primary  login_button  login-btn mr-4"
                   onClick={handleChange_logout}
                 >
                   Logout
                 </a>
                 <a
-                  href="#"
                   style={{ textTransform: "lowercase" }}
                   className=" btn btn-primary login_button  login-btn mr-4"
                 >
@@ -144,7 +143,6 @@ function Navbar(props) {
               <>
                 <div className="nav-item dropdown mr-4 ">
                   <a
-                    href="#"
                     data-toggle="dropdown"
                     className=" btn btn-primary dropdown-toggle login_button  login-btn "
                   >
@@ -161,17 +159,11 @@ function Navbar(props) {
                       </p>
 
                       <div className="form-group social-btn clearfix">
-                        <a
-                          href="#"
-                          className="btn btn-secondary facebook-btn float-left"
-                        >
+                        <a className="btn btn-secondary facebook-btn float-left">
                           <i class=" fab fa-facebook-f" aria-hidden="true"></i>{" "}
                           Facebook
                         </a>
-                        <a
-                          href="#"
-                          className="btn btn-secondary google-btn float-right"
-                        >
+                        <a className="btn btn-secondary google-btn float-right">
                           <i className="fab fa-google" /> Google
                         </a>
                       </div>
@@ -218,7 +210,6 @@ function Navbar(props) {
                               fontWeight: "900",
                               color: "red",
                             }}
-                            href="#"
                           >
                             Are you a Recruiter?
                           </p>
@@ -229,7 +220,6 @@ function Navbar(props) {
                 </div>
                 <div className="nav-item dropdown">
                   <a
-                    href="#"
                     data-toggle="dropdown"
                     className="btn btn-primary dropdown-toggle  sign-up-btn"
                   >
@@ -279,7 +269,7 @@ function Navbar(props) {
                       <div className="form-group">
                         <label className="form-check-label">
                           <input type="checkbox" required="required" /> I accept
-                          the <a href="#">Terms &amp; Conditions</a>
+                          the <a>Terms &amp; Conditions</a>
                         </label>
                       </div>
                       <input
@@ -296,7 +286,6 @@ function Navbar(props) {
                               fontWeight: "900",
                               color: "red",
                             }}
-                            href="#"
                           >
                             Are you a Recruiter?
                           </p>
