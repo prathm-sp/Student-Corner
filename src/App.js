@@ -32,7 +32,6 @@ toast.configure();
 
 const { setuser } = action;
 function App(props) {
-  const history = useHistory()
   useEffect(() => {
     let token = localStorage.getItem("token");
     if (!token) return null;
@@ -50,9 +49,6 @@ function App(props) {
         });
     }
   }, []);
-  console.log(props.user);
-  var dtl;
-  console.log(history)
   return (
     <div>
       <Router>
@@ -147,6 +143,7 @@ function App(props) {
                   <>
                     <Navbar2 />
                     <Class_profile />
+                    <Footer />
                   </>
                 );
               } else {
