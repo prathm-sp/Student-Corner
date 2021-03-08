@@ -41,6 +41,7 @@ function Profile_create() {
               },
             })
             .then(function (res) {
+              console.log(res)
               current_fs = $(dtl).parent();
               next_fs = $(dtl).parent().next();
               //Add Class Active
@@ -67,7 +68,7 @@ function Profile_create() {
               );
             })
             .catch((err) => {
-              console.log(err);
+              console.log(err.response);
             });
         })
 

@@ -20,8 +20,8 @@ function Class_list() {
   });
 
   var [checkTypeValue, setcheckTypeValue] = useState({
-    PartTime: false,
-    FullTime: false,
+    Parttime: false,
+    Fulltime: false,
     Remote: false,
   });
 
@@ -235,8 +235,8 @@ function Class_list() {
                         <input
                           onChange={handleTypeFilterClick}
                           type="checkbox"
-                          checked={checkTypeValue.FullTime ? true : false}
-                          name="FullTime"
+                          checked={checkTypeValue.Fulltime ? true : false}
+                          name="Fulltime"
                         />
                         <span className="checkmark" />
                       </label>
@@ -245,8 +245,8 @@ function Class_list() {
                         <input
                           onChange={handleTypeFilterClick}
                           type="checkbox"
-                          checked={checkTypeValue.PartTime ? true : false}
-                          name="PartTime"
+                          checked={checkTypeValue.Parttime ? true : false}
+                          name="Parttime"
                         />
                         <span className="checkmark" />
                       </label>
