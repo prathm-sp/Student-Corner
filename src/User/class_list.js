@@ -7,6 +7,24 @@ import axios from "../axios";
 function Class_list() {
   const [data, setData] = useState();
   const history = useHistory();
+  const category = localStorage.getItem("category");
+
+  var [checkValues, setCheckValues] = useState({
+    Ahmednagar: false,
+    Pune: false,
+    Delhi: false,
+    Chennai: false,
+    Kolkata: false,
+    Hyderabad: false,
+    Mumbai: false,
+  });
+
+  var [checkTypeValue, setcheckTypeValue] = useState({
+    PartTime: false,
+    FullTime: false,
+    Remote: false,
+  });
+
   useEffect(() => {
     let category = localStorage.getItem("category");
     if (!category) history.push("/");
@@ -24,12 +42,54 @@ function Class_list() {
     handleClick();
   }, []);
 
+  useEffect(() => {
+    const { activeCities, activeTypes } = getOnlyTrueValues();
+    console.log(activeCities, activeTypes);
+    axios
+      .get(`/class/category/filter/${category}`, {
+        params: { citiesarr: activeCities, classtypearr: activeTypes },
+      })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err.response);
+      });
+  }, [checkValues, checkTypeValue]);
+
   const handleJobClick = (val) => {
-    console.log('object')
+    console.log("object");
     localStorage.setItem("classDetail", val);
     history.push("/Class_profile");
   };
 
+  const getOnlyTrueValues = () => {
+    const cities = Object.keys(checkValues);
+    const activeCities = cities.filter(function (id) {
+      return checkValues[id];
+    });
+    const Types = Object.keys(checkTypeValue);
+    const activeTypes = Types.filter(function (id) {
+      return checkTypeValue[id];
+    });
+    return { activeCities, activeTypes };
+  };
+
+  const handleCityFilterClick = (e) => {
+    console.log(e.target.checked);
+    setCheckValues({
+      ...checkValues,
+      [e.target.name]: e.target.checked,
+    });
+  };
+  const handleTypeFilterClick = (e) => {
+    console.log(e.target.name);
+    setcheckTypeValue({
+      ...checkTypeValue,
+      [e.target.name]: e.target.checked,
+    });
+  };
+  console.log(checkValues);
   return (
     <div>
       <div class="container container1  mt-100 ">
@@ -88,17 +148,81 @@ function Class_list() {
                 <div className="job-category-listing mb-50">
                   {/* single one */}
                   <div className="single-listing">
-                    <div className="small-section-tittle2">
-                      <h4>Class Category</h4>
-                    </div>
-                    {/* Select job items start */}
-                    <div className="select-job-items2">
-                      <select name="cars" class="custom-select mb-3">
-                        <option selected>Custom Select Menu</option>
-                        <option value="volvo">1</option>
-                        <option value="fiat">2</option>
-                        <option value="audi">3</option>
-                      </select>
+                    <div className="select-Categories pt-80 pb-50">
+                      <div className="small-section-tittle2">
+                        <h4>Sort By City</h4>
+                      </div>
+                      <label className="container">
+                        Ahmednagar
+                        <input
+                          onChange={handleCityFilterClick}
+                          type="checkbox"
+                          checked={checkValues.Ahmednagar ? true : false}
+                          name="Ahmednagar"
+                        />
+                        <span className="checkmark" />
+                      </label>
+                      <label className="container">
+                        Pune
+                        <input
+                          onChange={handleCityFilterClick}
+                          type="checkbox"
+                          checked={checkValues.Pune ? true : false}
+                          name="Pune"
+                        />
+                        <span className="checkmark" />
+                      </label>
+                      <label className="container">
+                        Mumbai
+                        <input
+                          onChange={handleCityFilterClick}
+                          type="checkbox"
+                          checked={checkValues.Mumbai ? true : false}
+                          name="Mumbai"
+                        />
+                        <span className="checkmark" />
+                      </label>
+
+                      <label className="container">
+                        kolkata
+                        <input
+                          onChange={handleCityFilterClick}
+                          type="checkbox"
+                          checked={checkValues.Kolkata ? true : false}
+                          name="Kolkata"
+                        />
+                        <span className="checkmark" />
+                      </label>
+                      <label className="container">
+                        Chennai
+                        <input
+                          onChange={handleCityFilterClick}
+                          type="checkbox"
+                          checked={checkValues.Chennai ? true : false}
+                          name="Chennai"
+                        />
+                        <span className="checkmark" />
+                      </label>
+                      <label className="container">
+                        Delhi
+                        <input
+                          onChange={handleCityFilterClick}
+                          type="checkbox"
+                          checked={checkValues.Delhi ? true : false}
+                          name="Delhi"
+                        />
+                        <span className="checkmark" />
+                      </label>
+                      <label className="container">
+                        Hyderabad
+                        <input
+                          onChange={handleCityFilterClick}
+                          type="checkbox"
+                          checked={checkValues.Hyderabad ? true : false}
+                          name="Hyderabad"
+                        />
+                        <span className="checkmark" />
+                      </label>
                     </div>
                     {/*  Select job items End*/}
                     {/* select-Categories start */}
@@ -108,20 +232,32 @@ function Class_list() {
                       </div>
                       <label className="container">
                         Full Time
-                        <input type="checkbox" />
+                        <input
+                          onChange={handleTypeFilterClick}
+                          type="checkbox"
+                          checked={checkTypeValue.FullTime ? true : false}
+                          name="FullTime"
+                        />
                         <span className="checkmark" />
                       </label>
                       <label className="container">
                         Part Time
                         <input
+                          onChange={handleTypeFilterClick}
                           type="checkbox"
-                          defaultChecked="checked active"
+                          checked={checkTypeValue.PartTime ? true : false}
+                          name="PartTime"
                         />
                         <span className="checkmark" />
                       </label>
                       <label className="container">
                         Remote
-                        <input type="checkbox" />
+                        <input
+                          onChange={handleTypeFilterClick}
+                          type="checkbox"
+                          checked={checkTypeValue.Remote ? true : false}
+                          name="Remote"
+                        />
                         <span className="checkmark" />
                       </label>
                     </div>
@@ -215,14 +351,14 @@ function Class_list() {
                     </div>
                     {/* Count of Job list End */}
                     {/* single-job-content */}
-                    {data?.map?.((item) => {
-                      console.log(item);
+                    {data?.map?.((item, index) => {
                       return (
                         <div
                           className="single-job-items mb-30"
                           onClick={() => {
                             handleJobClick(item?._id);
                           }}
+                          key={index}
                         >
                           <div className="job-items">
                             <div className="company-img">
