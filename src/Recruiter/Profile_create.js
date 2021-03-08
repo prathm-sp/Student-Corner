@@ -20,7 +20,7 @@ function Profile_create() {
 
   useEffect(() => {
     if (res) {
-      console.log('jatin')
+      console.log("jatin");
       axios
         .post("/class", data, {
           headers: {
@@ -67,7 +67,7 @@ function Profile_create() {
               );
             })
             .catch((err) => {
-              console.log(err.response);
+              console.log(err);
             });
         })
 
