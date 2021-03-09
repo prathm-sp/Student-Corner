@@ -169,12 +169,10 @@ function Dashboards() {
                     >
                       <div className="col-xl-12 col-md-12">
                         <div className="card Recent-Users">
-
                           <div className="card-block px-0 py-3">
                             <div className="table-responsive">
                               <table className="table table-hover">
                               <tbody>
-                                 
                                  <tr className="unread">
                                    <td>
                                    <h5>Users</h5>
@@ -188,9 +186,7 @@ function Dashboards() {
                                    <td>
                                    <h5 style={{marginLeft:"25px"}}>Class Name</h5>
                                    </td>
-                                 
-                                 </tr>
-                               
+                                 </tr>    
                                 </tbody>
                                 <tbody >
                                   {data?.map?.((item) => (
@@ -227,7 +223,7 @@ function Dashboards() {
                                             }}
                                             type="submit"
                                             value="Reject"
-                                            className="btn  btn-primary "
+                                            className="btn btn-primary "
                                             style={{
                                               width: "20vh",
                                               marginLeft: "9%",
@@ -246,7 +242,7 @@ function Dashboards() {
                                             }}
                                             type="submit"
                                             value="Accpet"
-                                            className="btn  btn-primary "
+                                            className="btn btn-primary "
                                             style={{
                                               width: "20vh",
                                               height: "6vh",
@@ -269,7 +265,7 @@ function Dashboards() {
                                               }}
                                               type="submit"
                                               value="Accpet"
-                                              className="btn  btn-primary "
+                                              className="btn btn-primary "
                                               style={{
                                                 width: "20vh",
                                                 height: "6vh",
@@ -290,7 +286,7 @@ function Dashboards() {
                                               }}
                                               type="submit"
                                               value="Reject"
-                                              className="btn  btn-primary "
+                                              className="btn btn-primary "
                                               style={{
                                                 width: "20vh",
                                                 marginLeft: "9%",
