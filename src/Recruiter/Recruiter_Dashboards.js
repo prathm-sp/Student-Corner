@@ -47,11 +47,21 @@ function Dashboards() {
         })
         .then((res) => {
           console.log(res);
+          axios
+            .get(`/class/student/list/${reqUrl}`, {
+              headers: { Authorization: `Bearer ${token}` },
+            })
+            .then((res) => {
+              console.log(res);
+              setData(res.data.application);
+            })
+            .catch((err) => {
+              console.log(err.response);
+            });
           toast.success(`Student Accepted`, {
             position: toast.POSITION.TOP_CENTER,
             autoClose: false,
           });
-          window.location.reload();
         })
         .catch((err) => {
           console.log(err);
@@ -63,11 +73,21 @@ function Dashboards() {
         })
         .then((res) => {
           console.log(res);
+          axios
+            .get(`/class/student/list/${reqUrl}`, {
+              headers: { Authorization: `Bearer ${token}` },
+            })
+            .then((res) => {
+              console.log(res);
+              setData(res.data.application);
+            })
+            .catch((err) => {
+              console.log(err.response);
+            });
           toast.success(`Student Rejected`, {
             position: toast.POSITION.TOP_CENTER,
             autoClose: false,
           });
-          window.location.reload();
         })
         .catch((err) => {
           console.log(err);
@@ -169,29 +189,29 @@ function Dashboards() {
                     >
                       <div className="col-xl-12 col-md-12">
                         <div className="card Recent-Users">
-
                           <div className="card-block px-0 py-3">
                             <div className="table-responsive">
                               <table className="table table-hover">
-                              <tbody>
-                                 
-                                 <tr className="unread">
-                                   <td>
-                                   <h5>Users</h5>
-                                   </td>
-                                   <td>
-                                   <h5  style={{marginLeft:"50px"}}>User Email</h5>
-                                   </td>
-                                   <td>
-                                   <h5>User Mobile No.</h5>
-                                   </td>
-                                   <td>
-                                   <h5 style={{marginLeft:"25px"}}>Class Name</h5>
-                                   </td>
-                                 
-                                 </tr>
-                               
-                             </tbody>
+                                <tbody>
+                                  <tr className="unread">
+                                    <td>
+                                      <h5>Users</h5>
+                                    </td>
+                                    <td>
+                                      <h5 style={{ marginLeft: "50px" }}>
+                                        User Email
+                                      </h5>
+                                    </td>
+                                    <td>
+                                      <h5>User Mobile No.</h5>
+                                    </td>
+                                    <td>
+                                      <h5 style={{ marginLeft: "25px" }}>
+                                        Class Name
+                                      </h5>
+                                    </td>
+                                  </tr>
+                                </tbody>
                                 <tbody>
                                   {data?.map?.((item) => (
                                     <tr className="unread">
