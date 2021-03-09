@@ -191,8 +191,8 @@ function Dashboards() {
                                  
                                  </tr>
                                
-                             </tbody>
-                                <tbody>
+                                </tbody>
+                                <tbody >
                                   {data?.map?.((item) => (
                                     <tr className="unread">
                                       <td>
@@ -227,7 +227,7 @@ function Dashboards() {
                                             }}
                                             type="submit"
                                             value="Reject"
-                                            className="btn re btn-primary "
+                                            className="btn  btn-primary "
                                             style={{
                                               width: "20vh",
                                               marginLeft: "9%",
@@ -246,7 +246,7 @@ function Dashboards() {
                                             }}
                                             type="submit"
                                             value="Accpet"
-                                            className="btn re btn-primary "
+                                            className="btn  btn-primary "
                                             style={{
                                               width: "20vh",
                                               height: "6vh",
@@ -269,7 +269,7 @@ function Dashboards() {
                                               }}
                                               type="submit"
                                               value="Accpet"
-                                              className="btn re btn-primary "
+                                              className="btn  btn-primary "
                                               style={{
                                                 width: "20vh",
                                                 height: "6vh",
