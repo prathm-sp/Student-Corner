@@ -51,9 +51,19 @@ function Class_list() {
       })
       .then((res) => {
         console.log(res);
+        setData(res.data.classtype);
       })
       .catch((err) => {
         console.log(err.response);
+        axios
+          .get(`/class/category/${category}`)
+          .then((res) => {
+            console.log(res);
+            setData(res.data.getbyactivity);
+          })
+          .catch((err) => {
+            console.log(err.response);
+          });
       });
   }, [checkValues, checkTypeValue]);
 
