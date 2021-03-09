@@ -324,42 +324,6 @@ function Dashboards() {
                                             />
                                           </>
                                         ) : null}
-                                        {/* <input
-                                          onClick={() => {
-                                            handleClick("Accept", item?._id);
-                                          }}
-                                          type="submit"
-                                          value="Accpet"
-                                          className="btn re btn-primary "
-                                          style={{
-                                            width: "20vh",
-                                            height: "6vh",
-                                            marginLeft: "25%",
-                                            marginTop: "0px",
-                                            fontSize: "15px",
-                                            backgroundColor: "#8eb553",
-                                            borderRadius: "12px",
-                                          }}
-                                          defaultValue=""
-                                        />
-                                        <input
-                                          onClick={() => {
-                                            handleClick("Reject", item?._id);
-                                          }}
-                                          type="submit"
-                                          value="Reject"
-                                          className="btn re btn-primary "
-                                          style={{
-                                            width: "20vh",
-                                            marginLeft: "9%",
-                                            height: "6vh",
-                                            marginTop: "0px",
-                                            fontSize: "15px",
-                                            backgroundColor: "#da2461",
-                                            borderRadius: "12px",
-                                          }}
-                                          defaultValue=""
-                                        /> */}
                                       </td>
                                     </tr>
                                   ))}
