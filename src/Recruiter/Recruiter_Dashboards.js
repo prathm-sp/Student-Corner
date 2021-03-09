@@ -84,8 +84,8 @@ function Dashboards() {
                 <div className="row">
                   {/* card1 start */}
                   <div
-                    className="col-md-6 col-xl-3"
-                    className="col-md-6 col-xl-3"
+                    className="col-md-6 col-xl-4"
+                    className="col-md-6 col-xl-4"
                     onClick={() => {
                       setReqUrl("pending");
                     }}
@@ -110,7 +110,7 @@ function Dashboards() {
                   {/* card1 end */}
                   {/* card1 start */}
                   <div
-                    className="col-md-6 col-xl-3"
+                    className="col-md-6 col-xl-4"
                     onClick={() => {
                       setReqUrl("rejected");
                     }}
@@ -135,7 +135,7 @@ function Dashboards() {
                   {/* card1 end */}
                   {/* card1 start */}
                   <div
-                    className="col-md-6 col-xl-3"
+                    className="col-md-6 col-xl-4"
                     onClick={() => {
                       setReqUrl("accepted");
                     }}
@@ -169,45 +169,29 @@ function Dashboards() {
                     >
                       <div className="col-xl-12 col-md-12">
                         <div className="card Recent-Users">
-                          <div
-                            className="card-header"
-                            style={{
-                              display: "flex",
-                              justifyContent: "space-between",
-                            }}
-                          >
-                            <h5> Users</h5>
-                            <h5
-                              style={{
-                                position: "relative",
-                                left: "-17vw",
-                              }}
-                            >
-                              {" "}
-                              User Email
-                            </h5>
-                            <h5
-                              style={{
-                                position: "relative",
-                                left: "-21vw",
-                              }}
-                            >
-                              {" "}
-                              User Mobile No.
-                            </h5>
-                            <h5
-                              style={{
-                                position: "relative",
-                                left: "-36vw",
-                              }}
-                            >
-                              {" "}
-                              Class Name
-                            </h5>
-                          </div>
+
                           <div className="card-block px-0 py-3">
                             <div className="table-responsive">
                               <table className="table table-hover">
+                              <tbody>
+                                 
+                                 <tr className="unread">
+                                   <td>
+                                   <h5>Users</h5>
+                                   </td>
+                                   <td>
+                                   <h5  style={{marginLeft:"50px"}}>User Email</h5>
+                                   </td>
+                                   <td>
+                                   <h5>User Mobile No.</h5>
+                                   </td>
+                                   <td>
+                                   <h5 style={{marginLeft:"25px"}}>Class Name</h5>
+                                   </td>
+                                 
+                                 </tr>
+                               
+                             </tbody>
                                 <tbody>
                                   {data?.map?.((item) => (
                                     <tr className="unread">

@@ -12,7 +12,7 @@ function Footer() {
             <div className="footer_bg_two" />
             <div className="footer_bg_two1" />
             <div className="footer_bg_two2" />
-
+            <div className="footer_bg_two3" />
           </div>
         </div>
         
