@@ -47,11 +47,21 @@ function Dashboards() {
         })
         .then((res) => {
           console.log(res);
+          axios
+            .get(`/class/student/list/${reqUrl}`, {
+              headers: { Authorization: `Bearer ${token}` },
+            })
+            .then((res) => {
+              console.log(res);
+              setData(res.data.application);
+            })
+            .catch((err) => {
+              console.log(err.response);
+            });
           toast.success(`Student Accepted`, {
             position: toast.POSITION.TOP_CENTER,
             autoClose: false,
           });
-          window.location.reload();
         })
         .catch((err) => {
           console.log(err);
@@ -63,11 +73,21 @@ function Dashboards() {
         })
         .then((res) => {
           console.log(res);
+          axios
+            .get(`/class/student/list/${reqUrl}`, {
+              headers: { Authorization: `Bearer ${token}` },
+            })
+            .then((res) => {
+              console.log(res);
+              setData(res.data.application);
+            })
+            .catch((err) => {
+              console.log(err.response);
+            });
           toast.success(`Student Rejected`, {
             position: toast.POSITION.TOP_CENTER,
             autoClose: false,
           });
-          window.location.reload();
         })
         .catch((err) => {
           console.log(err);
@@ -172,23 +192,27 @@ function Dashboards() {
                           <div className="card-block px-0 py-3">
                             <div className="table-responsive">
                               <table className="table table-hover">
-                              <tbody>
-                                 <tr className="unread">
-                                   <td>
-                                   <h5>Users</h5>
-                                   </td>
-                                   <td>
-                                   <h5  style={{marginLeft:"50px"}}>User Email</h5>
-                                   </td>
-                                   <td>
-                                   <h5>User Mobile No.</h5>
-                                   </td>
-                                   <td>
-                                   <h5 style={{marginLeft:"25px"}}>Class Name</h5>
-                                   </td>
-                                 </tr>    
+                                <tbody>
+                                  <tr className="unread">
+                                    <td>
+                                      <h5>Users</h5>
+                                    </td>
+                                    <td>
+                                      <h5 style={{ marginLeft: "50px" }}>
+                                        User Email
+                                      </h5>
+                                    </td>
+                                    <td>
+                                      <h5>User Mobile No.</h5>
+                                    </td>
+                                    <td>
+                                      <h5 style={{ marginLeft: "25px" }}>
+                                        Class Name
+                                      </h5>
+                                    </td>
+                                  </tr>
                                 </tbody>
-                                <tbody >
+                                <tbody>
                                   {data?.map?.((item) => (
                                     <tr className="unread">
                                       <td>
@@ -300,42 +324,6 @@ function Dashboards() {
                                             />
                                           </>
                                         ) : null}
-                                        {/* <input
-                                          onClick={() => {
-                                            handleClick("Accept", item?._id);
-                                          }}
-                                          type="submit"
-                                          value="Accpet"
-                                          className="btn re btn-primary "
-                                          style={{
-                                            width: "20vh",
-                                            height: "6vh",
-                                            marginLeft: "25%",
-                                            marginTop: "0px",
-                                            fontSize: "15px",
-                                            backgroundColor: "#8eb553",
-                                            borderRadius: "12px",
-                                          }}
-                                          defaultValue=""
-                                        />
-                                        <input
-                                          onClick={() => {
-                                            handleClick("Reject", item?._id);
-                                          }}
-                                          type="submit"
-                                          value="Reject"
-                                          className="btn re btn-primary "
-                                          style={{
-                                            width: "20vh",
-                                            marginLeft: "9%",
-                                            height: "6vh",
-                                            marginTop: "0px",
-                                            fontSize: "15px",
-                                            backgroundColor: "#da2461",
-                                            borderRadius: "12px",
-                                          }}
-                                          defaultValue=""
-                                        /> */}
                                       </td>
                                     </tr>
                                   ))}
