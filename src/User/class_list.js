@@ -158,7 +158,7 @@ function Class_list() {
                 <div className="job-category-listing mb-50">
                   {/* single one */}
                   <div className="single-listing">
-                    <div className="select-Categories pt-80 pb-50">
+                    <div className="select-Categories  pb-50">
                       <div className="small-section-tittle2">
                         <h4>Sort By City</h4>
                       </div>
@@ -236,7 +236,7 @@ function Class_list() {
                     </div>
                     {/*  Select job items End*/}
                     {/* select-Categories start */}
-                    <div className="select-Categories pt-80 pb-50">
+                    <div className="select-Categories pt-20 pb-50">
                       <div className="small-section-tittle2">
                         <h4>Class Type</h4>
                       </div>
@@ -273,12 +273,12 @@ function Class_list() {
                     </div>
                     {/* select-Categories End */}
                   </div>
-                  {/* single two */}
-                  <div className="single-listing">
+                 
+                  {/* <div className="single-listing">
                     <div className="small-section-tittle2">
                       <h4>Class Location</h4>
                     </div>
-                    {/* Select job items start */}
+                  
                     <div className="select-job-items2">
                       <select name="cars" class="custom-select mb-3">
                         <option selected> Select </option>
@@ -287,51 +287,10 @@ function Class_list() {
                         <option value="audi">3</option>
                       </select>
                     </div>
-                    {/*  Select job items End*/}
-                  </div>
+                    
+                  </div> */}
                   {/* single three */}
-                  <div className="single-listing mt-5">
-                    {/* select-Categories start */}
-                    <div className="select-Categories pb-50">
-                      <div className="small-section-tittle2">
-                        <h4>Posted Within</h4>
-                      </div>
-                      <label className="container">
-                        Any
-                        <input type="checkbox" />
-                        <span className="checkmark" />
-                      </label>
-                      <label className="container">
-                        Today
-                        <input
-                          type="checkbox"
-                          defaultChecked="checked active"
-                        />
-                        <span className="checkmark" />
-                      </label>
-                      <label className="container">
-                        Last 2 days
-                        <input type="checkbox" />
-                        <span className="checkmark" />
-                      </label>
-                      <label className="container">
-                        Last 3 days
-                        <input type="checkbox" />
-                        <span className="checkmark" />
-                      </label>
-                      <label className="container">
-                        Last 5 days
-                        <input type="checkbox" />
-                        <span className="checkmark" />
-                      </label>
-                      <label className="container">
-                        Last 10 days
-                        <input type="checkbox" />
-                        <span className="checkmark" />
-                      </label>
-                    </div>
-                    {/* select-Categories End */}
-                  </div>
+                
                 </div>
                 {/* Job Category Listing End */}
               </div>
@@ -346,7 +305,7 @@ function Class_list() {
                         <div className="count-job mb-35">
                           <span>{data?.length} Class found</span>
                           {/* Select job items start */}
-                          <div className="select-job-items">
+                          {/* <div className="select-job-items">
                             <span>Sort by</span>
                             <select name="select">
                               <option value>None</option>
@@ -354,7 +313,7 @@ function Class_list() {
                               <option value>job list</option>
                               <option value>job list</option>
                             </select>
-                          </div>
+                          </div> */}
                           {/*  Select job items End*/}
                         </div>
                       </div>

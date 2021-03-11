@@ -193,7 +193,7 @@ function Navbar(props) {
                           class="form-control"
                           onChange={handleChange}
                           name="email"
-                          placeholder="Email"
+                          placeholder="Email or Mobile Number"
                           required="required"
                         />
                       </div>

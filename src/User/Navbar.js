@@ -172,13 +172,13 @@ function Navbar(props) {
                       </div>
                       <div className="form-group">
                         <input
-                          type="text"
+                         type="text"
                           className="form-control"
-                          type="email"
+                          type="email "
                           class="form-control"
                           onChange={handleChange}
                           name="email"
-                          placeholder="Email"
+                          placeholder="Email "
                           required="required"
                         />
                       </div>
