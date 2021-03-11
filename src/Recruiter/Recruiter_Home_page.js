@@ -149,7 +149,7 @@ function Home() {
           </div>
 		<div class=" city MultiCarousel col-md-12  wr " data-items="1,3,5,6" data-slide="1" id="MultiCarousel"  data-interval="1000">
             <div class="MultiCarousel-inner">
-                <div class="item">
+                <div class="item ">
                     <div class="pad15">
                     <img alt=".." src={Mumbai}/>
                     <p>Mumbai</p>

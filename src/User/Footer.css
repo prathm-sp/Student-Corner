@@ -194,6 +194,18 @@ footer {
     -webkit-animation: myfirst 70s linear infinite;
     animation: myfirst 70s linear infinite;
 }
+.new_footer_top .footer_bg .footer_bg_two3{
+    background: url("https://i.ibb.co/mNSjt2g/d8bc76c99465a11ffee91e09de10ad-unscreen.gif") no-repeat center center;
+    width: 170px;
+    height: 115px;
+  background-size:100%;
+    bottom: 0;
+    
+    position: absolute;
+    -webkit-animation: myfirst1 70s linear infinite;
+    animation: myfirst1 70s linear infinite;
+}
+
 @-moz-keyframes myfirst {
   0% {
     left: -25%;
@@ -220,6 +232,7 @@ footer {
     left: 100%;
   }
 }
+
 @media screen and (max-width: 360px) {
     footer {
         margin-top: -90px;
@@ -227,3 +240,30 @@ footer {
 }
 /*************footer End*****************/
 
+@-moz-keyframes myfirst1 {
+    0% {
+      right: -5%;
+    }
+    100% {
+      right: 100%;
+    }
+  }
+  
+  @-webkit-keyframes myfirst1 {
+    0% {
+        right: -5%;
+    }
+    100% {
+        right: 100%;
+    }
+  }
+  
+  @keyframes myfirst1 {
+    0% {
+        right: -5%;
+    }
+    100% {
+        right: 100%;
+    }
+  }
+  

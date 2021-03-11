@@ -119,7 +119,7 @@ function Navbar(props) {
             </Link>
             <Link to="/Profile_create">
               <li class="active ">
-                <a>Profile_create</a>
+                <a>Class_Profile_create</a>
               </li>
             </Link>
             <Link to="/Job_Profile_create">
@@ -193,7 +193,7 @@ function Navbar(props) {
                           class="form-control"
                           onChange={handleChange}
                           name="email"
-                          placeholder="Email"
+                          placeholder="Email or Mobile Number"
                           required="required"
                         />
                       </div>

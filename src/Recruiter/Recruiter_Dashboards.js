@@ -47,11 +47,21 @@ function Dashboards() {
         })
         .then((res) => {
           console.log(res);
+          axios
+            .get(`/class/student/list/${reqUrl}`, {
+              headers: { Authorization: `Bearer ${token}` },
+            })
+            .then((res) => {
+              console.log(res);
+              setData(res.data.application);
+            })
+            .catch((err) => {
+              console.log(err.response);
+            });
           toast.success(`Student Accepted`, {
             position: toast.POSITION.TOP_CENTER,
             autoClose: false,
           });
-          window.location.reload();
         })
         .catch((err) => {
           console.log(err);
@@ -63,11 +73,21 @@ function Dashboards() {
         })
         .then((res) => {
           console.log(res);
+          axios
+            .get(`/class/student/list/${reqUrl}`, {
+              headers: { Authorization: `Bearer ${token}` },
+            })
+            .then((res) => {
+              console.log(res);
+              setData(res.data.application);
+            })
+            .catch((err) => {
+              console.log(err.response);
+            });
           toast.success(`Student Rejected`, {
             position: toast.POSITION.TOP_CENTER,
             autoClose: false,
           });
-          window.location.reload();
         })
         .catch((err) => {
           console.log(err);
@@ -84,8 +104,8 @@ function Dashboards() {
                 <div className="row">
                   {/* card1 start */}
                   <div
-                    className="col-md-6 col-xl-3"
-                    className="col-md-6 col-xl-3"
+                    className="col-md-6 col-xl-4"
+                    className="col-md-6 col-xl-4"
                     onClick={() => {
                       setReqUrl("pending");
                     }}
@@ -110,7 +130,7 @@ function Dashboards() {
                   {/* card1 end */}
                   {/* card1 start */}
                   <div
-                    className="col-md-6 col-xl-3"
+                    className="col-md-6 col-xl-4"
                     onClick={() => {
                       setReqUrl("rejected");
                     }}
@@ -135,7 +155,7 @@ function Dashboards() {
                   {/* card1 end */}
                   {/* card1 start */}
                   <div
-                    className="col-md-6 col-xl-3"
+                    className="col-md-6 col-xl-4"
                     onClick={() => {
                       setReqUrl("accepted");
                     }}
@@ -169,45 +189,29 @@ function Dashboards() {
                     >
                       <div className="col-xl-12 col-md-12">
                         <div className="card Recent-Users">
-                          <div
-                            className="card-header"
-                            style={{
-                              display: "flex",
-                              justifyContent: "space-between",
-                            }}
-                          >
-                            <h5> Users</h5>
-                            <h5
-                              style={{
-                                position: "relative",
-                                left: "-17vw",
-                              }}
-                            >
-                              {" "}
-                              User Email
-                            </h5>
-                            <h5
-                              style={{
-                                position: "relative",
-                                left: "-21vw",
-                              }}
-                            >
-                              {" "}
-                              User Mobile No.
-                            </h5>
-                            <h5
-                              style={{
-                                position: "relative",
-                                left: "-36vw",
-                              }}
-                            >
-                              {" "}
-                              Class Name
-                            </h5>
-                          </div>
                           <div className="card-block px-0 py-3">
                             <div className="table-responsive">
                               <table className="table table-hover">
+                                <tbody>
+                                  <tr className="unread">
+                                    <td>
+                                      <h5>Users</h5>
+                                    </td>
+                                    <td>
+                                      <h5 style={{ marginLeft: "50px" }}>
+                                        User Email
+                                      </h5>
+                                    </td>
+                                    <td>
+                                      <h5>User Mobile No.</h5>
+                                    </td>
+                                    <td>
+                                      <h5 style={{ marginLeft: "25px" }}>
+                                        Class Name
+                                      </h5>
+                                    </td>
+                                  </tr>
+                                </tbody>
                                 <tbody>
                                   {data?.map?.((item) => (
                                     <tr className="unread">
@@ -243,7 +247,7 @@ function Dashboards() {
                                             }}
                                             type="submit"
                                             value="Reject"
-                                            className="btn re btn-primary "
+                                            className="btn btn-primary "
                                             style={{
                                               width: "20vh",
                                               marginLeft: "9%",
@@ -262,7 +266,7 @@ function Dashboards() {
                                             }}
                                             type="submit"
                                             value="Accpet"
-                                            className="btn re btn-primary "
+                                            className="btn btn-primary "
                                             style={{
                                               width: "20vh",
                                               height: "6vh",
@@ -285,7 +289,7 @@ function Dashboards() {
                                               }}
                                               type="submit"
                                               value="Accpet"
-                                              className="btn re btn-primary "
+                                              className="btn btn-primary "
                                               style={{
                                                 width: "20vh",
                                                 height: "6vh",
@@ -306,7 +310,7 @@ function Dashboards() {
                                               }}
                                               type="submit"
                                               value="Reject"
-                                              className="btn re btn-primary "
+                                              className="btn btn-primary "
                                               style={{
                                                 width: "20vh",
                                                 marginLeft: "9%",
@@ -320,42 +324,6 @@ function Dashboards() {
                                             />
                                           </>
                                         ) : null}
-                                        {/* <input
-                                          onClick={() => {
-                                            handleClick("Accept", item?._id);
-                                          }}
-                                          type="submit"
-                                          value="Accpet"
-                                          className="btn re btn-primary "
-                                          style={{
-                                            width: "20vh",
-                                            height: "6vh",
-                                            marginLeft: "25%",
-                                            marginTop: "0px",
-                                            fontSize: "15px",
-                                            backgroundColor: "#8eb553",
-                                            borderRadius: "12px",
-                                          }}
-                                          defaultValue=""
-                                        />
-                                        <input
-                                          onClick={() => {
-                                            handleClick("Reject", item?._id);
-                                          }}
-                                          type="submit"
-                                          value="Reject"
-                                          className="btn re btn-primary "
-                                          style={{
-                                            width: "20vh",
-                                            marginLeft: "9%",
-                                            height: "6vh",
-                                            marginTop: "0px",
-                                            fontSize: "15px",
-                                            backgroundColor: "#da2461",
-                                            borderRadius: "12px",
-                                          }}
-                                          defaultValue=""
-                                        /> */}
                                       </td>
                                     </tr>
                                   ))}
