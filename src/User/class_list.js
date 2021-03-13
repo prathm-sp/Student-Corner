@@ -38,6 +38,12 @@ function Class_list() {
           var list = document.getElementsByClassName("page-item");
           console.log(list);
           list[number - 1].classList.add("active");
+          list?.[number]?.classList?.remove?.("active");
+          list?.[number - 2]?.classList?.remove?.("active");
+          list?.[number - 3]?.classList?.remove?.("active");
+          list?.[number + 1]?.classList?.remove?.("active");
+          list?.[number + 2]?.classList?.remove?.("active");
+          list?.[number + 3]?.classList?.remove?.("active");
         })
         .catch((err) => {
           console.log(err.response);
@@ -78,6 +84,25 @@ function Class_list() {
             var list = document.getElementsByClassName("page-item");
             console.log(list);
             list[localStorage.getItem("number")].classList.add("active");
+            list[localStorage.getItem("number") - 1].classList.add("active");
+            list?.[localStorage.getItem("number")]?.classList?.remove?.(
+              "active"
+            );
+            list?.[localStorage.getItem("number") - 2]?.classList?.remove?.(
+              "active"
+            );
+            list?.[localStorage.getItem("number") - 3]?.classList?.remove?.(
+              "active"
+            );
+            list?.[localStorage.getItem("number") + 1]?.classList?.remove?.(
+              "active"
+            );
+            list?.[localStorage.getItem("number") + 2]?.classList?.remove?.(
+              "active"
+            );
+            list?.[localStorage.getItem("number") + 3]?.classList?.remove?.(
+              "active"
+            );
           })
           .catch((err) => {
             console.log(err.response);
@@ -89,59 +114,35 @@ function Class_list() {
 
   useEffect(() => {
     const { activeCities, activeTypes } = getOnlyTrueValues();
-    if (!activeCities) {
-      axios
-        .get(`/class/category/filter/${category}`, {
-          params: { classtypearr: activeTypes },
-        })
-        .then((res) => {
-          console.log(res);
-          setData(res.data.classtype);
-        })
-        .catch((err) => {
-          console.log(err.response);
-          axios
-            .get(`/class/category/pagination/${category}/${number}/1`)
-            .then((res) => {
-              console.log(res);
-              setData(res.data.getbyactivity);
-            })
-            .catch((err) => {
-              console.log(err.response);
-            });
-        });
-    } else if (!activeTypes) {
-      axios
-        .get(`/class/category/filter/${category}`, {
-          params: { citiesarr: activeCities },
-        })
-        .then((res) => {
-          console.log(res);
-          setData(res.data.classtype);
-        })
-        .catch((err) => {
-          console.log(err.response);
-          axios
-            .get(`/class/category/pagination/${category}/3/1`)
-            .then((res) => {
-              console.log(res);
-              setData(res.data.getbyactivity);
-            })
-            .catch((err) => {
-              console.log(err.response);
-            });
-        });
-    } else {
-      axios
-        .get(`/class/category/pagination/${category}/3/1`)
-        .then((res) => {
-          console.log(res);
-          setData(res.data.getbyactivity);
-        })
-        .catch((err) => {
-          console.log(err.response);
-        });
-    }
+    axios
+      .get(`/class/category/filter/${category}`, {
+        params: { citiesarr: activeCities, classtypearr: activeTypes },
+      })
+      .then((res) => {
+        console.log(res);
+        setData(res.data.classtype);
+      })
+      .catch((err) => {
+        console.log(err.response);
+        axios
+          .get(`/class/category/pagination/${category}/3/1`)
+          .then((res) => {
+            console.log(res);
+            setData(res.data.getbyactivity);
+          })
+          .catch((err) => {
+            console.log(err.response);
+            axios
+              .get(`/class/category/pagination/${category}/3/${number}`)
+              .then((res) => {
+                console.log(res);
+                setData(res.data.getbyactivity);
+              })
+              .catch((err) => {
+                console.log(err.response);
+              });
+          });
+      });
   }, [checkValues, checkTypeValue]);
 
   const handleJobClick = (val) => {
