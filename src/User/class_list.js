@@ -8,15 +8,16 @@ function Class_list() {
   const [data, setData] = useState();
   const history = useHistory();
   const category = localStorage.getItem("category");
+  const cityType = localStorage.getItem("cityType");
 
   var [checkValues, setCheckValues] = useState({
-    Ahmednagar: false,
-    Pune: false,
-    Delhi: false,
-    Chennai: false,
-    Kolkata: false,
-    Hyderabad: false,
-    Mumbai: false,
+    Ahmednagar: cityType == "Ahmednagar" ? true : false,
+    Pune: cityType == "Pune" ? true : false,
+    Delhi: cityType == "Delhi" ? true : false,
+    Chennai: cityType == "Chennai" ? true : false,
+    Kolkata: cityType == "Kolkata" ? true : false,
+    Hyderabad: cityType == "Hyderabad" ? true : false,
+    Mumbai: cityType == "Mumbai" ? true : false,
   });
 
   var [checkTypeValue, setcheckTypeValue] = useState({
@@ -24,7 +25,7 @@ function Class_list() {
     Fulltime: false,
     Remote: false,
   });
-
+  console.log(checkValues);
   var [number, setNumber] = useState();
 
   useEffect(() => {
