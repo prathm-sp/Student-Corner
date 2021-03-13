@@ -22,6 +22,8 @@ import Ahmednagar from "../City_icon/Ahmednagar .png";
 import axios from "../axios";
 function Home() {
   const [data, setData] = useState();
+  localStorage.removeItem("cityType");
+  localStorage.removeItem("number");
   useEffect(() => {
     axios
       .get("/class/home/homepage")
@@ -163,19 +165,37 @@ function Home() {
               data-interval="1000"
             >
               <div class="MultiCarousel-inner">
-                <div class="item">
+                <div
+                  class="item"
+                  onClick={() => {
+                    localStorage.setItem("cityType", "Mumbai");
+                    history.push("/class_list");
+                  }}
+                >
                   <div class="pad15">
                     <img alt=".." src={Mumbai} />
                     <p>Mumbai</p>
                   </div>
                 </div>
-                <div class="item">
+                <div
+                  class="item"
+                  onClick={() => {
+                    localStorage.setItem("cityType", "Hyderabad");
+                    history.push("/class_list");
+                  }}
+                >
                   <div class="pad15">
                     <img alt=".." src={Hyderabad} />
                     <p>Hyberabad </p>
                   </div>
                 </div>
-                <div class="item">
+                <div
+                  class="item"
+                  onClick={() => {
+                    localStorage.setItem("cityType", "Pune");
+                    history.push("/class_list");
+                  }}
+                >
                   <div class="pad15 ">
                     <img class="mt-4 " alt=".." src={Pune} />
                     <p className="pune" style={{ marginTop: "10px" }}>
@@ -183,7 +203,13 @@ function Home() {
                     </p>
                   </div>
                 </div>
-                <div class="item">
+                <div
+                  class="item"
+                  onClick={() => {
+                    localStorage.setItem("cityType", "Chennai");
+                    history.push("/class_list");
+                  }}
+                >
                   <div class="pad15">
                     <img class="mt-2 " alt=".." src={Chennai} />
                     <p className="Chennai" style={{ marginTop: "10px" }}>
@@ -191,31 +217,61 @@ function Home() {
                     </p>
                   </div>
                 </div>
-                <div class="item">
+                <div
+                  class="item"
+                  onClick={() => {
+                    localStorage.setItem("cityType", "Delhi");
+                    history.push("/class_list");
+                  }}
+                >
                   <div class="pad15">
                     <img alt=".." src={Delhi} />
                     <p>Delhi</p>
                   </div>
                 </div>
-                <div class="item">
+                <div
+                  class="item"
+                  onClick={() => {
+                    localStorage.setItem("cityType", "kolkata");
+                    history.push("/class_list");
+                  }}
+                >
                   <div class="pad15">
                     <img alt=".." src={Kolkata} />
                     <p className="mt-3"> kolkata</p>
                   </div>
                 </div>
-                <div class="item">
+                <div
+                  class="item"
+                  onClick={() => {
+                    localStorage.setItem("cityType", "Mumbai");
+                    history.push("/class_list");
+                  }}
+                >
                   <div class="pad15">
                     <img alt=".." src={Mumbai} />
                     <p>Mumbai</p>
                   </div>
                 </div>
-                <div class="item">
+                <div
+                  class="item"
+                  onClick={() => {
+                    localStorage.setItem("cityType", "Hyderabad");
+                    history.push("/class_list");
+                  }}
+                >
                   <div class="pad15">
                     <img alt=".." src={Hyderabad} />
                     <p>Hyberabad </p>
                   </div>
                 </div>
-                <div class="item">
+                <div
+                  class="item"
+                  onClick={() => {
+                    localStorage.setItem("cityType", "Pune");
+                    history.push("/class_list");
+                  }}
+                >
                   <div class="pad15 ">
                     <img class="mt-4 " alt=".." src={Pune} />
                     <p className="pune" style={{ marginTop: "10px" }}>
@@ -223,7 +279,13 @@ function Home() {
                     </p>
                   </div>
                 </div>
-                <div class="item">
+                <div
+                  class="item"
+                  onClick={() => {
+                    localStorage.setItem("cityType", "Chennai");
+                    history.push("/class_list");
+                  }}
+                >
                   <div class="pad15">
                     <img class="mt-2 " alt=".." src={Chennai} />
                     <p className="Chennai" style={{ marginTop: "10px" }}>
@@ -231,19 +293,37 @@ function Home() {
                     </p>
                   </div>
                 </div>
-                <div class="item">
+                <div
+                  class="item"
+                  onClick={() => {
+                    localStorage.setItem("cityType", "Delhi");
+                    history.push("/class_list");
+                  }}
+                >
                   <div class="pad15">
                     <img alt=".." src={Delhi} />
                     <p>Delhi</p>
                   </div>
                 </div>
-                <div class="item">
+                <div
+                  class="item"
+                  onClick={() => {
+                    localStorage.setItem("cityType", "kolkata");
+                    history.push("/class_list");
+                  }}
+                >
                   <div class="pad15">
                     <img alt=".." src={Kolkata} />
                     <p className="mt-3"> kolkata</p>
                   </div>
                 </div>
-                <div class="item">
+                <div
+                  class="item"
+                  onClick={() => {
+                    localStorage.setItem("cityType", "Ahmednagar");
+                    history.push("/class_list");
+                  }}
+                >
                   <div class="pad15">
                     <img alt=".." src={Ahmednagar} />
                     <p className="mt-1"> Ahmednagar</p>
