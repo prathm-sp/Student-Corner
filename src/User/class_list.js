@@ -25,12 +25,115 @@ function Class_list() {
     Remote: false,
   });
 
+  var [number, setNumber] = useState();
+
   useEffect(() => {
-    let category = localStorage.getItem("category");
-    if (!category) history.push("/");
-    const handleClick = () => {
+    if (number) {
+      localStorage.setItem("number", number);
       axios
-        .get(`/class/category/${category}`)
+        .get(`/class/category/pagination/${category}/3/${number}`)
+        .then((res) => {
+          console.log(res);
+          setData(res.data.getbyactivity);
+          var list = document.getElementsByClassName("page-item");
+          console.log(list);
+          list[number - 1].classList.add("active");
+        })
+        .catch((err) => {
+          console.log(err.response);
+        });
+    } else {
+      var list = document.getElementsByClassName("page-item");
+      console.log(list);
+      var dtlNo = localStorage.getItem("number");
+
+      if (!dtlNo) {
+        axios
+          .get(`/class/category/pagination/${category}/3/1`)
+          .then((res) => {
+            console.log(res);
+            setData(res.data.getbyactivity);
+            var list = document.getElementsByClassName("page-item");
+            console.log(list);
+            list[0].classList.add("active");
+          })
+          .catch((err) => {
+            console.log(err.response);
+          });
+        localStorage.setItem("number", 1);
+
+        setNumber(1);
+      } else {
+        var list = document.getElementsByClassName("page-item");
+        console.log(list);
+        axios
+          .get(
+            `/class/category/pagination/${category}/3/${localStorage.getItem(
+              "number"
+            )}`
+          )
+          .then((res) => {
+            console.log(res);
+            setData(res.data.getbyactivity);
+            var list = document.getElementsByClassName("page-item");
+            console.log(list);
+            list[localStorage.getItem("number")].classList.add("active");
+          })
+          .catch((err) => {
+            console.log(err.response);
+          });
+        setNumber(dtlNo);
+      }
+    }
+  }, [number]);
+
+  useEffect(() => {
+    const { activeCities, activeTypes } = getOnlyTrueValues();
+    if (!activeCities) {
+      axios
+        .get(`/class/category/filter/${category}`, {
+          params: { classtypearr: activeTypes },
+        })
+        .then((res) => {
+          console.log(res);
+          setData(res.data.classtype);
+        })
+        .catch((err) => {
+          console.log(err.response);
+          axios
+            .get(`/class/category/pagination/${category}/${number}/1`)
+            .then((res) => {
+              console.log(res);
+              setData(res.data.getbyactivity);
+            })
+            .catch((err) => {
+              console.log(err.response);
+            });
+        });
+    } else if (!activeTypes) {
+      axios
+        .get(`/class/category/filter/${category}`, {
+          params: { citiesarr: activeCities },
+        })
+        .then((res) => {
+          console.log(res);
+          setData(res.data.classtype);
+        })
+        .catch((err) => {
+          console.log(err.response);
+          axios
+            .get(`/class/category/pagination/${category}/3/1`)
+            .then((res) => {
+              console.log(res);
+              setData(res.data.getbyactivity);
+            })
+            .catch((err) => {
+              console.log(err.response);
+            });
+        });
+    } else {
+      axios
+        .get(`/class/category/pagination/${category}/3/1`)
         .then((res) => {
           console.log(res);
           setData(res.data.getbyactivity);
@@ -38,33 +141,7 @@ function Class_list() {
         .catch((err) => {
           console.log(err.response);
         });
-    };
-    handleClick();
-  }, []);
-
-  useEffect(() => {
-    const { activeCities, activeTypes } = getOnlyTrueValues();
-    console.log(activeCities, activeTypes);
-    axios
-      .get(`/class/category/filter/${category}`, {
-        params: { citiesarr: activeCities, classtypearr: activeTypes },
-      })
-      .then((res) => {
-        console.log(res);
-        setData(res.data.classtype);
-      })
-      .catch((err) => {
-        console.log(err.response);
-        axios
-          .get(`/class/category/${category}`)
-          .then((res) => {
-            console.log(res);
-            setData(res.data.getbyactivity);
-          })
-          .catch((err) => {
-            console.log(err.response);
-          });
-      });
+    }
   }, [checkValues, checkTypeValue]);
 
   const handleJobClick = (val) => {
@@ -127,7 +204,7 @@ function Class_list() {
       </div>
       <main>
         {/* Job List Area Start */}
-        <div className="job-listing-area  mt-5 pb-120">
+        <div className="job-listing-area  mt-5">
           <div className="container">
             <div className="row" style={{ marginLeft: "-72px" }}>
               {/* Left content */}
@@ -273,7 +350,7 @@ function Class_list() {
                     </div>
                     {/* select-Categories End */}
                   </div>
-                 
+
                   {/* <div className="single-listing">
                     <div className="small-section-tittle2">
                       <h4>Class Location</h4>
@@ -290,7 +367,6 @@ function Class_list() {
                     
                   </div> */}
                   {/* single three */}
-                
                 </div>
                 {/* Job Category Listing End */}
               </div>
@@ -370,13 +446,28 @@ function Class_list() {
                 <div className="single-wrap d-flex justify-content-center">
                   <nav aria-label="Page navigation example">
                     <ul className="pagination justify-content-start">
-                      <li className="page-item active">
+                      <li
+                        className="page-item"
+                        onClick={() => {
+                          setNumber(1);
+                        }}
+                      >
                         <a className="page-link">01</a>
                       </li>
-                      <li className="page-item">
+                      <li
+                        className="page-item"
+                        onClick={() => {
+                          setNumber(2);
+                        }}
+                      >
                         <a className="page-link">02</a>
                       </li>
-                      <li className="page-item">
+                      <li
+                        className="page-item"
+                        onClick={() => {
+                          setNumber(3);
+                        }}
+                      >
                         <a className="page-link">03</a>
                       </li>
                       <li className="page-item">

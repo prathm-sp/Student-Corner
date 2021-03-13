@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import Corousel from "./corousel";
 import Programing from "../icon/programing.png";
@@ -19,7 +19,21 @@ import Hyderabad from "../City_icon/hyderabad.png";
 import Delhi from "../City_icon/Delhi.png";
 import Chennai from "../City_icon/chennai.png";
 import Ahmednagar from "../City_icon/Ahmednagar .png";
+import axios from "../axios";
 function Home() {
+  const [data, setData] = useState();
+  useEffect(() => {
+    axios
+      .get("/class/home/homepage")
+      .then((res) => {
+        console.log(res);
+        setData(res);
+      })
+      .catch((err) => {
+        console.log(err.response);
+      });
+  }, []);
+
   $(document).ready(function () {
     var itemsMainDiv = ".MultiCarousel";
     var itemsDiv = ".MultiCarousel-inner";
@@ -269,7 +283,7 @@ function Home() {
                       <h5>
                         <a>Programming</a>
                       </h5>
-                      <span>(653)</span>
+                      <span>({data?.data?.Programming})</span>
                     </div>
                   </div>
                 </div>
@@ -287,7 +301,7 @@ function Home() {
                       <h5>
                         <a>Hospital</a>
                       </h5>
-                      <span>(658)</span>
+                      <span>({data?.data?.Hospital})</span>
                     </div>
                   </div>
                 </div>
@@ -305,7 +319,7 @@ function Home() {
                       <h5>
                         <a>Technical</a>
                       </h5>
-                      <span>(658)</span>
+                      <span>({data?.data?.Technical})</span>
                     </div>
                   </div>
                 </div>
@@ -323,7 +337,7 @@ function Home() {
                       <h5>
                         <a>Sport</a>
                       </h5>
-                      <span>(658)</span>
+                      <span>({data?.data?.Sport})</span>
                     </div>
                   </div>
                 </div>
@@ -341,7 +355,7 @@ function Home() {
                       <h5>
                         <a>Cenimatics</a>
                       </h5>
-                      <span>(658)</span>
+                      <span>({data?.data?.Cenimatics})</span>
                     </div>
                   </div>
                 </div>
@@ -359,7 +373,7 @@ function Home() {
                       <h5>
                         <a>Cooking</a>
                       </h5>
-                      <span>(658)</span>
+                      <span>({data?.data?.Cooking})</span>
                     </div>
                   </div>
                 </div>
@@ -377,7 +391,7 @@ function Home() {
                       <h5>
                         <a>Performance</a>
                       </h5>
-                      <span>(658)</span>
+                      <span>({data?.data?.Performance})</span>
                     </div>
                   </div>
                 </div>
