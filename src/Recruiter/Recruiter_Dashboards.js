@@ -8,18 +8,18 @@ function Dashboards() {
   const token = localStorage.getItem("token");
   var [data, setData] = useState();
   var [reqUrl, setReqUrl] = useState("pending");
+  var [count, setCount] = useState()
   console.log(reqUrl);
   useEffect(() => {
-    axios.get('/class/classdashboard', { headers: { Authorization: `Bearer ${token}` } })
+    if (!token) return null;
+    axios.get('/class/board/classdashboard', { headers: { Authorization: `Bearer ${token}` } })
       .then((res) => {
         console.log(res)
+        setCount(res.data)
       })
       .catch((err) => {
         console.log(err.response)
       })
-  }, [])
-  useEffect(() => {
-    if (!token) return null;
     if (reqUrl == "pending") {
       axios
         .get(`/class/student/list/`, {
@@ -45,7 +45,7 @@ function Dashboards() {
           console.log(err.response);
         });
     }
-  }, [reqUrl]);
+  }, [reqUrl, count]);
 
   const handleClick = (val, id) => {
     console.log(val, id);
@@ -126,11 +126,12 @@ function Dashboards() {
                       <div className="card-block-small">
                         <i className="fa fa-list bg-c-blue card1-icon" />
                         <span className="text-c-blue f-w-600">Pending</span>
-                        <h4>49</h4>
+                        <h4>{count?.pending}</h4>
                         <div>
                           <span className="f-left m-t-10 text-muted">
                             <i className="text-c-blue f-16 icofont icofont-tag m-r-10" />
-                            All
+                            Pending Classes
+
                           </span>
                         </div>
                       </div>
@@ -151,11 +152,13 @@ function Dashboards() {
                       <div className="card-block-small">
                         <i className="fa fa-window-close bg-c-pink card1-icon" />
                         <span className="text-c-pink f-w-600">Rejected</span>
-                        <h4>23</h4>
+                        <h4>{count?.rejected}</h4>
+
                         <div>
                           <span className="f-left m-t-10 text-muted">
                             <i className="text-c-pink f-16 icofont icofont-tag m-r-10" />
-                            All
+                            Rejected Classes
+
                           </span>
                         </div>
                       </div>
@@ -176,11 +179,12 @@ function Dashboards() {
                       <div className="card-block-small">
                         <i className=" fa fa-check bg-c-green card1-icon" />
                         <span className=" text-c-green f-w-600">Accepted</span>
-                        <h4>45</h4>
+                        <h4>{count?.accepted}</h4>
+
                         <div>
                           <span className="f-left m-t-10 text-muted">
                             <i className="text-c-green f-16 icofont icofont-tag m-r-10" />
-                            All
+                            Accepted Classes
                           </span>
                         </div>
                       </div>

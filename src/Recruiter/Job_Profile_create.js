@@ -22,20 +22,20 @@ function Profile_create() {
     if (res) {
       console.log("jatin");
       axios
-        .post("/class", data, {
+        .post("/job", data, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         })
         .then((res) => {
           console.log(res);
-          localStorage.setItem("classId", res.data.clas._id);
+          localStorage.setItem("jobId", res.data._id);
           const imgData = new FormData();
           imgData.append("image", file);
-          let id = localStorage.getItem("classId");
+          let id = localStorage.getItem("jobId");
           console.log(token);
           axios
-            .post(`/class/${id}/image`, imgData, {
+            .post(`/job/${id}/image`, imgData, {
               headers: {
                 Authorization: `Bearer ${token}`,
               },
@@ -195,7 +195,7 @@ function Profile_create() {
                     <strong>Personal</strong>
                   </li>
                   <li id="personal">
-                    <strong>Class Information</strong>
+                    <strong>Job Information</strong>
                   </li>
                   <li id="payment">
                     <strong>Image</strong>
@@ -243,9 +243,9 @@ function Profile_create() {
                     name="next"
                     className="next action-button"
                     defaultValue="Next"
-                    // onClick={() => {
-                    //   handleSubmit("1");
-                    // }}
+                  // onClick={() => {
+                  //   handleSubmit("1");
+                  // }}
                   />
                 </fieldset>
                 <fieldset>
@@ -258,6 +258,69 @@ function Profile_create() {
                         <h2 className="steps">Step 2 - 4</h2>
                       </div>
                     </div>
+                    <label className="fieldlabels">Job Title: *</label>
+                    <input
+                      type="text"
+                      name="title"
+                      placeholder="Job Title"
+                      onChange={handleChange}
+                    />
+                    <label className="fieldlabels">Company Name *</label>
+                    <input
+                      type="text"
+                      name="company"
+                      placeholder="Company Name"
+                      onChange={handleChange}
+                    />
+                    <label className="fieldlabels">Cities: *</label>
+                    <select
+                      class="custom-select select mb-3"
+                      name="city"
+                      onChange={handleChange}
+                    >
+                      <option selected> Select Cities</option>
+                      <option value="Mumbai">Mumbai</option>
+                      <option value="Hyberabad">Hyberabad</option>
+                      <option value="Pune">Pune</option>
+                      <option value="Chennai">Chennai</option>
+                      <option value="Delhi">Delhi</option>
+                      <option value="kolkata">kolkata</option>
+                      <option value="Ahmednagar">Ahmednagar</option>
+                    </select>
+
+                    <label className="fieldlabels">Industry Name *</label>
+                    <input
+                      type="text"
+                      name="industry"
+                      placeholder="Company Name"
+                      onChange={handleChange}
+                    />
+                    <label className="fieldlabels">Class Type: *</label>
+                    <select
+                      class="custom-select select mb-3"
+                      name="classtype"
+                      onChange={handleChange}
+                    >
+                      <option selected> Select Type</option>
+                      <option value="Fulltime">Full Time</option>
+                      <option value="Parttime">Part Time</option>
+                      <option value="Remote">Remote</option>
+                    </select>
+                    <label className="fieldlabels">Address: *</label>{" "}
+                    <input
+                      type="text"
+                      name="address"
+                      onChange={handleChange}
+                      placeholder="Address"
+                    />
+                    <label className="fieldlabels">Designation: *</label>{" "}
+                    <input
+                      type="text"
+                      name="function"
+                      onChange={handleChange}
+                      placeholder="Designation"
+                    />
+
                     <label className="fieldlabels">Activities Name: *</label>
                     <select
                       class="custom-select select mb-3"
@@ -273,13 +336,7 @@ function Profile_create() {
                       <option value="Cooking">Cooking</option>
                       <option value="Performance">Performance</option>
                     </select>
-                    <label className="fieldlabels">Class Category: *</label>
-                    <input
-                      type="text"
-                      name="category"
-                      placeholder="Class Catagory"
-                      onChange={handleChange}
-                    />{" "}
+
                     <label className="fieldlabels"> Vacancy: *</label>
                     <select
                       class="custom-select select mb-3"
@@ -298,125 +355,41 @@ function Profile_create() {
                       <option value="9">9 </option>
                       <option value="10">10 </option>
                     </select>
-                    <label className="fieldlabels">Class Name: *</label>{" "}
-                    <input
-                      type="text"
-                      name="classname"
-                      onChange={handleChange}
-                      placeholder="Class Name"
-                    />{" "}
-                    <label className="fieldlabels">Address: *</label>{" "}
-                    <input
-                      type="text"
-                      name="address"
-                      onChange={handleChange}
-                      placeholder="Address"
-                    />
-                    <label className="fieldlabels">Cities: *</label>
-                    <select
-                      class="custom-select select mb-3"
-                      name="city"
-                      onChange={handleChange}
-                    >
-                      <option selected> Select Cities</option>
-                      <option value="Mumbai">Mumbai</option>
-                      <option value="Hyberabad">Hyberabad</option>
-                      <option value="Pune">Pune</option>
-                      <option value="Chennai">Chennai</option>
-                      <option value="Delhi">Delhi</option>
-                      <option value="kolkata">kolkata</option>
-                      <option value="Ahmednagar">Ahmednagar</option>
-                    </select>
-                    <label className="fieldlabels">Class Type: *</label>
-                    <select
-                      class="custom-select select mb-3"
-                      name="classtype"
-                      onChange={handleChange}
-                    >
-                      <option selected> Select Type</option>
-                      <option value="Fulltime">Full Time</option>
-                      <option value="Parttime">Part Time</option>
-                      <option value="Remote">Remote</option>
-                    </select>
-                    <label className="fieldlabels">Class Fees: *</label>{" "}
+
+                    <label className="fieldlabels">Class Salary: *</label>{" "}
                     <input
                       type="number"
                       onChange={handleChange}
-                      name="fees"
-                      placeholder="Class Fees"
+                      name="salary"
+                      placeholder="Job Salary"
                     />
-                    <label className="fieldlabels"> class Duration: *</label>
-                    <select
-                      class="custom-select select mb-3"
-                      name="duration"
-                      onChange={handleChange}
-                    >
-                      <option selected> class Duration</option>
-                      <option value="1">1 Months</option>
-                      <option value="2">2 Months</option>
-                      <option value="3">3 Months</option>
-                      <option value="4">4 Months</option>
-                      <option value="5">5 Months</option>
-                      <option value="6">6 Months</option>
-                      <option value="7">7 Months</option>
-                      <option value="8">8 Months</option>
-                      <option value="9">9 Months</option>
-                      <option value="10">10 Months</option>
-                      <option value="11">11 Months</option>
-                      <option value="12">12 Months</option>
-                    </select>
-                    <div class="row">
-                      <div class="col-sm-12 form-group">
-                        <div class="row">
-                          <div class="col-sm-12 form-group">
-                            <label className="fieldlabels">
-                              {" "}
-                              Class Information:*
-                            </label>
-                            <textarea
-                              class="form-control"
-                              onChange={handleChange}
-                              type="textarea"
-                              name="classinformation"
-                              id="message"
-                              maxlength="6000"
-                              rows="2"
-                            ></textarea>
-                          </div>
-                        </div>
-
-                        <label className="fieldlabels">
-                          {" "}
-                          Class Description:*
+                    <label className="fieldlabels">
+                      {" "}
+                          Job Description:*
                         </label>
-                        <textarea
-                          class="form-control"
-                          onChange={handleChange}
-                          type="textarea"
-                          name="classdescription"
-                          id="message"
-                          maxlength="6000"
-                          rows="2"
-                        ></textarea>
-                      </div>
-                    </div>{" "}
-                    <div class="row">
-                      <div class="col-sm-12 form-group">
-                        <label className="fieldlabels">
-                          {" "}
+                    <textarea
+                      class="form-control"
+                      onChange={handleChange}
+                      type="textarea"
+                      name="description"
+                      id="message"
+                      maxlength="6000"
+                      rows="2"
+                    ></textarea>
+                    <label className="fieldlabels">
+                      {" "}
                           Required Knowledge, Skills, and Abilities: *
                         </label>
-                        <textarea
-                          class="form-control"
-                          type="textarea"
-                          name="skills"
-                          onChange={handleChange}
-                          id="message"
-                          maxlength="6000"
-                          rows="5"
-                        ></textarea>
-                      </div>
-                    </div>
+                    <textarea
+                      class="form-control"
+                      type="textarea"
+                      name="skills"
+                      onChange={handleChange}
+                      id="message"
+                      maxlength="6000"
+                      rows="5"
+                    ></textarea>
+
                   </div>
                   <input
                     type="button"
