@@ -24,6 +24,7 @@ function Home() {
   const [data, setData] = useState();
   localStorage.removeItem("cityType");
   localStorage.removeItem("number");
+  localStorage.removeItem("category");
   useEffect(() => {
     axios
       .get("/class/home/homepage")

@@ -10,6 +10,15 @@ function Dashboards() {
   var [reqUrl, setReqUrl] = useState("pending");
   console.log(reqUrl);
   useEffect(() => {
+    axios.get('/class/classdashboard', { headers: { Authorization: `Bearer ${token}` } })
+      .then((res) => {
+        console.log(res)
+      })
+      .catch((err) => {
+        console.log(err.response)
+      })
+  }, [])
+  useEffect(() => {
     if (!token) return null;
     if (reqUrl == "pending") {
       axios

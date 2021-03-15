@@ -31,45 +31,78 @@ function Class_list() {
   useEffect(() => {
     if (number) {
       localStorage.setItem("number", number);
-      axios
-        .get(`/class/category/pagination/${category}/3/${number}`)
-        .then((res) => {
-          console.log(res);
-          setData(res.data.getbyactivity);
-          var list = document.getElementsByClassName("page-item");
-          console.log(list);
-          list[number - 1].classList.add("active");
-          list?.[number]?.classList?.remove?.("active");
-          list?.[number - 2]?.classList?.remove?.("active");
-          list?.[number - 3]?.classList?.remove?.("active");
-          list?.[number + 1]?.classList?.remove?.("active");
-          list?.[number + 2]?.classList?.remove?.("active");
-          list?.[number + 3]?.classList?.remove?.("active");
-        })
-        .catch((err) => {
-          console.log(err.response);
-        });
+      const { activeCities, activeTypes } = getOnlyTrueValues();
+      console.log(activeCities, activeTypes)
+      if (category == null && activeCities) {
+        var stringCity = activeCities[0]
+        console.log(stringCity)
+        axios.get(`/class/city/${stringCity}`)
+          .then((res) => {
+            console.log(res)
+            setData(res.data.city)
+          })
+          .catch((err) => {
+            console.log(err.response)
+          })
+      }
+      else {
+        axios
+          .get(`/class/category/pagination/${category}/3/${number}`)
+          .then((res) => {
+            console.log(res);
+            setData(res.data.getbyactivity);
+            var list = document.getElementsByClassName("page-item");
+            console.log(list);
+            list[number - 1].classList.add("active");
+            list?.[number]?.classList?.remove?.("active");
+            list?.[number - 2]?.classList?.remove?.("active");
+            list?.[number - 3]?.classList?.remove?.("active");
+            list?.[number + 1]?.classList?.remove?.("active");
+            list?.[number + 2]?.classList?.remove?.("active");
+            list?.[number + 3]?.classList?.remove?.("active");
+          })
+          .catch((err) => {
+            console.log(err.response);
+          });
+      }
     } else {
       var list = document.getElementsByClassName("page-item");
       console.log(list);
       var dtlNo = localStorage.getItem("number");
 
       if (!dtlNo) {
-        axios
-          .get(`/class/category/pagination/${category}/3/1`)
-          .then((res) => {
-            console.log(res);
-            setData(res.data.getbyactivity);
-            var list = document.getElementsByClassName("page-item");
-            console.log(list);
-            list[0].classList.add("active");
-          })
-          .catch((err) => {
-            console.log(err.response);
-          });
-        localStorage.setItem("number", 1);
+        const { activeCities, activeTypes } = getOnlyTrueValues();
+        console.log(activeCities, activeTypes)
+        if (category == null && activeCities) {
+          var stringCity = activeCities[0]
+          console.log(stringCity)
+          axios.get(`/class/city/${stringCity}`)
+            .then((res) => {
+              console.log(res)
+              setData(res.data.city)
+            })
+            .catch((err) => {
+              console.log(err.response)
+            })
+        }
+        else {
+          axios
+            .get(`/class/category/pagination/${category}/3/1`)
+            .then((res) => {
+              console.log(res);
 
-        setNumber(1);
+              setData(res.data.getbyactivity);
+              var list = document.getElementsByClassName("page-item");
+              console.log(list);
+              list[0].classList.add("active");
+            })
+            .catch((err) => {
+              console.log(err.response);
+            });
+          localStorage.setItem("number", 1);
+
+          setNumber(1);
+        }
       } else {
         var list = document.getElementsByClassName("page-item");
         console.log(list);
@@ -115,35 +148,50 @@ function Class_list() {
 
   useEffect(() => {
     const { activeCities, activeTypes } = getOnlyTrueValues();
-    axios
-      .get(`/class/category/filter/${category}`, {
-        params: { citiesarr: activeCities, classtypearr: activeTypes },
-      })
-      .then((res) => {
-        console.log(res);
-        setData(res.data.classtype);
-      })
-      .catch((err) => {
-        console.log(err.response);
-        axios
-          .get(`/class/category/pagination/${category}/3/1`)
-          .then((res) => {
-            console.log(res);
-            setData(res.data.getbyactivity);
-          })
-          .catch((err) => {
-            console.log(err.response);
-            axios
-              .get(`/class/category/pagination/${category}/3/${number}`)
-              .then((res) => {
-                console.log(res);
-                setData(res.data.getbyactivity);
-              })
-              .catch((err) => {
-                console.log(err.response);
-              });
-          });
-      });
+    console.log(activeCities, activeTypes)
+    if (category == null && activeCities) {
+      var stringCity = activeCities[0]
+      console.log(stringCity)
+      axios.get(`/class/city/${stringCity}`)
+        .then((res) => {
+          console.log(res)
+          setData(res.data.city)
+        })
+        .catch((err) => {
+          console.log(err.response)
+        })
+    }
+    else {
+      axios
+        .get(`/class/category/filter/${category}`, {
+          params: { citiesarr: activeCities, classtypearr: activeTypes },
+        })
+        .then((res) => {
+          console.log(res);
+          setData(res.data.classtype);
+        })
+        .catch((err) => {
+          console.log(err.response);
+          axios
+            .get(`/class/category/pagination/${category}/3/1`)
+            .then((res) => {
+              console.log(res);
+              setData(res.data.getbyactivity);
+            })
+            .catch((err) => {
+              console.log(err.response);
+              axios
+                .get(`/class/category/pagination/${category}/3/${number}`)
+                .then((res) => {
+                  console.log(res);
+                  setData(res.data.getbyactivity);
+                })
+                .catch((err) => {
+                  console.log(err.response);
+                });
+            });
+        });
+    }
   }, [checkValues, checkTypeValue]);
 
   const handleJobClick = (val) => {
@@ -178,7 +226,7 @@ function Class_list() {
       [e.target.name]: e.target.checked,
     });
   };
-  console.log(checkValues);
+  console.log('Data = ', data);
   return (
     <div>
       <div class="container container1  mt-100 ">
