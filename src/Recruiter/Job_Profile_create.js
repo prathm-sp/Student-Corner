@@ -14,6 +14,7 @@ function Profile_create() {
   var opacity;
   var current = 1;
   var steps = $("fieldset").length;
+  var [file, setFile] = useState(null);
 
   setProgressBar(current);
   const [data, setData] = useState();
@@ -34,14 +35,16 @@ function Profile_create() {
           imgData.append("image", file);
           let id = localStorage.getItem("jobId");
           console.log(token);
+          console.log(file);
+          console.log(imgData);
           axios
-            .post(`/job/${id}/image`, imgData, {
+            .post(`/job/image/${id}`, imgData, {
               headers: {
                 Authorization: `Bearer ${token}`,
               },
             })
             .then(function (res) {
-              console.log(res)
+              console.log(res);
               current_fs = $(dtl).parent();
               next_fs = $(dtl).parent().next();
               //Add Class Active
@@ -90,7 +93,6 @@ function Profile_create() {
       [e.target.name]: e.target.value,
     }));
   };
-  var [file, setFile] = useState(null);
 
   async function onImageChange(event) {
     try {
@@ -243,9 +245,9 @@ function Profile_create() {
                     name="next"
                     className="next action-button"
                     defaultValue="Next"
-                  // onClick={() => {
-                  //   handleSubmit("1");
-                  // }}
+                    // onClick={() => {
+                    //   handleSubmit("1");
+                    // }}
                   />
                 </fieldset>
                 <fieldset>
@@ -287,15 +289,14 @@ function Profile_create() {
                       <option value="kolkata">kolkata</option>
                       <option value="Ahmednagar">Ahmednagar</option>
                     </select>
-
                     <label className="fieldlabels">Industry Name *</label>
                     <input
                       type="text"
                       name="industry"
-                      placeholder="Company Name"
+                      placeholder="Industry Name"
                       onChange={handleChange}
                     />
-                    <label className="fieldlabels">Class Type: *</label>
+                    <label className="fieldlabels">Job Type: *</label>
                     <select
                       class="custom-select select mb-3"
                       name="classtype"
@@ -320,7 +321,6 @@ function Profile_create() {
                       onChange={handleChange}
                       placeholder="Designation"
                     />
-
                     <label className="fieldlabels">Activities Name: *</label>
                     <select
                       class="custom-select select mb-3"
@@ -336,7 +336,6 @@ function Profile_create() {
                       <option value="Cooking">Cooking</option>
                       <option value="Performance">Performance</option>
                     </select>
-
                     <label className="fieldlabels"> Vacancy: *</label>
                     <select
                       class="custom-select select mb-3"
@@ -355,7 +354,6 @@ function Profile_create() {
                       <option value="9">9 </option>
                       <option value="10">10 </option>
                     </select>
-
                     <label className="fieldlabels">Class Salary: *</label>{" "}
                     <input
                       type="number"
@@ -363,10 +361,7 @@ function Profile_create() {
                       name="salary"
                       placeholder="Job Salary"
                     />
-                    <label className="fieldlabels">
-                      {" "}
-                          Job Description:*
-                        </label>
+                    <label className="fieldlabels"> Job Description:*</label>
                     <textarea
                       class="form-control"
                       onChange={handleChange}
@@ -378,8 +373,8 @@ function Profile_create() {
                     ></textarea>
                     <label className="fieldlabels">
                       {" "}
-                          Required Knowledge, Skills, and Abilities: *
-                        </label>
+                      Required Knowledge, Skills, and Abilities: *
+                    </label>
                     <textarea
                       class="form-control"
                       type="textarea"
@@ -389,7 +384,6 @@ function Profile_create() {
                       maxlength="6000"
                       rows="5"
                     ></textarea>
-
                   </div>
                   <input
                     type="button"
@@ -415,7 +409,7 @@ function Profile_create() {
                       </div>
                     </div>
                     <label className="fieldlabels">Upload Your Photo:</label>
-                    <input type="file" name="image" onChange={onImageChange} />
+                    <input type="file" name="myFile" onChange={onImageChange} />
                   </div>{" "}
                   <input
                     type="button"
