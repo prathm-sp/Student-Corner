@@ -6,6 +6,7 @@ import axios from "../axios";
 
 function Class_list() {
   const [data, setData] = useState();
+  const [total, setTotal] = useState();
   const history = useHistory();
   const category = localStorage.getItem("category");
   const cityType = localStorage.getItem("cityType");
@@ -32,25 +33,26 @@ function Class_list() {
     if (number) {
       localStorage.setItem("number", number);
       const { activeCities, activeTypes } = getOnlyTrueValues();
-      console.log(activeCities, activeTypes)
+      console.log(activeCities, activeTypes);
       if (category == null && activeCities) {
-        var stringCity = activeCities[0]
-        console.log(stringCity)
-        axios.get(`/class/city/${stringCity}`)
+        var stringCity = activeCities[0];
+        console.log(stringCity);
+        axios
+          .get(`/class/city/${stringCity}`)
           .then((res) => {
-            console.log(res)
-            setData(res.data.city)
+            console.log(res);
+            setData(res.data.city);
           })
           .catch((err) => {
-            console.log(err.response)
-          })
-      }
-      else {
+            console.log(err.response);
+          });
+      } else {
         axios
           .get(`/class/category/pagination/${category}/3/${number}`)
           .then((res) => {
             console.log(res);
             setData(res.data.getbyactivity);
+            setTotal(res.data.total);
             var list = document.getElementsByClassName("page-item");
             console.log(list);
             list[number - 1].classList.add("active");
@@ -72,26 +74,27 @@ function Class_list() {
 
       if (!dtlNo) {
         const { activeCities, activeTypes } = getOnlyTrueValues();
-        console.log(activeCities, activeTypes)
+        console.log(activeCities, activeTypes);
         if (category == null && activeCities) {
-          var stringCity = activeCities[0]
-          console.log(stringCity)
-          axios.get(`/class/city/${stringCity}`)
+          var stringCity = activeCities[0];
+          console.log(stringCity);
+          axios
+            .get(`/class/city/${stringCity}`)
             .then((res) => {
-              console.log(res)
-              setData(res.data.city)
+              console.log(res);
+              setData(res.data.city);
             })
             .catch((err) => {
-              console.log(err.response)
-            })
-        }
-        else {
+              console.log(err.response);
+            });
+        } else {
           axios
             .get(`/class/category/pagination/${category}/3/1`)
             .then((res) => {
               console.log(res);
 
               setData(res.data.getbyactivity);
+              setTotal(res.data.total);
               var list = document.getElementsByClassName("page-item");
               console.log(list);
               list[0].classList.add("active");
@@ -115,6 +118,7 @@ function Class_list() {
           .then((res) => {
             console.log(res);
             setData(res.data.getbyactivity);
+            setTotal(res.data.total);
             var list = document.getElementsByClassName("page-item");
             console.log(list);
             list[localStorage.getItem("number")].classList.add("active");
@@ -148,20 +152,20 @@ function Class_list() {
 
   useEffect(() => {
     const { activeCities, activeTypes } = getOnlyTrueValues();
-    console.log(activeCities, activeTypes)
+    console.log(activeCities, activeTypes);
     if (category == null && activeCities) {
-      var stringCity = activeCities[0]
-      console.log(stringCity)
-      axios.get(`/class/city/${stringCity}`)
+      var stringCity = activeCities[0];
+      console.log(stringCity);
+      axios
+        .get(`/class/city/${stringCity}`)
         .then((res) => {
-          console.log(res)
-          setData(res.data.city)
+          console.log(res);
+          setData(res.data.city);
         })
         .catch((err) => {
-          console.log(err.response)
-        })
-    }
-    else {
+          console.log(err.response);
+        });
+    } else {
       axios
         .get(`/class/category/filter/${category}`, {
           params: { citiesarr: activeCities, classtypearr: activeTypes },
@@ -177,6 +181,7 @@ function Class_list() {
             .then((res) => {
               console.log(res);
               setData(res.data.getbyactivity);
+              setTotal(res.data.total);
             })
             .catch((err) => {
               console.log(err.response);
@@ -185,6 +190,7 @@ function Class_list() {
                 .then((res) => {
                   console.log(res);
                   setData(res.data.getbyactivity);
+                  setTotal(res.data.total);
                 })
                 .catch((err) => {
                   console.log(err.response);
@@ -226,7 +232,7 @@ function Class_list() {
       [e.target.name]: e.target.checked,
     });
   };
-  console.log('Data = ', data);
+  console.log("Data = ", data);
   return (
     <div>
       <div class="container container1  mt-100 ">
@@ -429,7 +435,7 @@ function Class_list() {
                     <div className="row">
                       <div className="col-lg-12">
                         <div className="count-job mb-35">
-                          <span>{data?.length} Class found</span>
+                          <span>{total} Class found</span>
                           {/* Select job items start */}
                           {/* <div className="select-job-items">
                             <span>Sort by</span>
