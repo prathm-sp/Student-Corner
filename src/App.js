@@ -194,7 +194,7 @@ function App(props) {
                     <Footer />
                   </>
                 );
-              } else if (props?.user?.role == "Recruiter") {
+              } else {
                 return (
                   <>
                     {" "}
@@ -203,12 +203,6 @@ function App(props) {
                     <Footer />
                   </>
                 );
-              } else {
-                // toast(`Please Login first`, {
-                //   position: toast.POSITION.TOP_CENTER,
-                //   autoClose: 3000,
-                // });
-                return <Redirect to="/" />;
               }
             }}
           ></Route>
