@@ -311,13 +311,13 @@ function Job() {
                           </ul>
                         </div>
                         <p>{item?.description}</p>
-                        <p>{item?.function}</p>
+                        <p> {item?.function}</p>
                         <h5>Job Nature: {item?.classtype}</h5>
                         <p className="address">
                           <span className="lnr lnr-map" /> {item?.address}
                         </p>
                         <p className="address">
-                          <span className="lnr lnr-database" /> {item?.salary}
+                          <span className="lnr lnr-database" /> ₹ {item?.salary} / month
                         </p>
                       </div>
                     </div>

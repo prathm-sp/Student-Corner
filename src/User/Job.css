@@ -249,10 +249,25 @@ p {
 
 
 
+
 @media screen and (max-width: 420px) {
     #msform{
-        width: 70vw !important; 
-      
-   }
- 
-}
+    width: 70vw !important; 
+    }
+    .fs-title{
+    font-size: 20px !important;
+    }
+    .steps{
+    font-size:15px !important ;
+    }
+    }
+    
+    * {
+    margin: 0;
+    padding: 0
+    }
+    
+    html {
+    height: 100%
+    }
+    

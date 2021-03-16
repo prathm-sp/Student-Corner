@@ -158,8 +158,8 @@ function Job_Dashboards() {
                         </div>
                         <div class="modal-body">
 
-                            <embed src="http://www.pimd.edu.in/download/BCA_All_new.pdf"
-                                frameborder="0" width="100%" height="400px"/>
+                            <embed src="https://capd.mit.edu/sites/default/files/jobs/images/CAPDResume_Guide1.png"
+                                frameborder="0" width="100%" height="auto"/>
 
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

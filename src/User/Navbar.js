@@ -234,6 +234,15 @@ function Navbar(props) {
                       <p className="hint-text">
                         Fill in this form to create your account!
                       </p>
+                      <div className="form-group social-btn clearfix">
+                          <a className="btn btn-secondary facebook-btn float-left">
+                            <i class="fa fa-facebook" aria-hidden="true"></i>{" "}
+                          Facebook
+                        </a>
+                          <a className="btn btn-secondary google-btn float-right">
+                            <i className="fa fa-google" /> Google
+                        </a>
+                        </div>
                       <div className="form-group">
                         <input
                           type="email"
